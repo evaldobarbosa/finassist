@@ -1,0 +1,16 @@
+# Subprojects (separate repositories)
+api/
+front/
+
+# Node
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
