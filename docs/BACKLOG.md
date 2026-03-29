@@ -339,6 +339,59 @@ Lista de funcionalidades organizadas por milestone.
 
 ---
 
+## M8 - Multi-tenancy e Ledger
+
+> **Documentação:** [docs/ARQUITETURA-LEDGER.md](ARQUITETURA-LEDGER.md)
+
+### Organizações e Usuários
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M8-001 | Migration: tabela users | P0 | [ ] | phone como identificador principal |
+| M8-002 | Migration: tabela organizations | P0 | [ ] | type: personal, couple, business |
+| M8-003 | Migration: tabela organization_users | P0 | [ ] | roles e permissões |
+| M8-004 | Model User | P0 | [ ] | - |
+| M8-005 | Model Organization | P0 | [ ] | - |
+| M8-006 | Middleware de tenant | P0 | [ ] | Isolamento por organization_id |
+| M8-007 | Seeder: organização padrão para testes | P1 | [ ] | - |
+| M8-008 | Testes: Organizations | P0 | [ ] | - |
+
+### Plano de Contas
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M8-010 | Migration: tabela chart_accounts | P1 | [ ] | Plano de contas contábil |
+| M8-011 | Model ChartAccount | P1 | [ ] | Hierárquico com parent_id |
+| M8-012 | Seeder: plano de contas pessoal | P1 | [ ] | Padrão para type=personal |
+| M8-013 | Seeder: plano de contas empresarial | P2 | [ ] | Padrão para type=business |
+| M8-014 | Vincular categories ao chart_accounts | P2 | [ ] | FK opcional |
+| M8-015 | Vincular accounts ao chart_accounts | P2 | [ ] | FK opcional |
+
+### Ledger (Feature Flag)
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M8-020 | Config: features.ledger.enabled | P1 | [ ] | Default: false |
+| M8-021 | Migration: tabela ledger_entries | P1 | [ ] | Partidas dobradas |
+| M8-022 | Model LedgerEntry | P1 | [ ] | - |
+| M8-023 | Service: LedgerService | P1 | [ ] | Gera entries automaticamente |
+| M8-024 | Validação: débitos = créditos | P1 | [ ] | LedgerImbalanceException |
+| M8-025 | Integrar LedgerService no TransactionService | P1 | [ ] | Condicional à feature flag |
+| M8-026 | Testes: LedgerService | P1 | [ ] | - |
+
+### Relatórios Contábeis (requer Ledger)
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M8-030 | Action: GetBalancete | P2 | [ ] | Saldo de todas as contas |
+| M8-031 | Action: GetDRE | P2 | [ ] | Demonstração do Resultado |
+| M8-032 | Action: GetBalancoPatrimonial | P2 | [ ] | Ativos = Passivos + PL |
+| M8-033 | Action: GetRazaoAnalitico | P3 | [ ] | Movimentação por conta |
+| M8-034 | Endpoint GET /reports/balancete | P2 | [ ] | - |
+| M8-035 | Endpoint GET /reports/dre | P2 | [ ] | - |
+
+---
+
 ## Débito Técnico / Melhorias de Infraestrutura
 
 ### Arquitetura de Eventos / Filas
