@@ -341,6 +341,24 @@ Lista de funcionalidades organizadas por milestone.
 
 ## Débito Técnico / Melhorias de Infraestrutura
 
+### Arquitetura de Eventos / Filas
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| DT-010 | Criar evento TransactionExtracted | P1 | [ ] | Disparado após extração de texto/áudio/imagem |
+| DT-011 | Criar evento TransactionQueued | P1 | [ ] | Item adicionado à fila de registro |
+| DT-012 | Criar job ProcessTransactionEvent | P1 | [ ] | Processa item da fila |
+| DT-013 | Implementar fila para interpretações | P1 | [ ] | Redis queue para áudio/imagem/texto |
+| DT-014 | Criar evento TransactionRegistered | P2 | [ ] | Após registro efetivo no banco |
+| DT-015 | Implementar retry para falhas | P2 | [ ] | Reprocessar eventos com erro |
+| DT-016 | Dashboard de filas (Horizon) | P3 | [ ] | Monitoramento de jobs |
+
+**Justificativa:**
+- Desacoplar extração de dados do registro
+- Permitir reprocessamento em caso de falhas
+- Escalabilidade horizontal
+- Rastreabilidade de eventos
+
 ### Docker / Containers
 
 | ID | Item | Prioridade | Status | Notas |
