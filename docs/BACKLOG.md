@@ -154,6 +154,31 @@ Lista de funcionalidades organizadas por milestone.
 | M4-017 | Conta padrão para WhatsApp | P1 | [ ] | Flag is_default |
 | M4-018 | Testes: Accounts | P0 | [ ] | - |
 
+### Cartões de Crédito
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M4-070 | Migration: tabela credit_cards | P0 | [ ] | Ver docs/MODELAGEM-FINANCEIRA.md |
+| M4-071 | Model CreditCard | P0 | [ ] | bandeira, dia_vencimento, dia_fechamento |
+| M4-072 | Action: CreateCreditCard | P0 | [ ] | - |
+| M4-073 | Action: UpdateCreditCard | P0 | [ ] | - |
+| M4-074 | Action: DeleteCreditCard | P1 | [ ] | Soft delete |
+| M4-075 | Endpoints REST /credit-cards | P0 | [ ] | CRUD |
+| M4-076 | Testes: CreditCards | P0 | [ ] | - |
+
+### Compras Parceladas
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M4-080 | Migration: tabela installment_purchases | P1 | [ ] | Compras parceladas |
+| M4-081 | Migration: tabela installments (demonstrativo) | P1 | [ ] | Parcelas - apenas informativo |
+| M4-082 | Model InstallmentPurchase | P1 | [ ] | valor_total, parcelas, cartao_id |
+| M4-083 | Model Installment | P1 | [ ] | Vinculado à compra |
+| M4-084 | Action: CreateInstallmentPurchase | P1 | [ ] | Cria compra + projeção parcelas |
+| M4-085 | Action: CalculateInvoiceMonth | P1 | [ ] | Baseado no fechamento do cartão |
+| M4-086 | Categoria "Pendente de classificação" | P0 | [ ] | Fallback para OCR/áudio |
+| M4-087 | Testes: InstallmentPurchases | P1 | [ ] | - |
+
 ### Categorias
 
 | ID | Item | Prioridade | Status | Notas |
@@ -311,6 +336,23 @@ Lista de funcionalidades organizadas por milestone.
 |----|------|------------|--------|-------|
 | M7-020 | Formatação de resposta para WhatsApp | P0 | [ ] | Texto simples |
 | M7-021 | Geração de resposta via LLM | P1 | [ ] | Mais natural |
+
+---
+
+## Débito Técnico / Melhorias de Infraestrutura
+
+### Docker / Containers
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| DT-001 | Separar OCR em container dedicado | P2 | [ ] | Tesseract, poppler-utils, ImageMagick → container separado |
+| DT-002 | Criar API interna para OCR | P2 | [ ] | Endpoint HTTP para processamento de imagens |
+| DT-003 | Reduzir tamanho da imagem PHP | P3 | [ ] | Remover dependências de OCR (~200MB) |
+
+**Justificativa DT-001:**
+- Imagem atual: 890MB (com OCR)
+- Imagem esperada sem OCR: ~650MB
+- Benefícios: builds mais rápidos, separação de responsabilidades, escalabilidade independente
 
 ---
 
