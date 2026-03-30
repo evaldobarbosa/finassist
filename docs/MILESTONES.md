@@ -10,7 +10,7 @@ Marcos do projeto que agrupam funcionalidades relacionadas.
 
 | ID | Nome | Status | Descrição |
 |----|------|--------|-----------|
-| M1 | Sugestão de Vídeos (RAG) | Pendente | Webhook para sugestão de vídeos baseado em perguntas via WhatsApp |
+| M1 | Sugestão de Vídeos (RAG) | **Concluído** | Webhook para sugestão de vídeos baseado em perguntas via WhatsApp |
 | M2 | Análise de Áudio | Pendente | Extração de dados de pagamentos a partir de áudios WhatsApp |
 | M3 | Análise de Imagem | Pendente | OCR para extração de dados de comprovantes/notas fiscais |
 | M4 | API Financeira | Pendente | Backend completo para gestão de registros financeiros |
@@ -22,7 +22,7 @@ Marcos do projeto que agrupam funcionalidades relacionadas.
 
 ## M1 - Sugestão de Vídeos (RAG)
 
-**Status:** Pendente
+**Status:** Concluído
 **Dependências:** Nenhuma
 **Plano detalhado:** [docs/milestones/M1-SUGESTAO-VIDEOS-RAG.md](milestones/M1-SUGESTAO-VIDEOS-RAG.md)
 
@@ -106,8 +106,11 @@ Processamento de mensagens de áudio enviadas via WhatsApp para extração de in
 - [ ] Endpoint webhook para receber áudio + número WhatsApp
 - [ ] Transcrição de áudio (speech-to-text)
 - [ ] Extração de entidades (valor, categoria, estabelecimento, data)
+- [ ] Detecção de conta de origem/destino
+- [ ] **Fallback para conta temporária** (ver [Classificação Pendente](features/classificacao-pendente.md))
 - [ ] Estruturação dos dados extraídos
 - [ ] Envio de mensagem de confirmação via WhatsApp
+- [ ] **Upload de áudio via interface web** (chat.html) para testes com arquivos baixados do WhatsApp
 
 ### Dados de Entrada
 
@@ -161,6 +164,8 @@ Processamento de imagens (comprovantes, notas fiscais, cupons) enviadas via What
 - [ ] Endpoint webhook para receber imagem + número WhatsApp
 - [ ] OCR para extração de texto da imagem
 - [ ] Extração de entidades (valor, estabelecimento, data, itens)
+- [ ] Detecção de conta de origem/destino
+- [ ] **Fallback para conta temporária** (ver [Classificação Pendente](features/classificacao-pendente.md))
 - [ ] Estruturação dos dados extraídos
 - [ ] Envio de mensagem de confirmação via WhatsApp
 

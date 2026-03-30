@@ -454,3 +454,21 @@ Lista de funcionalidades organizadas por milestone.
 1. **M4-050→056** - Recorrencias
 2. **M4-060→065** - Relatorios
 3. **M8-010→026** - Ledger (feature flag)
+
+---
+
+## Backlog Futuro (Sem Prioridade Definida)
+
+### Categorias MCC
+
+> **Documentacao:** [docs/MCC-CATEGORIAS.md](MCC-CATEGORIAS.md)
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| MCC-001 | Migration: tabela mcc_mappings | P3 | [ ] | MCC → category_id |
+| MCC-002 | Seeder: mapeamentos basicos | P3 | [ ] | ~50 MCCs mais comuns |
+| MCC-003 | Action: GetCategoryByMCC | P3 | [ ] | Busca mapeamento |
+| MCC-004 | Integracao com extracao de cartao | P3 | [ ] | Usar MCC quando disponivel |
+| MCC-005 | Aprendizado de preferencias do usuario | P3 | [ ] | Armazenar correcoes |
+
+**Contexto:** MCCs sao mais uteis para PJ (politicas corporativas, compliance) que para PF (orcamento pessoal). No FinAssistant, usamos categorias simplificadas. O MCC sera util apenas para auto-categorizacao quando houver integracao com extrato de cartao.
