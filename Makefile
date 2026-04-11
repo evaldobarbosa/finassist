@@ -133,3 +133,20 @@ clean: ## Remove volumes e limpa tudo (CUIDADO: apaga dados!)
 	@read -p "Continuar? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
 	docker compose down -v
 	@echo "${GREEN}Volumes removidos.${RESET}"
+
+## Ngrok
+ngrok: ## Inicia tuneis ngrok (frontend + api)
+	ngrok start --config ngrok.yml --all
+
+ngrok-front: ## Inicia apenas tunel do frontend
+	ngrok http 5180 --hostname=fina.code2.dev
+
+ngrok-api: ## Inicia apenas tunel da API
+	ngrok http 8000 --hostname=api-fina.code2.dev
+
+## Desenvolvimento local (sem Docker)
+dev-front: ## Inicia frontend em modo desenvolvimento
+	cd frontend && pnpm dev --host --port 5180
+
+dev-api: ## Inicia API em modo desenvolvimento
+	cd api && php artisan serve --host=0.0.0.0 --port=8000

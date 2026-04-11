@@ -1,0 +1,17 @@
+# Configuracao ngrok para FinAssistant
+# Uso: ngrok start --config ngrok.yml --all
+
+version: "3"
+agent:
+  authtoken: ${NGROK_AUTHTOKEN}
+
+tunnels:
+  frontend:
+    proto: http
+    addr: 5180
+    hostname: fina.code2.dev
+
+  api:
+    proto: http
+    addr: 8000
+    hostname: api-fina.code2.dev
