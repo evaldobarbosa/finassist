@@ -1,0 +1,37 @@
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { DropdownMenuContent, DropdownMenuPortal, type DropdownMenuContentProps, useForwardPropsEmits } from 'radix-vue'
+import { cn } from '@/lib/utils'
+
+interface Props extends DropdownMenuContentProps {
+  class?: HTMLAttributes['class']
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  sideOffset: 4,
+})
+
+const emits = defineEmits<{
+  (e: 'escapeKeyDown', event: KeyboardEvent): void
+  (e: 'pointerDownOutside', event: Event): void
+  (e: 'focusOutside', event: Event): void
+  (e: 'interactOutside', event: Event): void
+}>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <DropdownMenuPortal>
+    <DropdownMenuContent
+      v-bind="forwarded"
+      :class="cn(
+        'z-50 min-w-[8rem] overflow-hidden rounded-lg border border-outline-variant bg-surface-container-lowest p-1 text-on-surface shadow-md',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        props.class
+      )"
+    >
+      <slot />
+    </DropdownMenuContent>
+  </DropdownMenuPortal>
+</template>
