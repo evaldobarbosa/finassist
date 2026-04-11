@@ -1,0 +1,198 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: finassistant-api
+    working_dir: /var/www/html
+    volumes:
+      - ./api:/var/www/html
+      - ./api/vendor:/var/www/html/vendor
+      - ./Traducoes:/var/www/html/Traducoes:ro
+    ports:
+      - "8000:8080"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=finassistant
+      - DB_USERNAME=finassistant
+      - DB_PASSWORD=finassistant
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - QUEUE_CONNECTION=redis
+      - CACHE_STORE=redis
+      - SESSION_DRIVER=redis
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - WHISPER_URL=http://whisper:9000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    networks:
+      - finassistant-network
+    command: php artisan serve --host=0.0.0.0 --port=8080
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: finassistant-queue
+    working_dir: /var/www/html
+    volumes:
+      - ./api:/var/www/html
+      - ./api/vendor:/var/www/html/vendor
+      - ./Traducoes:/var/www/html/Traducoes:ro
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=finassistant
+      - DB_USERNAME=finassistant
+      - DB_PASSWORD=finassistant
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - QUEUE_CONNECTION=redis
+      - CACHE_STORE=redis
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - WHISPER_URL=http://whisper:9000
+    depends_on:
+      - api
+    networks:
+      - finassistant-network
+    command: php artisan queue:work --tries=3 --timeout=90
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: finassistant-scheduler
+    working_dir: /var/www/html
+    volumes:
+      - ./api:/var/www/html
+      - ./api/vendor:/var/www/html/vendor
+      - ./Traducoes:/var/www/html/Traducoes:ro
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=finassistant
+      - DB_USERNAME=finassistant
+      - DB_PASSWORD=finassistant
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - WHISPER_URL=http://whisper:9000
+    depends_on:
+      - api
+    networks:
+      - finassistant-network
+    command: sh -c "while true; do php artisan schedule:run --verbose --no-interaction & sleep 60; done"
+
+  frontend:
+    image: node:22-alpine
+    container_name: finassistant-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://localhost:8000/api/v1
+    networks:
+      - finassistant-network
+    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev --host"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: finassistant-postgres
+    environment:
+      POSTGRES_DB: finassistant
+      POSTGRES_USER: finassistant
+      POSTGRES_PASSWORD: finassistant
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finassistant -d finassistant"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - finassistant-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: finassistant-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - finassistant-network
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: finassistant-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - finassistant-network
+
+  whisper:
+    image: onerahmet/openai-whisper-asr-webservice:latest
+    container_name: finassistant-whisper
+    environment:
+      ASR_MODEL: medium
+      ASR_ENGINE: faster_whisper
+    volumes:
+      - whisper_cache:/root/.cache
+    networks:
+      - finassistant-network
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: finassistant-mailpit
+    ports:
+      - "8025:8025"  # UI Web
+      - "1025:1025"  # SMTP
+    networks:
+      - finassistant-network
+      - proxymng
+
+networks:
+  finassistant-network:
+    driver: bridge
+  proxymng:
+    external: true
+
+volumes:
+  postgres_data:
+  redis_data:
+  qdrant_data:
+  whisper_cache:
+  frontend_node_modules:
