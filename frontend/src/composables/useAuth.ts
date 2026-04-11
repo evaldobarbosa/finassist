@@ -5,14 +5,15 @@ import { api, ApiError } from '@/lib/api'
 import { redirectAfterLogin } from '@/router/guards'
 import type { User } from '@/types'
 
-interface AuthResponse {
-  user: User
-  token?: string
+interface OtpRequestResponse {
+  message: string
+  phone: string
+  expires_in: number
 }
 
-interface VerifyCodeResponse {
-  user?: User
-  verified: boolean
+interface OtpVerifyResponse {
+  message: string
+  user: User & { is_new: boolean }
 }
 
 export function useAuth() {
@@ -26,35 +27,41 @@ export function useAuth() {
   const userName = computed(() => authStore.userName)
   const userInitials = computed(() => authStore.userInitials)
 
-  async function requestVerificationCode(phoneNumber: string): Promise<void> {
+  async function requestVerificationCode(phoneNumber: string): Promise<OtpRequestResponse> {
     const normalizedPhone = phoneNumber.replace(/\D/g, '')
-    await api.post('/auth/request-code', { phone: normalizedPhone })
-  }
-
-  async function verifyCode(phoneNumber: string, code: string): Promise<VerifyCodeResponse> {
-    const normalizedPhone = phoneNumber.replace(/\D/g, '')
-    const response = await api.post<VerifyCodeResponse>('/auth/verify-code', {
+    const response = await api.post<OtpRequestResponse>('/auth/otp/request', {
       phone: normalizedPhone,
-      code,
     })
     return response
   }
 
-  async function login(phoneNumber: string, code: string): Promise<void> {
+  async function verifyCode(phoneNumber: string, code: string): Promise<OtpVerifyResponse> {
     const normalizedPhone = phoneNumber.replace(/\D/g, '')
-
-    const response = await api.post<AuthResponse>('/auth/login', {
+    const response = await api.post<OtpVerifyResponse>('/auth/otp/verify', {
       phone: normalizedPhone,
       code,
     })
 
+    // Set auth state
     authStore.setPhone(normalizedPhone)
-    if (response.user) {
-      authStore.setUser(response.user)
-    }
+    authStore.setUser(response.user)
+
+    return response
+  }
+
+  async function login(phoneNumber: string, code: string): Promise<void> {
+    const response = await verifyCode(phoneNumber, code)
 
     const redirect = route.query.redirect as string | undefined
     router.push(redirectAfterLogin(redirect))
+  }
+
+  async function resendCode(phoneNumber: string): Promise<OtpRequestResponse> {
+    const normalizedPhone = phoneNumber.replace(/\D/g, '')
+    const response = await api.post<OtpRequestResponse>('/auth/otp/resend', {
+      phone: normalizedPhone,
+    })
+    return response
   }
 
   async function register(data: {
@@ -62,19 +69,8 @@ export function useAuth() {
     name: string
     email?: string
   }): Promise<void> {
-    const normalizedPhone = data.phone.replace(/\D/g, '')
-
-    const response = await api.post<AuthResponse>('/auth/register', {
-      phone: normalizedPhone,
-      name: data.name,
-      email: data.email,
-    })
-
-    authStore.setPhone(normalizedPhone)
-    if (response.user) {
-      authStore.setUser(response.user)
-    }
-
+    // In OTP flow, registration happens automatically on first login
+    // Just redirect to dashboard after verify
     router.push({ name: 'dashboard' })
   }
 
@@ -110,6 +106,7 @@ export function useAuth() {
     requestVerificationCode,
     verifyCode,
     login,
+    resendCode,
     register,
     logout,
     fetchCurrentUser,

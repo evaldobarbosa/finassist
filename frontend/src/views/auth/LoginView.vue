@@ -32,8 +32,8 @@ async function handlePhoneSubmit() {
   error.value = ''
 
   try {
-    // Request verification code via WhatsApp
-    await api.post('/auth/request-code', { phone: phone.value })
+    // Request verification code (sent via Telegram for testing)
+    await api.post('/auth/otp/request', { phone: phone.value })
     step.value = 'verification'
     startResendCountdown()
   } catch (e) {
@@ -55,8 +55,8 @@ async function handleVerificationSubmit(code?: string) {
   error.value = ''
 
   try {
-    // Verify the code and get user data
-    const response = await api.post<{ user: { id: string; phone: string; name?: string } }>('/auth/verify-code', {
+    // Verify the OTP code and get user data
+    const response = await api.post<{ message: string; user: { id: string; phone: string; name?: string; email?: string; is_new?: boolean } }>('/auth/otp/verify', {
       phone: phone.value,
       code: codeToVerify,
     })
@@ -101,7 +101,7 @@ async function resendCode() {
   error.value = ''
 
   try {
-    await api.post('/auth/request-code', { phone: phone.value })
+    await api.post('/auth/otp/resend', { phone: phone.value })
     startResendCountdown()
   } catch (e) {
     error.value = 'Erro ao reenviar codigo.'
