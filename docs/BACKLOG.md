@@ -91,6 +91,15 @@ Lista de funcionalidades organizadas por milestone.
 | M1-041 | Tratamento de erros | P1 | [x] | Resposta amigavel |
 | M1-042 | Logging de perguntas/respostas | P2 | [ ] | Para analise |
 
+### Extracao de Transacoes via Texto
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M1-050 | Detectar se mensagem e transacao ou pergunta | P0 | [x] | Pre-verificacao por padroes + LLM |
+| M1-051 | Extrair dados financeiros de texto | P0 | [x] | Reutiliza ExtractTransactionData |
+| M1-052 | Suporte a compras parceladas via texto | P1 | [x] | Igual ao audio |
+| M1-053 | Fallback para RAG se nao for transacao | P0 | [x] | Responde perguntas |
+
 ---
 
 ## M2 - Analise de Audio - CONCLUIDO
