@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#d8e2ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed": "#410002",
+              "tertiary-fixed": "#ffdad6",
+              "on-surface": "#141b2b",
+              "surface-bright": "#f9f9ff",
+              "primary-fixed": "#7ffc97",
+              "inverse-surface": "#293040",
+              "on-primary-fixed": "#002109",
+              "primary": "#006b2c",
+              "on-secondary-fixed-variant": "#004395",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "secondary-container": "#2170e4",
+              "surface-container-high": "#e1e8fd",
+              "secondary-fixed-dim": "#adc6ff",
+              "primary-container": "#00873a",
+              "on-primary-container": "#f7fff2",
+              "tertiary": "#bb0112",
+              "on-error": "#ffffff",
+              "background": "#f9f9ff",
+              "surface-dim": "#d3daef",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "on-background": "#141b2b",
+              "surface-tint": "#006e2d",
+              "inverse-on-surface": "#edf0ff",
+              "on-tertiary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-variant": "#dce2f7",
+              "surface-container-highest": "#dce2f7",
+              "on-secondary-fixed": "#001a42",
+              "surface": "#f9f9ff",
+              "on-secondary-container": "#fefcff",
+              "error": "#ba1a1a",
+              "secondary": "#0058be",
+              "surface-container-low": "#f1f3ff",
+              "outline-variant": "#bdcaba",
+              "outline": "#6e7b6c",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-surface-variant": "#3e4a3d",
+              "on-primary": "#ffffff",
+              "tertiary-container": "#e02928",
+              "inverse-primary": "#62df7d",
+              "primary-fixed-dim": "#62df7d",
+              "surface-container": "#e9edff",
+              "on-primary-fixed-variant": "#005320"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0px 24px 48px -12px rgba(20, 27, 43, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col py-6 space-y-2 border-r border-slate-100 dark:border-slate-800 w-[240px] h-screen fixed left-0 top-0 bg-white dark:bg-slate-900 z-50">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-green-700 dark:text-green-500 leading-none">FinAssistant</h1>
+<p class="text-[0.6875rem] font-medium text-slate-400 mt-1 uppercase tracking-wider">Editorial Ledger</p>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<!-- Dashboard Active -->
+<a class="flex items-center px-4 py-3 text-green-700 dark:text-green-400 font-bold border-r-4 border-green-700 dark:border-green-500 bg-slate-50 dark:bg-slate-800/50 cursor-pointer duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-sans text-[0.875rem]">Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">receipt_long</span>
+<span class="font-sans text-[0.875rem]">Transações</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">account_balance</span>
+<span class="font-sans text-[0.875rem]">Contas</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">label</span>
+<span class="font-sans text-[0.875rem]">Categorias</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">credit_card</span>
+<span class="font-sans text-[0.875rem]">Cartões de Crédito</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-sans text-[0.875rem]">Configurações</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-surface-container-low rounded-xl">
+<p class="text-[0.6875rem] font-bold text-slate-500 uppercase mb-2">Plano Atual</p>
+<p class="text-sm font-semibold text-primary">Premium Edition</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-[240px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="h-16 w-full sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-bold tracking-tight text-green-700 dark:text-green-500">Dashboard</h2>
+<span class="text-slate-300">|</span>
+<p class="text-sm text-slate-500">Bem-vindo, Alexandre</p>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-2 p-1 pr-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-3xl">account_circle</span>
+<span class="text-sm font-medium">Meu Perfil</span>
+</button>
+</div>
+</header>
+<div class="p-8 space-y-8 max-w-7xl mx-auto w-full">
+<!-- Onboarding Banner -->
+<section class="relative overflow-hidden bg-primary text-white p-8 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 editorial-shadow">
+<div class="relative z-10 space-y-2">
+<span class="px-3 py-1 bg-white/20 rounded-full text-[0.6875rem] font-bold uppercase tracking-widest">Ação Necessária</span>
+<h3 class="text-2xl font-bold">Complete seu perfil</h3>
+<p class="text-on-primary-container/80 max-w-md">Para uma análise editorial completa de seus gastos, precisamos de mais algumas informações sobre suas metas financeiras.</p>
+</div>
+<div class="relative z-10 flex flex-col sm:flex-row gap-3">
+<button class="bg-white text-primary px-6 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-colors shadow-lg">Começar Agora</button>
+<button class="bg-transparent border border-white/30 text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-colors">Ignorar por enquanto</button>
+</div>
+<!-- Decorative element -->
+<div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[12rem]">award_star</span>
+</div>
+</section>
+<!-- Filter Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low p-1 rounded-xl w-fit">
+<button class="px-4 py-2 text-sm font-semibold text-primary bg-white rounded-lg shadow-sm">Mensal</button>
+<button class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">Trimestral</button>
+<button class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors">Anual</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-slate-100 rounded-lg text-sm text-slate-600">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span>01 Jan, 2024 - 31 Jan, 2024</span>
+</div>
+<button class="p-2 bg-white border border-slate-100 rounded-lg hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Saldo Anterior -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 editorial-shadow">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Saldo Anterior</span>
+<div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-xl">history</span>
+</div>
+</div>
+<div>
+<p class="text-2xl font-bold tracking-tight">R$ 12.450,00</p>
+<p class="text-[0.6875rem] text-slate-500 mt-1">Fechamento Dezembro</p>
+</div>
+</div>
+<!-- Receitas -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 editorial-shadow">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Receitas</span>
+<div class="w-8 h-8 rounded-lg bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">trending_up</span>
+</div>
+</div>
+<div>
+<p class="text-2xl font-bold tracking-tight text-primary">R$ 8.920,50</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">arrow_upward</span>
+<span class="text-[0.6875rem] text-primary font-bold">12% vs mês ant.</span>
+</div>
+</div>
+</div>
+<!-- Despesas -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 editorial-shadow">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">Despesas</span>
+<div class="w-8 h-8 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-xl">trending_down</span>
+</div>
+</div>
+<div>
+<p class="text-2xl font-bold tracking-tight text-tertiary">R$ 4.310,20</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-xs text-tertiary" style="font-variation-settings: 'FILL' 1;">arrow_downward</span>
+<span class="text-[0.6875rem] text-tertiary font-bold">5% vs mês ant.</span>
+</div>
+</div>
+</div>
+<!-- Saldo Atual -->
+<div class="bg-white border-2 border-primary/10 p-6 rounded-xl space-y-4 editorial-shadow">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-primary uppercase tracking-tighter">Saldo Atual</span>
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+</div>
+<div>
+<p class="text-3xl font-bold tracking-tight text-on-surface">R$ 17.060,30</p>
+<p class="text-[0.6875rem] text-slate-500 mt-1">Disponível em contas</p>
+</div>
+</div>
+</div>
+<!-- Empty State & Transaction Section -->
+<section class="bg-surface-container-lowest rounded-xl p-12 text-center editorial-shadow flex flex-col items-center justify-center space-y-6">
+<div class="relative">
+<div class="w-24 h-24 bg-surface-container-low rounded-full flex items-center justify-center text-slate-300">
+<span class="material-symbols-outlined text-5xl">database_off</span>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-white p-2 rounded-full shadow-md">
+<span class="material-symbols-outlined text-green-500" style="font-variation-settings: 'FILL' 1;">chat</span>
+</div>
+</div>
+<div class="max-w-md space-y-2">
+<h4 class="text-xl font-bold text-on-surface">Nenhuma transação encontrada</h4>
+<p class="text-slate-500 text-sm">Seu livro caixa está vazio para este período. Que tal importar suas movimentações automaticamente via WhatsApp?</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:bg-primary-container transition-all active:scale-95">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24">
+<path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.508-2.961-2.623-.087-.116-.705-.934-.705-1.781 0-.848.435-1.264.594-1.439.16-.175.348-.218.464-.218.116 0 .232.001.333.005.109.004.253-.042.395.299.144.348.492 1.203.535 1.29.043.087.072.19.014.305-.058.116-.087.19-.174.29l-.261.305c-.087.101-.178.21-.077.382.101.171.447.737.96 1.192.66.586 1.214.768 1.388.854.174.086.275.072.376-.044.101-.116.435-.508.55-.681.115-.173.231-.144.39-.087.159.058 1.011.477 1.185.565.174.088.29.13.333.203.043.073.043.419-.101.824z"></path>
+</svg>
+                        Conectar WhatsApp
+                    </button>
+<button class="px-8 py-4 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50 transition-colors">
+                        Lançamento Manual
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed on details but active for Dashboard) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</body></html>

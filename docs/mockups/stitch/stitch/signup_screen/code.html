@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#bb0112",
+              "on-tertiary-fixed-variant": "#93000b",
+              "surface-container-highest": "#dce2f7",
+              "surface-container-low": "#f1f3ff",
+              "tertiary-fixed": "#ffdad6",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "on-surface": "#141b2b",
+              "on-primary-fixed-variant": "#005320",
+              "on-surface-variant": "#3e4a3d",
+              "secondary": "#0058be",
+              "surface-container": "#e9edff",
+              "tertiary-container": "#e02928",
+              "primary-fixed": "#7ffc97",
+              "on-secondary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "primary-container": "#00873a",
+              "inverse-on-surface": "#edf0ff",
+              "inverse-surface": "#293040",
+              "on-primary-container": "#f7fff2",
+              "inverse-primary": "#62df7d",
+              "on-secondary-container": "#fefcff",
+              "on-background": "#141b2b",
+              "surface-bright": "#f9f9ff",
+              "secondary-fixed": "#d8e2ff",
+              "primary": "#006b2c",
+              "secondary-container": "#2170e4",
+              "surface-variant": "#dce2f7",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "surface-dim": "#d3daef",
+              "surface": "#f9f9ff",
+              "outline": "#6e7b6c",
+              "on-tertiary-container": "#fffbff",
+              "background": "#f9f9ff",
+              "surface-tint": "#006e2d",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed-variant": "#004395",
+              "primary-fixed-dim": "#62df7d",
+              "on-secondary-fixed": "#001a42",
+              "surface-container-high": "#e1e8fd",
+              "on-primary-fixed": "#002109",
+              "error-container": "#ffdad6",
+              "outline-variant": "#bdcaba",
+              "on-tertiary-fixed": "#410002",
+              "error": "#ba1a1a"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<main class="flex min-h-screen">
+<!-- Left Side: Form Section -->
+<section class="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-12 bg-surface-container-lowest">
+<div class="max-w-md w-full mx-auto space-y-8">
+<!-- Brand Anchor -->
+<div class="flex items-center gap-2">
+<span class="text-primary text-2xl font-black tracking-tight">FinAssistant</span>
+</div>
+<div class="space-y-2">
+<h1 class="text-3xl font-bold tracking-tight text-on-surface">Comece sua jornada</h1>
+<p class="text-on-surface-variant text-sm">Organize suas finanças com precisão editorial.</p>
+</div>
+<!-- Social Signup -->
+<button class="w-full flex items-center justify-center gap-3 px-4 py-3 bg-surface-container-high rounded-xl text-on-surface font-semibold hover:bg-surface-container-highest transition-colors duration-200">
+<img alt="Google Logo" class="w-5 h-5" data-alt="Official Google multicoloured G logo on a white circular background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnudLqqBdVmvKyXTGm9mX1mglPlgDL-ng_xq6yAiquUOtvKMCja8Iw1WaURzRjZnFJCBrMHKCIB_2yYdjLfYrNaElnofoQOOth0_5sCnCNDMLitC7bfo1eB6BlelCybdvzshmdPq4yMTInk6flfyDgf0kiPy49HdIEzGidXYpmOI1wEXvrC3E8Ao_YabVwDtCsOfvLe8GvwqEqdU6yNYRSTfyVIK4FU3omptmFKNYGOcZQBKhJg-JLD6tz9nIXoWd1R_f71H8BHkPp"/>
+<span>Cadastrar com Google</span>
+</button>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-surface-variant/30"></div>
+<span class="flex-shrink mx-4 text-label-sm text-on-surface-variant font-medium">ou</span>
+<div class="flex-grow border-t border-surface-variant/30"></div>
+</div>
+<!-- Registration Form -->
+<form class="space-y-5">
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-on-surface">Nome completo</label>
+<input class="w-full h-11 px-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary text-sm transition-all" placeholder="Ex: André Silva" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-on-surface">E-mail</label>
+<input class="w-full h-11 px-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary text-sm transition-all" placeholder="nome@exemplo.com" type="email"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-on-surface">Senha</label>
+<div class="relative">
+<input class="w-full h-11 px-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary text-sm transition-all" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+<p class="text-[11px] font-medium text-on-surface-variant mt-1">Mínimo 8 caracteres</p>
+</div>
+<div class="flex items-start gap-3 py-2">
+<input class="mt-1 rounded text-primary focus:ring-primary bg-surface-container-high border-none" type="checkbox"/>
+<label class="text-xs leading-relaxed text-on-surface-variant">
+                            Eu aceito os <a class="text-secondary font-semibold hover:underline" href="#">Termos de Uso</a> e a <a class="text-secondary font-semibold hover:underline" href="#">Política de Privacidade</a> da FinAssistant.
+                        </label>
+</div>
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 active:scale-[0.98] transition-all duration-200">
+                        Criar conta
+                    </button>
+</form>
+<p class="text-center text-sm text-on-surface-variant">
+                    Já tem conta? <a class="text-primary font-bold hover:underline" href="#">Entrar</a>
+</p>
+</div>
+</section>
+<!-- Right Side: Decorative Section -->
+<section class="hidden lg:flex w-1/2 bg-primary relative overflow-hidden items-center justify-center">
+<!-- Background Gradients -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-on-primary-fixed-variant opacity-90"></div>
+<!-- Abstract Shapes for Texture -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary-fixed-dim/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary-container/10 rounded-full blur-3xl -ml-40 -mb-40"></div>
+<!-- Content Overlay -->
+<div class="relative z-10 w-full max-w-xl px-12">
+<div class="space-y-12">
+<!-- Editorial Metric Card -->
+<div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl">
+<div class="flex justify-between items-start mb-12">
+<div>
+<p class="text-primary-fixed text-xs font-bold uppercase tracking-widest mb-1">Patrimônio Líquido</p>
+<h2 class="text-white text-5xl font-bold tracking-tight">R$ 142.850</h2>
+</div>
+<span class="bg-primary-fixed/20 text-primary-fixed px-3 py-1 rounded-full text-xs font-bold">
+                                +12.5% este mês
+                            </span>
+</div>
+<!-- Mini Chart Representation -->
+<div class="flex items-end gap-2 h-32">
+<div class="flex-1 bg-primary-fixed/30 rounded-t-lg h-1/2"></div>
+<div class="flex-1 bg-primary-fixed/40 rounded-t-lg h-2/3"></div>
+<div class="flex-1 bg-primary-fixed/20 rounded-t-lg h-1/3"></div>
+<div class="flex-1 bg-primary-fixed/60 rounded-t-lg h-4/5"></div>
+<div class="flex-1 bg-primary-fixed/50 rounded-t-lg h-3/5"></div>
+<div class="flex-1 bg-primary-fixed rounded-t-lg h-full"></div>
+</div>
+</div>
+<!-- Testimonial/Value Prop -->
+<div class="space-y-6">
+<h3 class="text-white text-3xl font-bold leading-tight">O controle total da sua vida financeira começa com um único passo.</h3>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-3">
+<img alt="User 1" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="Portrait of a smiling professional woman in business attire with a warm, confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8pLank4SmoN4kOmkFlngM0yd3oSAzUBNKzQoaVOv57Bx1tBDvOsHGTlx2HWXSnNCz7nkJCgeVVTnVDiqWw0RrWvp90HJAHceM93VplrLLERSaJuurDNxvNNEV0ooHy8KBqQeOolpMfQImH1jxBlpNghxrDO4GUgllgpoIaxhEB6aLpodLFTHJiZJwotV2_qBfKsM9z6NySiNHPi6bM1D9mFt6ULGW6g_boDOjZGtyZFFBf9Rl8RQpYMgbej5iU3nNGI7tzqQHvWU7"/>
+<img alt="User 2" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="Headshot of a middle-aged man with glasses and a friendly smile, clean studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXYtd2lY-DPYqMMUR5y3bBK_8dqOvyBlbxnEFgVRE5aVyydwYGJ7RwzydJJG5mhYysNaQ_poctRuKASrnmWBLXgb03RNg4667oVOGSrarEf3-aBN3cvB24_RS73n2eSMH6nNEjWTq5ibyiA4-mH0pCK-zIoV3tiMUtCOND0uilAkTZR7MGDbkw42mNcYCyZlwzACyUiLvwTL7TBDQZB495rLa92TIocDFl8joBgFBGphqYIALANXByM3-AKeyAnrGL42ZyG5tPAKbg"/>
+<img alt="User 3" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="Close-up portrait of a young man with a slight beard, looking directly at the camera with neutral lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwGJytsFPgnaK4j5Dvu718Q-DlukqofswhTnT1bT-kGaBfO-uNHZymBc6Qt_TJuHOUI7xc9ATmf5AVeX5lzBzDy8z4k7IcL308_MwmbvUSTenwD0sJK_HRngVVZZ0DY7HRRYhZ1SrKO71e2nXt9tPEMRptSXaTvBIo1khvUSDF8LwQk_L_FTS03a0iplOHbb5SKYUXPnzTN6rAZ2vF71VOZaJEjsV5LAeeq2D0yLIvvVVviUBw2B2SP0GTSlFlgUqz0Rjok_tLAXEG"/>
+</div>
+<p class="text-white/80 text-sm font-medium">Junte-se a mais de 50.000 investidores premium.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Illustration Detail -->
+<div class="absolute bottom-12 right-12 opacity-20">
+<span class="material-symbols-outlined text-[200px] text-white" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+</section>
+</main>
+</body></html>

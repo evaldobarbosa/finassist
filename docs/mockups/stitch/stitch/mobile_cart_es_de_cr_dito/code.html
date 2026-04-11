@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "error-container": "#ffdad6",
+              "primary-container": "#00873a",
+              "outline-variant": "#bdcaba",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-container-highest": "#dce2f7",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "background": "#f9f9ff",
+              "primary-fixed": "#7ffc97",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed": "#410002",
+              "surface-tint": "#006e2d",
+              "on-background": "#141b2b",
+              "secondary": "#0058be",
+              "error": "#ba1a1a",
+              "on-primary-container": "#f7fff2",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-dim": "#d3daef",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff",
+              "inverse-surface": "#293040",
+              "on-primary-fixed-variant": "#005320",
+              "secondary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#93000b",
+              "tertiary-fixed": "#ffdad6",
+              "on-secondary-container": "#fefcff",
+              "surface-bright": "#f9f9ff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-container-high": "#e1e8fd",
+              "inverse-primary": "#62df7d",
+              "primary": "#006b2c",
+              "tertiary": "#bb0112",
+              "on-secondary-fixed": "#001a42",
+              "secondary-container": "#2170e4",
+              "tertiary-container": "#e02928",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed": "#d8e2ff",
+              "outline": "#6e7b6c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl no-border bg-zinc-50/50 dark:bg-zinc-900/50 shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] h-16 flex items-center">
+<div class="flex items-center justify-between px-6 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional studio headshot of a smiling young man with clean background, soft high-key lighting, corporate editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzOZMl2vMDbHs9yzx-qgzI_GdbF6CBsSsLqEweOs-DKVp9LkqBmy_RBftz-dJ97Grs0dttERusZXXiXEqXodSvSjRaJZBLk6dMVG4RjBYd1GYu7vnIIwpJMn4ny4PX2iWYJ_LB9o31y5uCq10_P0uG2XvcdV5BtFDk2f7t0GzSBusOAn9Z4SQfEjiP_S0ALXs9TWvb8HxSqC9SfD2U6Y_fLyB2sQGZYmn-4CQRnrNwtcps2qWw-Bw6H4yNkI7eQq0nPvyX9mcveNt9"/>
+</div>
+<h1 class="font-['Inter'] font-semibold text-[1.25rem] tracking-tight text-zinc-900">The Financial Editorial</h1>
+</div>
+<button class="material-symbols-outlined text-zinc-500 hover:bg-zinc-100 transition-colors p-2 rounded-full active:scale-95 duration-200">
+                notifications
+            </button>
+</div>
+</header>
+<main class="pt-24 px-6 space-y-8 max-w-md mx-auto">
+<!-- Hero Balance Section (Editorial Contrast) -->
+<section>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider text-secondary">Faturamento Total</span>
+<div class="flex items-baseline gap-2 mt-1">
+<h2 class="text-[3.5rem] font-bold leading-none tracking-tight">R$ 4.829</h2>
+<span class="text-xl font-semibold opacity-60">,50</span>
+</div>
+</section>
+<!-- Cards Bento Grid Layout -->
+<div class="space-y-6">
+<!-- Nubank Ultravioleta -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-6 shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.04)] overflow-hidden relative group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110 duration-500"></div>
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<span class="font-['Inter'] font-semibold text-[1.0rem] block">Nubank Ultravioleta</span>
+<span class="text-[0.6875rem] font-medium uppercase tracking-wider text-zinc-400">Mastercard Black</span>
+</div>
+<div class="w-10 h-6 bg-zinc-900 rounded-md flex items-center justify-center">
+<div class="w-3 h-3 bg-zinc-700 rounded-full"></div>
+</div>
+</div>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-[0.6875rem] font-medium text-zinc-500 uppercase tracking-wider">Fatura Atual</span>
+<p class="text-2xl font-bold">R$ 3.120,00</p>
+</div>
+<div class="text-right">
+<span class="text-[0.6875rem] font-medium text-zinc-500 uppercase tracking-wider">Vence em</span>
+<p class="font-semibold text-primary">12 Out</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between text-[0.6875rem] font-medium uppercase tracking-wider">
+<span class="text-zinc-400">Limite Disp: R$ 1.880,00</span>
+<span class="text-zinc-600">Total: R$ 5.000</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 relative z-10">
+<button class="flex-1 py-3 px-4 bg-primary text-on-primary rounded-xl font-semibold text-sm transition-all hover:opacity-90 active:scale-95 duration-200 shadow-lg shadow-primary/20">
+                        Nova despesa
+                    </button>
+<button class="flex-1 py-3 px-4 bg-surface-container-high text-on-surface rounded-xl font-semibold text-sm transition-all hover:bg-surface-container-highest active:scale-95 duration-200">
+                        Ver fatura
+                    </button>
+</div>
+</div>
+<!-- Inter Black -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-6 shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.04)] overflow-hidden relative group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110 duration-500"></div>
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<span class="font-['Inter'] font-semibold text-[1.0rem] block">Inter Black</span>
+<span class="text-[0.6875rem] font-medium uppercase tracking-wider text-zinc-400">Visa Infinite</span>
+</div>
+<div class="w-10 h-6 bg-zinc-100 rounded-md flex items-center justify-center border border-zinc-200">
+<div class="w-3 h-3 bg-zinc-300 rounded-full"></div>
+</div>
+</div>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-[0.6875rem] font-medium text-zinc-500 uppercase tracking-wider">Fatura Atual</span>
+<p class="text-2xl font-bold">R$ 1.709,50</p>
+</div>
+<div class="text-right">
+<span class="text-[0.6875rem] font-medium text-zinc-500 uppercase tracking-wider">Vence em</span>
+<p class="font-semibold text-secondary">25 Out</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 15%;"></div>
+</div>
+<div class="flex justify-between text-[0.6875rem] font-medium uppercase tracking-wider">
+<span class="text-zinc-400">Limite Disp: R$ 10.290,50</span>
+<span class="text-zinc-600">Total: R$ 12.000</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 relative z-10">
+<button class="flex-1 py-3 px-4 bg-primary text-on-primary rounded-xl font-semibold text-sm transition-all hover:opacity-90 active:scale-95 duration-200 shadow-lg shadow-primary/20">
+                        Nova despesa
+                    </button>
+<button class="flex-1 py-3 px-4 bg-surface-container-high text-on-surface rounded-xl font-semibold text-sm transition-all hover:bg-surface-container-highest active:scale-95 duration-200">
+                        Ver fatura
+                    </button>
+</div>
+</div>
+</div>
+<!-- Recent Activity Label -->
+<div class="pt-4">
+<h3 class="font-['Inter'] font-semibold text-[1.0rem] mb-4">Lançamentos Recentes</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-zinc-600">shopping_bag</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Amazon Prime</p>
+<p class="text-[0.6875rem] text-zinc-500 font-medium">Inter Black • Hoje</p>
+</div>
+</div>
+<span class="text-sm font-bold text-tertiary">- R$ 14,90</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-zinc-600">restaurant</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Restaurante Sabor</p>
+<p class="text-[0.6875rem] text-zinc-500 font-medium">Nubank Ultra • Ontem</p>
+</div>
+</div>
+<span class="text-sm font-bold text-tertiary">- R$ 142,00</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl z-50 rounded-t-[2rem] no-border shadow-[0_-1px_0_rgba(0,0,0,0.05)] shadow-[0px_-8px_24px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 opacity-70 hover:opacity-100 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 opacity-70 hover:opacity-100 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-green-700 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 rounded-xl px-3 py-1 active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Accounts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 opacity-70 hover:opacity-100 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - Dashboard Error</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e8fd",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-container": "#f7fff2",
+              "on-primary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed-dim": "#adc6ff",
+              "inverse-primary": "#62df7d",
+              "secondary-container": "#2170e4",
+              "on-error-container": "#93000a",
+              "inverse-surface": "#293040",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-container": "#fefcff",
+              "on-error": "#ffffff",
+              "on-surface": "#141b2b",
+              "error": "#ba1a1a",
+              "primary-container": "#00873a",
+              "inverse-on-surface": "#edf0ff",
+              "on-secondary": "#ffffff",
+              "secondary": "#0058be",
+              "primary-fixed": "#7ffc97",
+              "background": "#f9f9ff",
+              "secondary-fixed": "#d8e2ff",
+              "tertiary": "#bb0112",
+              "tertiary-container": "#e02928",
+              "on-secondary-fixed-variant": "#004395",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#410002",
+              "on-primary-fixed-variant": "#005320",
+              "primary": "#006b2c",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#6e7b6c",
+              "on-primary-fixed": "#002109",
+              "surface-bright": "#f9f9ff",
+              "tertiary-fixed": "#ffdad6",
+              "on-surface-variant": "#3e4a3d",
+              "outline-variant": "#bdcaba",
+              "surface-container-low": "#f1f3ff",
+              "surface-container-highest": "#dce2f7",
+              "on-background": "#141b2b",
+              "surface-dim": "#d3daef",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface": "#f9f9ff",
+              "surface-container": "#e9edff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm dark:shadow-none no-border bg-slate-50 dark:bg-slate-900">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-green-800 dark:text-green-400 font-['Inter'] tracking-tight">FinAssistant</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors active:scale-95 duration-200 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors active:scale-95 duration-200 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-16 pb-20 flex items-center justify-center px-6">
+<div class="max-w-md w-full text-left md:text-center space-y-8">
+<!-- Asymmetric Visual Element -->
+<div class="relative flex justify-center">
+<div class="w-24 h-24 bg-tertiary/10 rounded-full flex items-center justify-center relative z-10">
+<span class="material-symbols-outlined text-tertiary text-5xl" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<!-- Editorial Texture: Abstract Shape -->
+<div class="absolute -top-4 -right-4 w-16 h-16 bg-surface-container-high rounded-xl -z-0 opacity-50"></div>
+<div class="absolute -bottom-2 -left-6 w-12 h-12 bg-secondary/5 rounded-full -z-0"></div>
+</div>
+<!-- Content Group -->
+<div class="space-y-4">
+<div class="space-y-1">
+<span class="text-[0.6875rem] font-medium font-['Inter'] uppercase tracking-[0.15em] text-tertiary">Erro de Conexão</span>
+<h1 class="text-[1.75rem] font-semibold leading-tight text-on-surface font-headline">Algo deu errado</h1>
+</div>
+<p class="text-[0.875rem] leading-[1.5] text-on-surface-variant font-body px-0 md:px-8">
+                    Infelizmente não conseguimos carregar seus dados financeiros no momento. Verifique sua conexão ou tente novamente em alguns instantes.
+                </p>
+</div>
+<!-- Action Area -->
+<div class="pt-4 flex flex-col md:flex-row gap-4 justify-center items-center">
+<button class="w-full md:w-auto px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary font-semibold rounded-xl active:scale-95 transition-all shadow-lg shadow-primary/20">
+                    Tentar novamente
+                </button>
+<button class="w-full md:w-auto px-8 py-3 text-primary font-semibold hover:bg-surface-container-low rounded-xl transition-colors">
+                    Suporte técnico
+                </button>
+</div>
+<!-- Bento-style Placeholder Info (Subtle) -->
+<div class="grid grid-cols-2 gap-4 mt-12 opacity-40 grayscale pointer-events-none">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-2 text-left">
+<div class="h-2 w-12 bg-surface-container-highest rounded"></div>
+<div class="h-4 w-20 bg-surface-container-high rounded"></div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-2 text-left border-l-4 border-tertiary/20">
+<div class="h-2 w-12 bg-surface-container-highest rounded"></div>
+<div class="h-4 w-24 bg-surface-container-high rounded"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 pb-safe bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_-1px_0_0_rgba(0,0,0,0.05)] dark:shadow-[0_-1px_0_0_rgba(255,255,255,0.05)] shadow-2xl">
+<div class="flex justify-around items-center h-20 px-4 w-full">
+<!-- Active Tab: Home (Dashboard intent) -->
+<a class="flex flex-col items-center justify-center bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl px-3 py-1 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 dark:hover:text-green-300 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Analysis</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 dark:hover:text-green-300 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 dark:hover:text-green-300 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Profile</span>
+</a>
+</div>
+</nav>
+<!-- Map Background Decal (Subtle Editorial Detail) -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] -z-10 overflow-hidden">
+<img alt="Topographic lines pattern" class="w-full h-full object-cover" data-alt="abstract minimalist topographic map lines with flowing curves on a clean light background high-end editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoTBEdJcRXbCCcEu95OSVTCqkLtKSfiGfsC-r9R6wRHvixyJVtqF69RXmQiT8jCdPCGBhMgiLX-IL2MoJKvYFfeikzRIGmWqwnSKIpb6HWKV0rWGzocnpsAqQgZU25mEQclX57aFEBplkdYWrvHoIZQaAEDCscajV9qLgHTbPooVepE7900_oU46Ey7g8cpBO17udcUANPhE4G0i8IpAXfheB1W1WDASSWhE0UecDkttH8jH1thA-sz1ESZAeQFvfwsaOGjuEPM-Ok"/>
+</div>
+</body></html>

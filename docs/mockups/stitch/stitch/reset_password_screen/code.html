@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#bb0112",
+              "on-tertiary-fixed-variant": "#93000b",
+              "surface-container-highest": "#dce2f7",
+              "surface-container-low": "#f1f3ff",
+              "tertiary-fixed": "#ffdad6",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "on-surface": "#141b2b",
+              "on-primary-fixed-variant": "#005320",
+              "on-surface-variant": "#3e4a3d",
+              "secondary": "#0058be",
+              "surface-container": "#e9edff",
+              "tertiary-container": "#e02928",
+              "primary-fixed": "#7ffc97",
+              "on-secondary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "primary-container": "#00873a",
+              "inverse-on-surface": "#edf0ff",
+              "inverse-surface": "#293040",
+              "on-primary-container": "#f7fff2",
+              "inverse-primary": "#62df7d",
+              "on-secondary-container": "#fefcff",
+              "on-background": "#141b2b",
+              "surface-bright": "#f9f9ff",
+              "secondary-fixed": "#d8e2ff",
+              "primary": "#006b2c",
+              "secondary-container": "#2170e4",
+              "surface-variant": "#dce2f7",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "surface-dim": "#d3daef",
+              "surface": "#f9f9ff",
+              "outline": "#6e7b6c",
+              "on-tertiary-container": "#fffbff",
+              "background": "#f9f9ff",
+              "surface-tint": "#006e2d",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed-variant": "#004395",
+              "primary-fixed-dim": "#62df7d",
+              "on-secondary-fixed": "#001a42",
+              "surface-container-high": "#e1e8fd",
+              "on-primary-fixed": "#002109",
+              "error-container": "#ffdad6",
+              "outline-variant": "#bdcaba",
+              "on-tertiary-fixed": "#410002",
+              "error": "#ba1a1a"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-editorial-gradient {
+            background: linear-gradient(135deg, #006b2c 0%, #00873a 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center p-0 m-0">
+<main class="grid grid-cols-1 md:grid-cols-2 w-full min-h-screen bg-surface-container-lowest overflow-hidden">
+<!-- Left Side: Content Form -->
+<section class="flex flex-col justify-center px-8 md:px-24 py-12 relative">
+<!-- Brand Anchor - Non-navigational identity -->
+<div class="absolute top-10 left-8 md:left-24 flex items-center gap-2">
+<span class="text-primary font-black text-2xl tracking-tighter">FinAssistant</span>
+</div>
+<div class="max-w-md w-full mx-auto md:mx-0">
+<!-- Back Link -->
+<a class="inline-flex items-center gap-2 text-secondary font-medium text-sm mb-12 hover:underline transition-all" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Voltar para login
+                </a>
+<!-- Header Section -->
+<header class="mb-10">
+<h1 class="text-4xl font-bold tracking-tight text-on-surface mb-4">Recuperar senha</h1>
+<p class="text-on-surface-variant text-base leading-relaxed">
+                        Esqueceu seus dados? Não se preocupe. Informe seu e-mail abaixo e enviaremos um link para você redefinir sua senha com segurança.
+                    </p>
+</header>
+<!-- Reset Password Form -->
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant ml-1" for="email">
+                            Endereço de E-mail
+                        </label>
+<div class="relative group">
+<input class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all duration-200 text-on-surface placeholder:text-outline" id="email" name="email" placeholder="exemplo@finassistant.com" required="" type="email"/>
+</div>
+</div>
+<button class="w-full h-14 bg-editorial-gradient text-on-primary font-bold text-lg rounded-full shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-3" type="submit">
+                        Enviar link
+                        <span class="material-symbols-outlined">send</span>
+</button>
+</form>
+<!-- Supportive Footer Content -->
+<footer class="mt-12 pt-8">
+<div class="p-6 bg-surface-container-low rounded-xl">
+<div class="flex items-start gap-4">
+<div class="bg-primary-fixed p-2 rounded-lg text-on-primary-fixed-variant">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Privacidade Garantida</h4>
+<p class="text-xs text-on-surface-variant mt-1 leading-tight">
+                                    Seus dados financeiros são criptografados de ponta a ponta. Nunca solicitaremos sua senha por e-mail.
+                                </p>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</section>
+<!-- Right Side: Decorative Green Area -->
+<section class="hidden md:flex flex-col justify-center items-center relative bg-primary overflow-hidden">
+<!-- Atmospheric Abstract Shapes -->
+<div class="absolute inset-0 bg-editorial-gradient opacity-90"></div>
+<!-- Texture/Background Overlay -->
+<div class="absolute inset-0 opacity-20 mix-blend-overlay">
+<img class="w-full h-full object-cover" data-alt="abstract close-up of microchip circuits and digital data grid with glowing green light and technical futuristic aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi012Rs_k953RTRoW0lqyBtYlhNsIC9Xbyw_Y4e74YnquLmgvOo0ev42wcCqA2VO576CxwtIdDs6__Q5ge_Uj7rFEO0K4LQeX0ilvbD2GOVMUyz-Se5TmfrDOvE8jgyCKFWeHz1sShi2qeB5eNMoBVln3MMy42GQTbR8_BCvH1xCKJVn9wdQGBzmAR6_vpdk6nCYKQNDt2jYu0YuEy-ZuhAMjEUWRuGMOjQxHVCtzLRWZcUvrNTY7MNRgu3FCiIuNHkEu5X7wKTvnV"/>
+</div>
+<!-- Foreground Visual Content -->
+<div class="relative z-10 text-center px-12 max-w-xl">
+<div class="mb-8 inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-xl rounded-full border border-white/20">
+<span class="material-symbols-outlined text-white text-5xl" style="font-variation-settings: 'FILL' 1;">lock_reset</span>
+</div>
+<h2 class="text-4xl font-extrabold text-white mb-6 leading-tight">
+                    Segurança de <br/>nível bancário.
+                </h2>
+<p class="text-primary-fixed text-lg font-medium leading-relaxed opacity-90">
+                    Nossa tecnologia garante que apenas você tenha acesso ao seu histórico de investimentos e gestão de capital.
+                </p>
+<!-- Editorial Stat Grid (Minimalist) -->
+<div class="mt-16 grid grid-cols-2 gap-8 border-t border-white/10 pt-10">
+<div class="text-left">
+<span class="block text-white text-2xl font-black">256-bit</span>
+<span class="text-xs font-bold uppercase tracking-widest text-primary-fixed/80">Criptografia AES</span>
+</div>
+<div class="text-left">
+<span class="block text-white text-2xl font-black">2FA</span>
+<span class="text-xs font-bold uppercase tracking-widest text-primary-fixed/80">Autenticação Extra</span>
+</div>
+</div>
+</div>
+<!-- Floating Decoration Cards (Editorial Depth) -->
+<div class="absolute bottom-[-5%] right-[-5%] w-64 h-64 bg-white/5 backdrop-blur-3xl rounded-full"></div>
+<div class="absolute top-[10%] left-[-10%] w-96 h-96 bg-primary-fixed/5 backdrop-blur-2xl rounded-full"></div>
+</section>
+</main>
+</body></html>

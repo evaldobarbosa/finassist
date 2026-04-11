@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - Novo Cartão de Crédito</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e8fd",
+              "secondary-fixed-dim": "#adc6ff",
+              "secondary-fixed": "#d8e2ff",
+              "surface-container-low": "#f1f3ff",
+              "surface-container-highest": "#dce2f7",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fffbff",
+              "surface-variant": "#dce2f7",
+              "inverse-primary": "#62df7d",
+              "background": "#f9f9ff",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "outline-variant": "#bdcaba",
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d3daef",
+              "on-tertiary": "#ffffff",
+              "on-background": "#141b2b",
+              "on-tertiary-fixed": "#410002",
+              "on-error": "#ffffff",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-container": "#e9edff",
+              "tertiary-fixed": "#ffdad6",
+              "surface-tint": "#006e2d",
+              "primary-fixed-dim": "#62df7d",
+              "on-surface-variant": "#3e4a3d",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "secondary-container": "#2170e4",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#7ffc97",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#e02928",
+              "on-tertiary-fixed-variant": "#93000b",
+              "inverse-surface": "#293040",
+              "on-primary-container": "#f7fff2",
+              "outline": "#6e7b6c",
+              "primary-container": "#00873a",
+              "tertiary": "#bb0112",
+              "secondary": "#0058be",
+              "on-primary-fixed-variant": "#005320",
+              "on-surface": "#141b2b",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-container": "#fefcff",
+              "surface-bright": "#f9f9ff",
+              "primary": "#006b2c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen">
+<!-- Background Content (Simulated Credit Cards Screen) -->
+<div class="fixed inset-0 z-0 blur-xl opacity-60 overflow-hidden pointer-events-none">
+<!-- TopAppBar Placeholder -->
+<header class="bg-white/80 px-6 py-3 flex justify-between items-center">
+<div class="text-xl font-bold tracking-tight text-slate-900">FinAssistant</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined">notifications</span>
+<span class="material-symbols-outlined">search</span>
+</div>
+</header>
+<main class="max-w-7xl mx-auto p-8 pt-24 space-y-8">
+<h1 class="text-4xl font-bold">Meus Cartões</h1>
+<div class="grid grid-cols-3 gap-8">
+<div class="h-64 bg-primary/20 rounded-3xl"></div>
+<div class="h-64 bg-secondary/20 rounded-3xl"></div>
+<div class="h-64 bg-surface-container-highest rounded-3xl"></div>
+</div>
+<div class="space-y-4">
+<div class="h-16 bg-surface-container-low rounded-xl"></div>
+<div class="h-16 bg-surface-container-low rounded-xl"></div>
+<div class="h-16 bg-surface-container-low rounded-xl"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[100] bg-on-surface/20 backdrop-blur-sm flex items-center justify-center p-6">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-[2rem] shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] overflow-hidden flex flex-col md:flex-row relative">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 p-2 rounded-full hover:bg-surface-container-low transition-colors z-10">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+<!-- Modal Content Wrapper -->
+<div class="flex flex-col w-full">
+<!-- Header -->
+<div class="px-8 pt-10 pb-6">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed-variant" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+</div>
+<span class="text-label-sm font-semibold tracking-wider text-primary uppercase">Gestão de Crédito</span>
+</div>
+<h2 class="text-3xl font-bold text-on-surface tracking-tight">Novo Cartão de Crédito</h2>
+<p class="text-on-surface-variant mt-2 text-sm">Organize suas finanças adicionando um novo método de pagamento.</p>
+</div>
+<!-- Form Section -->
+<form class="px-8 pb-10 space-y-8">
+<!-- Asymmetric Layout: Card Preview & Basic Info -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+<!-- Card Name and Brand -->
+<div class="md:col-span-3 space-y-6">
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Nome do Cartão</label>
+<input class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-outline/50" placeholder="Ex: Gold Especial" type="text"/>
+</div>
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Bandeira</label>
+<div class="relative">
+<select class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Selecione a bandeira</option>
+<option>Visa</option>
+<option>Mastercard</option>
+<option>American Express</option>
+<option>Elo</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Card Visual Hint (Small Display Card) -->
+<div class="md:col-span-2 hidden md:block">
+<div class="w-full h-full rounded-2xl bg-gradient-to-br from-primary to-primary-container p-6 text-white flex flex-col justify-between shadow-lg">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-3xl opacity-80">contactless</span>
+<span class="text-xs font-bold tracking-tighter opacity-70 italic">PREMIUM</span>
+</div>
+<div>
+<div class="text-lg font-mono tracking-widest mb-1">•••• •••• ••••</div>
+<div class="text-[10px] uppercase tracking-widest opacity-80">Nome do Titular</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Details Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Últimos 4 Dígitos</label>
+<input class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all text-center font-mono tracking-widest" maxlength="4" placeholder="0000" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Dia de Fechamento</label>
+<input class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all text-center" max="31" min="1" placeholder="01" type="number"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Dia de Vencimento</label>
+<input class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all text-center" max="31" min="1" placeholder="10" type="number"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Limite (R$)</label>
+<input class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all text-right font-semibold" placeholder="5.000,00" type="text"/>
+</div>
+</div>
+<!-- Payment Account -->
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-widest mb-2 px-1">Conta para Pagamento</label>
+<div class="relative">
+<select class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option>Conta Corrente - Banco Principal</option>
+<option>Reserva de Emergência - Corretora</option>
+<option>Carteira Digital</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">account_balance</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col md:flex-row items-center justify-end gap-4 pt-4">
+<button class="w-full md:w-auto px-8 h-12 text-on-surface-variant font-semibold hover:bg-surface-container-high rounded-xl transition-colors" type="button">
+                            Cancelar
+                        </button>
+<button class="w-full md:w-auto px-10 h-12 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-[0_4px_12px_rgba(0,107,44,0.3)] hover:shadow-[0_8px_20px_rgba(0,107,44,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2" type="submit">
+<span>Adicionar Cartão</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Side Ornamental Section (Editorial Touch) -->
+<div class="hidden lg:flex w-24 bg-surface-container-low flex-col items-center justify-center gap-8 py-10 opacity-50">
+<div class="rotate-90 whitespace-nowrap text-[10px] font-bold tracking-[0.3em] text-outline uppercase origin-center">
+                    FinAssistant Systems • 2024
+                </div>
+<div class="w-[1px] h-32 bg-outline-variant/30"></div>
+<div class="flex flex-col gap-4">
+<span class="material-symbols-outlined text-outline">verified_user</span>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Shell (Suppressed as per rules for focus journey, but following shared component structure logic for reference if needed elsewhere) -->
+<!-- BottomNavBar would be here on mobile, but is hidden for focused task -->
+</body></html>

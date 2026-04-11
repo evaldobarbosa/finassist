@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#e02928",
+              "surface-bright": "#f9f9ff",
+              "on-secondary-fixed-variant": "#004395",
+              "on-primary-container": "#f7fff2",
+              "surface": "#f9f9ff",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container-highest": "#dce2f7",
+              "secondary": "#0058be",
+              "on-surface-variant": "#3e4a3d",
+              "inverse-primary": "#62df7d",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "secondary-container": "#2170e4",
+              "secondary-fixed": "#d8e2ff",
+              "surface-dim": "#d3daef",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "tertiary": "#bb0112",
+              "surface-container-high": "#e1e8fd",
+              "on-primary": "#ffffff",
+              "on-background": "#141b2b",
+              "primary": "#006b2c",
+              "on-secondary": "#ffffff",
+              "inverse-surface": "#293040",
+              "surface-container": "#e9edff",
+              "on-surface": "#141b2b",
+              "surface-variant": "#dce2f7",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-secondary-fixed": "#001a42",
+              "tertiary-fixed": "#ffdad6",
+              "on-primary-fixed": "#002109",
+              "on-secondary-container": "#fefcff",
+              "background": "#f9f9ff",
+              "on-primary-fixed-variant": "#005320",
+              "surface-container-low": "#f1f3ff",
+              "on-error-container": "#93000a",
+              "error": "#ba1a1a",
+              "primary-fixed": "#7ffc97",
+              "primary-container": "#00873a",
+              "primary-fixed-dim": "#62df7d",
+              "outline": "#6e7b6c",
+              "outline-variant": "#bdcaba",
+              "on-tertiary-fixed": "#410002"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-nav {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface antialiased">
+<!-- SideNavBar (Shared Component Blueprint) -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-slate-50 dark:bg-slate-950 flex flex-col p-4 gap-2 z-40 hidden md:flex">
+<div class="flex items-center gap-3 px-2 py-4 mb-6">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-green-800 dark:text-green-400 leading-none">FinAssistant</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Editorial Ledger</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-sm font-medium">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-sm font-medium">Accounts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-sm font-medium">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="text-sm font-medium">Credit Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-800 text-green-700 dark:text-green-400 shadow-sm rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 space-y-1 border-t border-slate-200/50">
+<div class="p-4 mb-4 bg-primary-fixed/30 rounded-xl">
+<p class="text-xs font-bold text-on-primary-fixed mb-2">Upgrade to Pro</p>
+<p class="text-[10px] text-on-primary-fixed-variant leading-relaxed">Access advanced editorial reports and export tools.</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm font-medium">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component Blueprint) -->
+<header class="sticky top-0 w-full z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm md:pl-64">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-slate-900">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50 font-headline">Settings</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-slate-200">
+<img alt="User profile settings" class="w-full h-full object-cover" data-alt="close up professional portrait of a business person in a bright office environment with soft focus greenery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB29l68ghSg4PlXFFTZEeQnJFnIMzo5AZxU4RqGnAaELmNHoOZxxlBbDMgdX90jF05yf8CfhEwPnBaQa8uVTG8I0J24JM06r7GHq6_TtSSrmNdxK6kxjYVWPZGTvnw_kKmPNyqGmPt1eneJYrLlDcQyKJ7r9X0PbNsiy3DEUjgrsL5CRndhVDuXvrSfv73dQpYA_hI1eEDuUX7CwtQZ86BdQj6-N6D-tg-LXldDn25EgUmkCbecK9W5fWQa_fyev7MPVl7UZM8YtFV"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:pl-64 min-h-screen pb-20 md:pb-8">
+<div class="max-w-5xl mx-auto px-6 py-8">
+<!-- Settings Editorial Header -->
+<div class="mb-12">
+<span class="text-[0.6875rem] font-bold text-primary tracking-[0.2em] uppercase mb-2 block">System Configuration</span>
+<h1 class="text-4xl md:text-5xl font-bold text-on-background tracking-tight mb-4">Account Preferences</h1>
+<p class="text-on-surface-variant text-sm max-w-2xl leading-relaxed">Customize how FinAssistant interacts with your financial data and external communication channels.</p>
+</div>
+<!-- Bento Grid Layout for Settings Tabs -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Navigation Column (Editorial Style) -->
+<div class="md:col-span-3 space-y-1">
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors group">
+<span class="text-sm font-semibold">General</span>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors group">
+<span class="text-sm font-semibold">Security</span>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-surface-container-lowest text-primary shadow-sm group">
+<span class="text-sm font-bold">WhatsApp</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors group">
+<span class="text-sm font-semibold">Notifications</span>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors group">
+<span class="text-sm font-semibold">Connected Apps</span>
+<span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+</div>
+<!-- Main Content Pane -->
+<div class="md:col-span-9 space-y-8">
+<!-- Connection Status Card -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8">
+<span class="material-symbols-outlined text-6xl text-primary/5 select-none">chat</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">brand_awareness</span>
+</div>
+<div>
+<h3 class="text-lg font-bold">WhatsApp Connection</h3>
+<p class="text-[0.6875rem] font-medium text-on-surface-variant uppercase tracking-wider">Sync Status: Active</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<label class="text-[0.6875rem] font-bold text-on-surface-variant/60 uppercase mb-2 block">Número conectado</label>
+<div class="flex items-center gap-3">
+<span class="text-2xl font-bold tracking-tight text-on-surface">+55 11 99999-9999</span>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-black uppercase">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                            Verificado
+                                        </div>
+</div>
+</div>
+<button class="px-6 py-2.5 bg-surface-container-high text-on-surface font-bold text-xs rounded-xl hover:bg-surface-container-highest transition-colors active:scale-95">
+                                    Alterar Número
+                                </button>
+</div>
+</div>
+</div>
+<!-- "Como usar" Section (Editorial Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+<div class="space-y-6">
+<div>
+<h3 class="text-xl font-bold mb-2">Como usar</h3>
+<div class="w-12 h-1 bg-primary rounded-full"></div>
+</div>
+<ol class="space-y-6">
+<li class="flex gap-4">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-on-background text-white text-[10px] flex items-center justify-center font-bold">1</span>
+<p class="text-sm text-on-surface-variant leading-relaxed">Adicione o número do <span class="font-bold text-on-surface">FinAssistant</span> aos seus contatos no WhatsApp.</p>
+</li>
+<li class="flex gap-4">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-on-background text-white text-[10px] flex items-center justify-center font-bold">2</span>
+<p class="text-sm text-on-surface-variant leading-relaxed">Envie qualquer comprovante de pagamento, foto de nota fiscal ou áudio descrevendo um gasto.</p>
+</li>
+<li class="flex gap-4">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-on-background text-white text-[10px] flex items-center justify-center font-bold">3</span>
+<p class="text-sm text-on-surface-variant leading-relaxed">Nossa inteligência editorial processará os dados e categorizará automaticamente no seu ledger.</p>
+</li>
+</ol>
+</div>
+<!-- Copy Number Card -->
+<div class="bg-surface-container-low border-2 border-dashed border-outline-variant/30 rounded-2xl p-6">
+<h4 class="text-xs font-black uppercase tracking-widest text-on-surface-variant/50 mb-4">Número para Contato</h4>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest rounded-xl p-4 flex items-center justify-between border border-outline-variant/10">
+<span class="text-lg font-bold text-on-surface">+55 11 98765-4321</span>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-primary group-active:scale-90 transition-transform">content_copy</span>
+</button>
+</div>
+<div class="p-4 rounded-xl bg-secondary-fixed/20">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-secondary">info</span>
+<p class="text-[11px] font-medium text-on-secondary-fixed-variant leading-normal">
+                                            Dica: Você também pode pedir resumos financeiros diretamente pelo chat enviando "Resumo do dia".
+                                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Preferences Section -->
+<div class="pt-8 border-t border-outline-variant/20">
+<h4 class="text-sm font-bold mb-6">Preferências de Mensagem</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest/50 rounded-xl">
+<div>
+<p class="text-sm font-bold">Confirmação de Recebimento</p>
+<p class="text-xs text-on-surface-variant">Receba um "check" toda vez que um gasto for registrado.</p>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest/50 rounded-xl">
+<div>
+<p class="text-sm font-bold">Alertas de Orçamento</p>
+<p class="text-xs text-on-surface-variant">Notificar via WhatsApp quando atingir 80% do limite de uma categoria.</p>
+</div>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full relative">
+<div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation (Shared Component Blueprint) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 glass-nav z-40 px-6 py-3 flex items-center justify-between">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-bold">Transações</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-bold">Ajustes</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<div class="w-6 h-6 rounded-full overflow-hidden border-2 border-transparent">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="minimalist user avatar icon on a soft grey circular background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb0ZQVABB4vR-yrK8ZcaHlZLOmXxoQzQpv8Zh-p8xfINBQOier9i1GD9Rpce_yLuE0VuWETX-le9qlYeQaricruKVAMg5QxVZe6rdYK4d7ENnc2Bo5c11_vkW7jJzMa8Kl7HK96ihbaTXf5wFeoMJoaf80vMiCO5rhsCaPyguSkdFAe49idWhpQ3XOeHdvvoCfWW6XW3Rp0C-Rcz1M33z3xkmlCRNMP8ZYgUbmpyc26G4pagM1Lf0yYkjkYgRNuCexCiKUD0GyzgQy"/>
+</div>
+<span class="text-[10px] font-bold">Perfil</span>
+</a>
+</nav>
+</body></html>

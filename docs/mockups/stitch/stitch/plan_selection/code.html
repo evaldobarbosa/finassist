@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seleção de Plano - FinAssistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#bb0112",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface-container-highest": "#dce2f7",
+                        "surface-container-low": "#f1f3ff",
+                        "tertiary-fixed": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "on-surface": "#141b2b",
+                        "on-primary-fixed-variant": "#005320",
+                        "on-surface-variant": "#3e4a3d",
+                        "secondary": "#0058be",
+                        "surface-container": "#e9edff",
+                        "tertiary-container": "#e02928",
+                        "primary-fixed": "#7ffc97",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#00873a",
+                        "inverse-on-surface": "#edf0ff",
+                        "inverse-surface": "#293040",
+                        "on-primary-container": "#f7fff2",
+                        "inverse-primary": "#62df7d",
+                        "on-secondary-container": "#fefcff",
+                        "on-background": "#141b2b",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "primary": "#006b2c",
+                        "secondary-container": "#2170e4",
+                        "surface-variant": "#dce2f7",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d3daef",
+                        "surface": "#f9f9ff",
+                        "outline": "#6e7b6c",
+                        "on-tertiary-container": "#fffbff",
+                        "background": "#f9f9ff",
+                        "surface-tint": "#006e2d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "primary-fixed-dim": "#62df7d",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-container-high": "#e1e8fd",
+                        "on-primary-fixed": "#002109",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bdcaba",
+                        "on-tertiary-fixed": "#410002",
+                        "error": "#ba1a1a"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #006b2c 0%, #00873a 100%);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen flex flex-col items-center justify-center p-4">
+<!-- Header Section -->
+<header class="mb-12 text-center">
+<div class="flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-4xl mr-2" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="text-2xl font-black tracking-tight text-on-surface">FinAssistant</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-bold text-on-surface tracking-tight mb-3">Escolha seu plano</h1>
+<p class="text-on-surface-variant text-lg max-w-md mx-auto">Invista no seu futuro financeiro com as ferramentas certas para sua jornada.</p>
+</header>
+<!-- Pricing Grid -->
+<main class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mb-12">
+<!-- Básico Plan -->
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col transition-all duration-300 hover:translate-y-[-4px]">
+<div class="mb-8">
+<span class="text-sm font-semibold uppercase tracking-widest text-on-surface-variant opacity-70">Básico</span>
+<div class="mt-4 flex items-baseline">
+<span class="text-4xl font-bold tracking-tight text-on-surface">R$ 19,90</span>
+<span class="text-on-surface-variant ml-2">/mês</span>
+</div>
+<p class="mt-2 text-on-surface-variant text-sm">O essencial para começar a organizar sua vida financeira.</p>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface-variant">Controle de receitas e despesas</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface-variant">Metas de economia básicas</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface-variant">Relatórios mensais em PDF</span>
+</li>
+<li class="flex items-center gap-3 opacity-40">
+<span class="material-symbols-outlined text-on-surface-variant text-xl" data-icon="cancel">cancel</span>
+<span class="text-on-surface-variant line-through">Integração com WhatsApp</span>
+</li>
+<li class="flex items-center gap-3 opacity-40">
+<span class="material-symbols-outlined text-on-surface-variant text-xl" data-icon="cancel">cancel</span>
+<span class="text-on-surface-variant line-through">Análise preditiva por IA</span>
+</li>
+</ul>
+<button class="w-full py-4 px-6 rounded-xl bg-surface-container-high text-on-surface font-semibold transition-all hover:bg-surface-container-highest active:scale-95">
+                Selecionar Básico
+            </button>
+</div>
+<!-- Pro Plan (Recommended) -->
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col relative transition-all duration-300 hover:translate-y-[-4px] ring-2 ring-primary">
+<!-- Badge -->
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
+                RECOMENDADO
+            </div>
+<div class="mb-8">
+<div class="flex justify-between items-start">
+<span class="text-sm font-semibold uppercase tracking-widest text-primary">Pro</span>
+<span class="material-symbols-outlined text-primary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="mt-4 flex items-baseline">
+<span class="text-4xl font-bold tracking-tight text-on-surface">R$ 29,90</span>
+<span class="text-on-surface-variant ml-2">/mês</span>
+</div>
+<p class="mt-2 text-on-surface-variant text-sm">Controle total com automação e inteligência avançada.</p>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface font-medium">Tudo do plano Básico</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="rocket_launch" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<span class="text-on-surface font-medium">Integração com WhatsApp</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-on-surface font-medium">Análise preditiva por IA</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="auto_graph" style="font-variation-settings: 'FILL' 1;">auto_graph</span>
+<span class="text-on-surface font-medium">Dashboard de Investimentos</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="support_agent" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<span class="text-on-surface font-medium">Suporte prioritário 24/7</span>
+</li>
+</ul>
+<button class="w-full py-4 px-6 rounded-xl premium-gradient text-on-primary font-bold shadow-md hover:shadow-xl transition-all active:scale-95">
+                Selecionar Pro
+            </button>
+</div>
+</main>
+<!-- Footer Note -->
+<footer class="text-center max-w-lg">
+<p class="text-on-surface-variant text-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+            Teste grátis por 7 dias. Cancele a qualquer momento sem custos ocultos.
+        </p>
+<div class="mt-12 flex flex-wrap justify-center gap-6 grayscale opacity-50">
+<span class="text-xs font-bold uppercase tracking-widest">Seguro por</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span class="text-[10px] font-bold">SSL ENCRYPTION</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="credit_card">credit_card</span>
+<span class="text-[10px] font-bold">STRIPE SECURE</span>
+</div>
+</div>
+</footer>
+<!-- Decorative Elements -->
+<div class="fixed top-0 left-0 w-full h-1 premium-gradient opacity-50"></div>
+<div class="fixed -bottom-24 -right-24 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="fixed -top-24 -left-24 w-96 h-96 bg-secondary opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+</body></html>

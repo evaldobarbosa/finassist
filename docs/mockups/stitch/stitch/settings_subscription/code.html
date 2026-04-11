@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configurações - FinAssistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#e02928",
+              "surface-bright": "#f9f9ff",
+              "on-secondary-fixed-variant": "#004395",
+              "on-primary-container": "#f7fff2",
+              "surface": "#f9f9ff",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container-highest": "#dce2f7",
+              "secondary": "#0058be",
+              "on-surface-variant": "#3e4a3d",
+              "inverse-primary": "#62df7d",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "secondary-container": "#2170e4",
+              "secondary-fixed": "#d8e2ff",
+              "surface-dim": "#d3daef",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "tertiary": "#bb0112",
+              "surface-container-high": "#e1e8fd",
+              "on-primary": "#ffffff",
+              "on-background": "#141b2b",
+              "primary": "#006b2c",
+              "on-secondary": "#ffffff",
+              "inverse-surface": "#293040",
+              "surface-container": "#e9edff",
+              "on-surface": "#141b2b",
+              "surface-variant": "#dce2f7",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-secondary-fixed": "#001a42",
+              "tertiary-fixed": "#ffdad6",
+              "on-primary-fixed": "#002109",
+              "on-secondary-container": "#fefcff",
+              "background": "#f9f9ff",
+              "on-primary-fixed-variant": "#005320",
+              "surface-container-low": "#f1f3ff",
+              "on-error-container": "#93000a",
+              "error": "#ba1a1a",
+              "primary-fixed": "#7ffc97",
+              "primary-container": "#00873a",
+              "primary-fixed-dim": "#62df7d",
+              "outline": "#6e7b6c",
+              "outline-variant": "#bdcaba",
+              "on-tertiary-fixed": "#410002"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased overflow-x-hidden">
+<!-- Sidebar Navigation (SideNavBar) -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-slate-50 dark:bg-slate-950 flex flex-col p-4 gap-2 transition-all duration-200 ease-in-out z-40 hidden md:flex">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-green-800 dark:text-green-400 leading-tight">FinAssistant</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Editorial Ledger</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-green-700">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-green-700">receipt_long</span>
+<span class="text-sm font-medium">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-green-700">account_balance</span>
+<span class="text-sm font-medium">Accounts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-green-700">category</span>
+<span class="text-sm font-medium">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-green-700">credit_card</span>
+<span class="text-sm font-medium">Credit Cards</span>
+</a>
+<!-- Active Tab: Settings -->
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-800 text-green-700 dark:text-green-400 shadow-sm rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-sm font-bold">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm font-medium">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined text-tertiary">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-6 py-4 flex items-center justify-between shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Settings</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-600">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Page Content: Editorial Ledger Style -->
+<div class="max-w-5xl mx-auto p-6 md:p-12">
+<!-- Page Header -->
+<div class="mb-12">
+<p class="text-[0.6875rem] font-semibold tracking-[0.2em] text-primary uppercase mb-2">Preferências do Sistema</p>
+<h2 class="text-4xl md:text-5xl font-bold text-on-background tracking-tight">Gerenciar Assinatura</h2>
+</div>
+<!-- Settings Tabs -->
+<div class="flex gap-8 mb-12 border-b-0">
+<button class="pb-4 text-sm font-medium text-slate-400 hover:text-on-background transition-colors">Perfil</button>
+<button class="pb-4 text-sm font-bold text-primary border-b-2 border-primary">Assinatura</button>
+<button class="pb-4 text-sm font-medium text-slate-400 hover:text-on-background transition-colors">Notificações</button>
+<button class="pb-4 text-sm font-medium text-slate-400 hover:text-on-background transition-colors">Segurança</button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Main Plan Detail Card -->
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] relative overflow-hidden group">
+<!-- Texture Overlay -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110 duration-500"></div>
+<div class="flex flex-col h-full justify-between gap-8">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-4 py-1 rounded-full text-[0.6875rem] font-bold uppercase tracking-wider">Ativo</span>
+<span class="text-slate-400 material-symbols-outlined">auto_awesome</span>
+</div>
+<div class="space-y-1">
+<p class="text-[0.6875rem] font-semibold text-slate-500 uppercase tracking-widest">Plano atual</p>
+<h3 class="text-5xl font-bold text-on-background italic tracking-tighter">Pro <span class="text-lg font-normal not-italic text-slate-400 ml-2">FinAssistant Edition</span></h3>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t-0 bg-surface-container-low/30 -mx-8 px-8 py-6">
+<div>
+<p class="text-[0.6875rem] font-semibold text-slate-500 uppercase mb-1">Investimento mensal</p>
+<p class="text-2xl font-bold text-primary tracking-tight">R$ 29,90<span class="text-sm font-medium text-slate-400">/mês</span></p>
+</div>
+<div>
+<p class="text-[0.6875rem] font-semibold text-slate-500 uppercase mb-1">Próxima renovação</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-slate-400">calendar_today</span>
+<p class="text-xl font-bold text-on-background tracking-tight">15 Out 2024</p>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-3 rounded-xl font-bold text-sm shadow-md active:scale-95 transition-all">Alterar Plano</button>
+<button class="bg-surface-container-high text-on-surface px-8 py-3 rounded-xl font-bold text-sm hover:bg-surface-container-highest transition-colors active:scale-95">Gerenciar Pagamento</button>
+</div>
+</div>
+</div>
+<!-- Features Highlight Card -->
+<div class="bg-primary text-on-primary p-8 rounded-xl flex flex-col justify-between">
+<div>
+<h4 class="text-xl font-bold mb-4">Seus benefícios Pro</h4>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-sm font-medium opacity-90">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Conciliação automática ilimitada
+                            </li>
+<li class="flex items-center gap-3 text-sm font-medium opacity-90">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Exportação Editorial (PDF/Excel)
+                            </li>
+<li class="flex items-center gap-3 text-sm font-medium opacity-90">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Multi-contas e Cartões Infinitos
+                            </li>
+</ul>
+</div>
+<div class="pt-6 border-t border-white/20">
+<p class="text-[10px] uppercase font-bold tracking-widest opacity-60">Status do Suporte</p>
+<p class="font-bold">Prioritário 24/7</p>
+</div>
+</div>
+<!-- Payment History Table -->
+<div class="md:col-span-3 mt-8">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-xl font-bold text-on-background tracking-tight">Histórico de pagamentos</h4>
+<button class="text-sm font-bold text-primary flex items-center gap-2 hover:underline">
+                            Baixar tudo <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+<div class="overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-4 text-[0.6875rem] font-bold text-slate-500 uppercase tracking-widest">Fatura</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold text-slate-500 uppercase tracking-widest">Data</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold text-slate-500 uppercase tracking-widest text-right">Valor</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold text-slate-500 uppercase tracking-widest text-center">Status</th>
+<th class="px-6 py-4 text-[0.6875rem] font-bold text-slate-500 uppercase tracking-widest text-right">Ação</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5 text-sm font-bold text-on-background">#FIN-2024-09</td>
+<td class="px-6 py-5 text-sm text-slate-600">15 Set 2024</td>
+<td class="px-6 py-5 text-sm font-bold text-on-background text-right">R$ 29,90</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-bold uppercase">Pago</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">description</span>
+</button>
+</td>
+</tr>
+<tr class="bg-slate-50/50 hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5 text-sm font-bold text-on-background">#FIN-2024-08</td>
+<td class="px-6 py-5 text-sm text-slate-600">15 Ago 2024</td>
+<td class="px-6 py-5 text-sm font-bold text-on-background text-right">R$ 29,90</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-bold uppercase">Pago</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">description</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5 text-sm font-bold text-on-background">#FIN-2024-07</td>
+<td class="px-6 py-5 text-sm text-slate-600">15 Jul 2024</td>
+<td class="px-6 py-5 text-sm font-bold text-on-background text-right">R$ 29,90</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-bold uppercase">Pago</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">description</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-6 p-6 bg-tertiary-fixed rounded-xl flex items-start gap-4">
+<span class="material-symbols-outlined text-tertiary">warning</span>
+<div>
+<h5 class="text-sm font-bold text-on-tertiary-fixed">Precisa cancelar sua assinatura?</h5>
+<p class="text-xs text-on-tertiary-fixed opacity-80 mt-1 leading-relaxed">Sua conta Pro permanecerá ativa até o final do ciclo de faturamento atual em 15 de Outubro de 2024. Após essa data, você perderá acesso às ferramentas de análise avançada.</p>
+<button class="mt-3 text-xs font-bold text-tertiary uppercase tracking-wider hover:underline">Cancelar Plano</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl px-6 py-3 flex items-center justify-between z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Início</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-medium">Transações</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-[10px] font-medium">Contas</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-bold">Ajustes</span>
+</button>
+</nav>
+</body></html>

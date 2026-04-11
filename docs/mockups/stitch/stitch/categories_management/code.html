@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Categorias | FinAssistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#0058be",
+              "on-surface-variant": "#3e4a3d",
+              "on-tertiary-container": "#fffbff",
+              "on-secondary-container": "#fefcff",
+              "error-container": "#ffdad6",
+              "primary-fixed": "#7ffc97",
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "surface-container-low": "#f1f3ff",
+              "surface-bright": "#f9f9ff",
+              "secondary-fixed-dim": "#adc6ff",
+              "secondary-fixed": "#d8e2ff",
+              "on-error": "#ffffff",
+              "on-secondary": "#ffffff",
+              "tertiary": "#bb0112",
+              "on-primary-fixed": "#002109",
+              "surface-container-high": "#e1e8fd",
+              "inverse-surface": "#293040",
+              "inverse-primary": "#62df7d",
+              "primary-container": "#00873a",
+              "on-surface": "#141b2b",
+              "on-primary-container": "#f7fff2",
+              "surface": "#f9f9ff",
+              "primary": "#006b2c",
+              "on-secondary-fixed": "#001a42",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-fixed-variant": "#005320",
+              "on-tertiary-fixed": "#410002",
+              "on-secondary-fixed-variant": "#004395",
+              "on-error-container": "#93000a",
+              "inverse-on-surface": "#edf0ff",
+              "secondary-container": "#2170e4",
+              "tertiary-container": "#e02928",
+              "outline": "#6e7b6c",
+              "surface-container-highest": "#dce2f7",
+              "background": "#f9f9ff",
+              "surface-tint": "#006e2d",
+              "on-background": "#141b2b",
+              "tertiary-fixed": "#ffdad6",
+              "on-tertiary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "outline-variant": "#bdcaba",
+              "surface-container": "#e9edff",
+              "surface-dim": "#d3daef",
+              "surface-variant": "#dce2f7",
+              "tertiary-fixed-dim": "#ffb4ab"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-[240px] h-screen fixed left-0 top-0 bg-white dark:bg-slate-900 flex flex-col py-6 space-y-2 border-r border-slate-100 dark:border-slate-800 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-lg font-bold text-green-700 dark:text-green-500">FinAssistant</h1>
+<p class="text-[0.6875rem] font-medium text-slate-500 uppercase tracking-widest">Editorial Ledger</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="receipt_long">receipt_long</span>
+                Transações
+            </a>
+<a class="flex items-center px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_balance">account_balance</span>
+                Contas
+            </a>
+<a class="flex items-center px-3 py-2 text-green-700 dark:text-green-400 font-bold border-r-4 border-green-700 dark:border-green-500 bg-slate-50 dark:bg-slate-800/50 transition-all cursor-pointer duration-200 ease-in-out text-[0.875rem]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="label">label</span>
+                Categorias
+            </a>
+<a class="flex items-center px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="credit_card">credit_card</span>
+                Cartões de Crédito
+            </a>
+<a class="flex items-center px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer duration-200 ease-in-out font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                Configurações
+            </a>
+</nav>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-[240px] min-h-screen">
+<!-- TopAppBar -->
+<header class="h-16 w-full sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<span class="text-sm font-semibold text-slate-400">Workspace</span>
+<span class="text-slate-300">/</span>
+<span class="text-sm font-bold text-green-700">Categorias</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a business executive in a suit with clean studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqD-caaQaFkhf0I1vdBJle9qXKIpZsnyRiOwTRZ_6p9BrSdqbHUmeihjQBBcgRPlAWRQP9DQbJYAF1kH238sytcO1od17IYHOd0eeIzYTu4OiZ7fVh3CBFa2k571LMA57qrxXX0oPVb83VPA5Hmbd4vTanAvOxF5QY2ErXzEVmgQhNZKiwCzMYZEYbBnLtt4221B5SKIbKDnVXis3_dnLeiInJZMu_Uyr5TSC3a6jsRkpDzgtwTE8-wqlfFLKY3ztIpujW37nEiBUE"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+<div>
+<span class="text-[0.6875rem] font-semibold text-primary tracking-widest uppercase">Gerenciamento Editorial</span>
+<h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mt-1">Categorias</h2>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-xl font-semibold flex items-center gap-2 hover:opacity-90 transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    + Nova Categoria
+                </button>
+</div>
+<!-- Filter & Search Bar -->
+<div class="bg-surface-container-lowest rounded-xl p-6 mb-8 shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.04)] flex flex-col lg:flex-row items-center gap-6">
+<!-- Tabs -->
+<div class="flex bg-surface-container-low p-1 rounded-full w-full lg:w-auto">
+<button class="px-8 py-2 bg-white rounded-full text-sm font-bold text-primary shadow-sm transition-all">Despesas</button>
+<button class="px-8 py-2 text-sm font-medium text-slate-500 hover:text-slate-800 transition-all">Receitas</button>
+</div>
+<!-- Search -->
+<div class="relative flex-1 w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Buscar categoria ou subcategoria..." type="text"/>
+</div>
+</div>
+<!-- Categories Ledger Table -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.06)]">
+<div class="grid grid-cols-12 px-8 py-4 bg-surface-container-low/50 border-b border-outline-variant/10 text-[0.6875rem] font-bold text-slate-400 uppercase tracking-widest">
+<div class="col-span-5">Categoria &amp; Subcategorias</div>
+<div class="col-span-3">Limite Mensal</div>
+<div class="col-span-2">Status</div>
+<div class="col-span-2 text-right">Ações</div>
+</div>
+<!-- Category Group: Alimentação -->
+<div class="border-b border-outline-variant/5">
+<!-- Parent Category -->
+<div class="grid grid-cols-12 px-8 py-6 items-center hover:bg-slate-50/50 transition-colors group">
+<div class="col-span-5 flex items-center gap-4">
+<div class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_rgba(0,88,190,0.3)]"></div>
+<div>
+<h4 class="font-bold text-on-surface">Alimentação</h4>
+<p class="text-[0.6875rem] text-slate-400">4 Subcategorias ativas</p>
+</div>
+</div>
+<div class="col-span-3">
+<span class="text-sm font-bold text-on-surface">R$ 2.400,00</span>
+<div class="w-32 h-1 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full w-[65%]"></div>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-3 py-1 rounded-full text-[0.6875rem] font-bold">Saudável</span>
+</div>
+<div class="col-span-2 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-slate-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Subcategories (Nested) -->
+<div class="bg-surface-container-low/20">
+<div class="grid grid-cols-12 px-8 py-4 items-center border-l-2 border-secondary/20 ml-12 hover:bg-white transition-colors">
+<div class="col-span-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-300 text-sm" data-icon="subdirectory_arrow_right">subdirectory_arrow_right</span>
+<span class="text-sm font-medium text-slate-600">Supermercado</span>
+</div>
+<div class="col-span-3">
+<span class="text-sm text-slate-500 italic">Vinculado ao pai</span>
+</div>
+<div class="col-span-2">
+<span class="text-[0.6875rem] text-slate-400">Regular</span>
+</div>
+<div class="col-span-2 text-right">
+<button class="text-[0.6875rem] font-bold text-primary hover:underline">Editar</button>
+</div>
+</div>
+<div class="grid grid-cols-12 px-8 py-4 items-center border-l-2 border-secondary/20 ml-12 hover:bg-white transition-colors">
+<div class="col-span-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-300 text-sm" data-icon="subdirectory_arrow_right">subdirectory_arrow_right</span>
+<span class="text-sm font-medium text-slate-600">Restaurantes</span>
+</div>
+<div class="col-span-3">
+<span class="text-sm text-slate-500 italic">R$ 450,00</span>
+</div>
+<div class="col-span-2">
+<span class="text-[0.6875rem] text-tertiary font-bold">Crítico</span>
+</div>
+<div class="col-span-2 text-right">
+<button class="text-[0.6875rem] font-bold text-primary hover:underline">Editar</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Group: Transporte -->
+<div class="border-b border-outline-variant/5">
+<div class="grid grid-cols-12 px-8 py-6 items-center hover:bg-slate-50/50 transition-colors group">
+<div class="col-span-5 flex items-center gap-4">
+<div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_8px_rgba(0,107,44,0.3)]"></div>
+<div>
+<h4 class="font-bold text-on-surface">Transporte</h4>
+<p class="text-[0.6875rem] text-slate-400">2 Subcategorias ativas</p>
+</div>
+</div>
+<div class="col-span-3">
+<span class="text-sm font-bold text-on-surface">R$ 800,00</span>
+<div class="w-32 h-1 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full w-[20%]"></div>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-3 py-1 rounded-full text-[0.6875rem] font-bold">Sob controle</span>
+</div>
+<div class="col-span-2 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-slate-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Group: Lazer -->
+<div class="border-b border-outline-variant/5">
+<div class="grid grid-cols-12 px-8 py-6 items-center hover:bg-slate-50/50 transition-colors group">
+<div class="col-span-5 flex items-center gap-4">
+<div class="w-3 h-3 rounded-full bg-tertiary shadow-[0_0_8px_rgba(187,1,18,0.3)]"></div>
+<div>
+<h4 class="font-bold text-on-surface">Lazer &amp; Hobbies</h4>
+<p class="text-[0.6875rem] text-slate-400">5 Subcategorias ativas</p>
+</div>
+</div>
+<div class="col-span-3">
+<span class="text-sm font-bold text-on-surface">R$ 1.200,00</span>
+<div class="w-32 h-1 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="bg-tertiary h-full w-[95%]"></div>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[0.6875rem] font-bold">Excedido</span>
+</div>
+<div class="col-span-2 text-right">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors text-slate-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty State Suggestion Footer -->
+<div class="p-8 text-center bg-slate-50/30">
+<p class="text-sm text-slate-400 mb-2 italic">Exibindo 12 de 34 categorias totais</p>
+<button class="text-primary font-bold text-sm hover:underline">Carregar mais categorias</button>
+</div>
+</div>
+<!-- Contextual Insights Bento Card -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="trending_up">trending_up</span>
+<h5 class="font-bold text-on-surface mb-1">Maior Crescimento</h5>
+<p class="text-sm text-slate-600 mb-4">A categoria <span class="font-bold">Lazer</span> cresceu 14% este mês.</p>
+<div class="flex items-center gap-2">
+<span class="text-[0.6875rem] font-bold text-tertiary">+ R$ 420,00</span>
+<span class="text-[0.6875rem] text-slate-400">vs mês anterior</span>
+</div>
+</div>
+<div class="bg-primary/5 p-6 rounded-xl border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="savings">savings</span>
+<h5 class="font-bold text-primary mb-1">Potencial de Economia</h5>
+<p class="text-sm text-slate-600 mb-4">Reduzir assinaturas pode economizar R$ 120,00 mensais.</p>
+<button class="text-[0.6875rem] font-bold text-primary uppercase tracking-wider">Ver detalhes</button>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="material-symbols-outlined text-on-surface-variant mb-4" data-icon="auto_awesome">auto_awesome</span>
+<h5 class="font-bold text-on-surface mb-1">Sugestão de IA</h5>
+<p class="text-sm text-slate-600 mb-4">Crie uma subcategoria para "Eventos" dentro de Lazer.</p>
+<button class="text-[0.6875rem] font-bold text-secondary uppercase tracking-wider">Aceitar sugestão</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

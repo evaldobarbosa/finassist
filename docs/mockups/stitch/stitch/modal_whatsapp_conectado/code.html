@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#adc6ff",
+              "on-secondary-container": "#fefcff",
+              "primary-fixed-dim": "#62df7d",
+              "outline-variant": "#bdcaba",
+              "secondary-fixed": "#d8e2ff",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#62df7d",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "error": "#ba1a1a",
+              "surface-bright": "#f9f9ff",
+              "on-primary-container": "#f7fff2",
+              "primary-fixed": "#7ffc97",
+              "inverse-surface": "#293040",
+              "tertiary-container": "#e02928",
+              "on-primary-fixed-variant": "#005320",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "background": "#f9f9ff",
+              "surface-container-high": "#e1e8fd",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "surface-variant": "#dce2f7",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdad6",
+              "tertiary": "#bb0112",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface-dim": "#d3daef",
+              "on-tertiary-fixed": "#410002",
+              "secondary": "#0058be",
+              "on-secondary-fixed": "#001a42",
+              "surface-container-low": "#f1f3ff",
+              "on-tertiary": "#ffffff",
+              "on-background": "#141b2b",
+              "on-secondary-fixed-variant": "#004395",
+              "on-error-container": "#93000a",
+              "primary-container": "#00873a",
+              "secondary-container": "#2170e4",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "outline": "#6e7b6c",
+              "on-surface": "#141b2b",
+              "surface-container-highest": "#dce2f7",
+              "primary": "#006b2c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .editorial-shadow {
+        box-shadow: 0px 24px 48px -12px rgba(20, 27, 43, 0.08);
+      }
+    </style>
+</head>
+<body class="bg-surface-container-low font-body text-on-surface min-h-screen flex items-center justify-center p-4">
+<!-- Success Modal Overlay -->
+<div class="fixed inset-0 bg-on-background/20 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+<!-- Modal Content Card -->
+<div class="bg-surface-container-lowest editorial-shadow rounded-xl w-full max-w-lg overflow-hidden flex flex-col relative">
+<!-- Success Header Decoration -->
+<div class="h-2 bg-gradient-to-r from-primary to-primary-container w-full"></div>
+<div class="p-8 md:p-10 flex flex-col items-center text-center">
+<!-- Success Icon -->
+<div class="mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-primary-fixed text-primary">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Headline -->
+<h1 class="text-on-background font-headline text-2xl md:text-3xl font-bold tracking-tight mb-2">Conexão Realizada!</h1>
+<p class="text-on-surface-variant font-body text-md mb-8 max-w-sm">Seu WhatsApp agora está integrado ao FinAssistant. Suas finanças estão a uma mensagem de distância.</p>
+<!-- Phone Number Section (The Identity Anchor) -->
+<div class="w-full bg-surface-container-low rounded-xl p-6 mb-10 text-left">
+<span class="text-label-sm font-label uppercase tracking-widest text-primary font-bold block mb-1">SALVE ESTE NÚMERO</span>
+<div class="flex items-center justify-between">
+<span class="text-headline-md font-bold text-on-background">+55 11 99988-7766</span>
+<button class="text-primary hover:bg-primary-fixed-dim/20 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">content_copy</span>
+</button>
+</div>
+<p class="text-label-sm text-on-surface-variant mt-2 italic">Dica: Adicione aos contatos como "Meu Assistente Financeiro"</p>
+</div>
+<!-- Editorial Instructions Grid -->
+<div class="w-full text-left space-y-6">
+<h2 class="text-title-sm font-semibold text-on-background uppercase tracking-wider">Como utilizar</h2>
+<!-- Instruction 1: Text -->
+<div class="flex items-start gap-4">
+<div class="mt-1 flex-shrink-0 w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</div>
+<div>
+<h3 class="font-bold text-on-background text-sm">Comandos de Texto</h3>
+<p class="text-on-surface-variant text-sm">Envie frases como "Gastei 50 reais com café" ou "Quanto ainda tenho disponível?".</p>
+</div>
+</div>
+<!-- Instruction 2: Audio -->
+<div class="flex items-start gap-4">
+<div class="mt-1 flex-shrink-0 w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</div>
+<div>
+<h3 class="font-bold text-on-background text-sm">Notas de Áudio</h3>
+<p class="text-on-surface-variant text-sm">Falar é mais rápido! Mande um áudio e nós transcrevemos e categorizamos automaticamente.</p>
+</div>
+</div>
+<!-- Instruction 3: Photo -->
+<div class="flex items-start gap-4">
+<div class="mt-1 flex-shrink-0 w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</div>
+<div>
+<h3 class="font-bold text-on-background text-sm">Fotos de Comprovantes</h3>
+<p class="text-on-surface-variant text-sm">Tire foto de uma nota fiscal ou cupom. Nossa IA lê os valores para você.</p>
+</div>
+</div>
+</div>
+<!-- Final Action -->
+<div class="mt-10 w-full">
+<button class="w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl editorial-shadow hover:opacity-95 transition-opacity active:scale-[0.98] duration-200">
+                        IR PARA O DASHBOARD
+                    </button>
+<button class="mt-4 w-full py-2 text-primary font-semibold text-sm hover:underline transition-all">
+                        Enviar mensagem de teste agora
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Background Content Mockup (to show modal context) -->
+<main class="w-full max-w-5xl mx-auto opacity-20 pointer-events-none">
+<header class="flex justify-between items-center py-6 px-4">
+<div class="h-8 w-32 bg-on-background/10 rounded"></div>
+<div class="h-10 w-10 bg-on-background/10 rounded-full"></div>
+</header>
+<section class="p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="h-40 bg-on-background/5 rounded-xl"></div>
+<div class="h-40 bg-on-background/5 rounded-xl"></div>
+<div class="h-40 bg-on-background/5 rounded-xl"></div>
+<div class="col-span-full h-96 bg-on-background/5 rounded-xl"></div>
+</section>
+</main>
+</body></html>

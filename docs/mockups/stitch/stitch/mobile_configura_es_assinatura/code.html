@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Subscription Settings - FinAssistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "on-secondary-container": "#fefcff",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-bright": "#f9f9ff",
+              "error-container": "#ffdad6",
+              "primary": "#006b2c",
+              "on-tertiary-fixed": "#410002",
+              "error": "#ba1a1a",
+              "surface": "#f9f9ff",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-fixed": "#002109",
+              "inverse-surface": "#293040",
+              "on-background": "#141b2b",
+              "on-surface-variant": "#3e4a3d",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-variant": "#dce2f7",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#001a42",
+              "secondary": "#0058be",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#bdcaba",
+              "on-primary-container": "#f7fff2",
+              "surface-dim": "#d3daef",
+              "surface-container-highest": "#dce2f7",
+              "surface-container-high": "#e1e8fd",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container": "#e9edff",
+              "primary-container": "#00873a",
+              "primary-fixed": "#7ffc97",
+              "on-tertiary-container": "#fffbff",
+              "outline": "#6e7b6c",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "tertiary": "#bb0112",
+              "tertiary-container": "#e02928",
+              "secondary-container": "#2170e4",
+              "inverse-primary": "#62df7d",
+              "tertiary-fixed": "#ffdad6",
+              "background": "#f9f9ff",
+              "surface-tint": "#006e2d",
+              "secondary-fixed": "#d8e2ff",
+              "on-primary-fixed-variant": "#005320"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 text-zinc-500 hover:bg-zinc-100 transition-colors rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">FinAssistant</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-zinc-200">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="Professional headshot of a smiling man in his early 30s with a clean haircut, soft studio lighting, blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmCoKD2FdooDPHhzwlVVSbOBR6vgYzH0_eW_EV3Ov-L1W2zP1EWcZbnhjHPxdQF5omHLdrWtolzWvcqwH7HqaZKJfhROTrckynMqQuubZmaIcb54XB-zBwu_nKhFIF7_XzLRvOPrUsAwb5VM_PS2yb4rh_gBhK5QNG9mqbd_fMxfOycLh47psxDcABf98vd_6TAsMS3-7mDY3t_13gTFqYgCrVsQhnu0cfT4ZujUQzW-COhoxjVA1eYHZGyEa8OYiKhbhp6DCa0E9q"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-20 pb-28 px-6 max-w-md mx-auto">
+<!-- Breadcrumb / Header Section -->
+<section class="mb-8">
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider text-green-700 mb-1 block">Configurações</span>
+<h2 class="text-[1.75rem] font-semibold leading-tight tracking-tight text-on-surface">Assinatura</h2>
+</section>
+<!-- Current Plan Card (Bento/Editorial Style) -->
+<section class="mb-10 relative overflow-hidden bg-surface-container-lowest rounded-xl p-6 shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[0.6875rem] font-medium bg-primary-fixed text-on-primary-fixed-variant mb-3">
+                        PLANO ATUAL
+                    </span>
+<div class="flex items-baseline gap-2">
+<span class="text-[3.5rem] font-bold tracking-tighter text-on-surface leading-none">Pro</span>
+<span class="text-primary font-semibold text-lg italic">Active</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-['Inter'] text-[0.6875rem] font-medium uppercase tracking-wider text-zinc-500 block">COBRANÇA</span>
+<span class="text-[1.0rem] font-semibold text-on-surface">R$ 29,90/mês</span>
+</div>
+</div>
+<div class="space-y-4 mb-8 relative z-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">event_upcoming</span>
+<div>
+<p class="text-[0.6875rem] font-medium text-zinc-500 uppercase">Próximo Vencimento</p>
+<p class="text-sm font-semibold text-on-surface">15 de Outubro, 2023</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">credit_card</span>
+<div>
+<p class="text-[0.6875rem] font-medium text-zinc-500 uppercase">Método de Pagamento</p>
+<p class="text-sm font-semibold text-on-surface">Mastercard •••• 8812</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 relative z-10">
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-xl font-semibold text-sm hover:opacity-90 active:scale-95 transition-all shadow-md bg-gradient-to-br from-primary to-primary-container">
+                    Gerenciar Assinatura
+                </button>
+<button class="w-full bg-surface-container-high text-on-surface py-4 px-6 rounded-xl font-semibold text-sm hover:bg-surface-container-highest active:scale-95 transition-all">
+                    Cancelar Plano
+                </button>
+</div>
+</section>
+<!-- Payment History (Editorial Feed) -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-lg font-semibold text-on-surface tracking-tight">Histórico de Pagamento</h3>
+<span class="text-[0.6875rem] font-medium text-primary uppercase tracking-widest">Ver Tudo</span>
+</div>
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Mensalidade Pro - Set</p>
+<p class="text-[0.6875rem] text-zinc-500">15 Set 2023 • 09:41</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">R$ 29,90</p>
+<span class="inline-block px-2 py-0.5 rounded-full text-[10px] bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase">Pago</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Mensalidade Pro - Ago</p>
+<p class="text-[0.6875rem] text-zinc-500">15 Ago 2023 • 10:15</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">R$ 29,90</p>
+<span class="inline-block px-2 py-0.5 rounded-full text-[10px] bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase">Pago</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Mensalidade Pro - Jul</p>
+<p class="text-[0.6875rem] text-zinc-500">15 Jul 2023 • 08:30</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">R$ 29,90</p>
+<span class="inline-block px-2 py-0.5 rounded-full text-[10px] bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase">Pago</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Help Section -->
+<div class="mt-12 p-6 rounded-xl bg-surface-container-high/50 text-center">
+<span class="material-symbols-outlined text-secondary text-3xl mb-2">support_agent</span>
+<p class="text-sm font-semibold text-on-surface mb-1">Precisa de ajuda com sua conta?</p>
+<p class="text-[0.6875rem] text-zinc-500 mb-4">Nossa equipe de suporte está disponível 24/7 para assinantes Pro.</p>
+<button class="text-sm font-bold text-secondary hover:underline">Falar com Suporte</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-[0_-4px_24px_-8px_rgba(20,27,43,0.08)] pb-safe">
+<div class="flex justify-around items-center px-4 py-3 h-20">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Dashboard</span>
+</a>
+<!-- Transactions -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Transactions</span>
+</a>
+<!-- Accounts -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Accounts</span>
+</a>
+<!-- Settings (Active) -->
+<a class="flex flex-col items-center justify-center text-green-700 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 rounded-xl px-3 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-[11px] font-bold uppercase tracking-wider mt-1">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

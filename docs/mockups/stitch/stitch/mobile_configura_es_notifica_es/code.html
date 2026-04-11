@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "on-secondary-container": "#fefcff",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-bright": "#f9f9ff",
+              "error-container": "#ffdad6",
+              "primary": "#006b2c",
+              "on-tertiary-fixed": "#410002",
+              "error": "#ba1a1a",
+              "surface": "#f9f9ff",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-fixed": "#002109",
+              "inverse-surface": "#293040",
+              "on-background": "#141b2b",
+              "on-surface-variant": "#3e4a3d",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-variant": "#dce2f7",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#001a42",
+              "secondary": "#0058be",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#bdcaba",
+              "on-primary-container": "#f7fff2",
+              "surface-dim": "#d3daef",
+              "surface-container-highest": "#dce2f7",
+              "surface-container-high": "#e1e8fd",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container": "#e9edff",
+              "primary-container": "#00873a",
+              "primary-fixed": "#7ffc97",
+              "on-tertiary-container": "#fffbff",
+              "outline": "#6e7b6c",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "tertiary": "#bb0112",
+              "tertiary-container": "#e02928",
+              "secondary-container": "#2170e4",
+              "inverse-primary": "#62df7d",
+              "tertiary-fixed": "#ffdad6",
+              "background": "#f9f9ff",
+              "surface-tint": "#006e2d",
+              "secondary-fixed": "#d8e2ff",
+              "on-primary-fixed-variant": "#005320"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .custom-switch:checked { background-color: #006b2c; }
+        .custom-switch:checked + span { transform: translateX(100%); background-color: white; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface min-h-screen pb-32">
+<!-- TopAppBar Execution -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-xl mx-auto">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-zinc-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-green-700">menu</span>
+</button>
+<h1 class="font-['Inter'] font-semibold text-lg tracking-tight text-green-700">FinAssistant</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a woman with a clean minimal background, soft studio lighting, editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0TGCH87ZKk5aR70gwuYYyMwOYtHpIGJeMDXKPeY8d3bA-AzZzik5hs-73hlZKhp7-27qbJBlv5N9FBuTRK6AEruPcZ5MpevFAd_LpHV3uqQ-w8S7LmxLqw400QvY9Hxuc0Spc78eUWxsptTsmkEnd65OK6YVRRtVTVXa7wLpVe8PDSn-2RzCNqXQN1j0DSV2iyQOSeU0_bCbsCe4la4bD9N_X-E7UcMQcowHj-F-qXvHVEtx8Qa2m0KRhK-eh1nhuP6taLxzl5Tfw"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-md mx-auto">
+<!-- Editorial Header Section -->
+<header class="mb-8">
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider text-primary mb-2 block">Aba: Notificações</span>
+<h2 class="text-[1.75rem] font-semibold leading-tight text-on-surface mb-2">Configure alerts.</h2>
+<p class="text-on-surface-variant text-sm leading-relaxed">Stay informed about your financial health with tailored real-time notifications.</p>
+</header>
+<!-- Bento Grid Styled Container -->
+<div class="space-y-4">
+<!-- Global Enable Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed">notifications_active</span>
+</div>
+<div>
+<h3 class="font-semibold text-on-surface">Push Alerts</h3>
+<p class="text-[0.6875rem] font-medium text-on-surface-variant uppercase tracking-wider">Direct to device</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Channels Section -->
+<div class="bg-surface-container-lowest overflow-hidden rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<div class="px-6 pt-6">
+<h3 class="text-[1.0rem] font-semibold text-on-surface mb-4">Communication Channels</h3>
+</div>
+<div class="px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">chat</span>
+<span class="font-medium text-sm">WhatsApp Alerts</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="px-6 py-4 flex items-center justify-between bg-surface-container-low/30">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">mail</span>
+<span class="font-medium text-sm">Email Alerts</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Reminder Logic Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<div class="mb-4">
+<h3 class="text-[1.0rem] font-semibold text-on-surface">When to remind?</h3>
+<p class="text-[0.6875rem] font-medium text-on-surface-variant uppercase tracking-wider">Set your frequency</p>
+</div>
+<div class="relative">
+<select class="w-full h-12 px-4 bg-surface-container-highest border-none rounded-xl text-on-surface text-sm font-medium appearance-none focus:ring-2 focus:ring-primary outline-none">
+<option>Instantly on transaction</option>
+<option>Daily summary at 8:00 AM</option>
+<option>Weekly report (Mondays)</option>
+<option>Monthly overview</option>
+</select>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Editorial Tip -->
+<div class="p-6 bg-secondary/5 rounded-xl flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary text-xl">info</span>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+<strong class="text-secondary block mb-1">Editorial Note:</strong> 
+                    Real-time alerts help reduce impulsive spending by 15%. Consider enabling WhatsApp for critical account updates.
+                </p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Execution -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 h-20 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-[0_-4px_24px_-8px_rgba(20,27,43,0.08)] z-50 pb-safe">
+<!-- Dashboard Item -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Dashboard</span>
+</a>
+<!-- Transactions Item -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Transactions</span>
+</a>
+<!-- Accounts Item -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Accounts</span>
+</a>
+<!-- Settings Item (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-green-700 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 rounded-xl px-3 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

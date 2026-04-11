@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e8fd",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-container": "#f7fff2",
+              "on-primary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed-dim": "#adc6ff",
+              "inverse-primary": "#62df7d",
+              "secondary-container": "#2170e4",
+              "on-error-container": "#93000a",
+              "inverse-surface": "#293040",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-container": "#fefcff",
+              "on-error": "#ffffff",
+              "on-surface": "#141b2b",
+              "error": "#ba1a1a",
+              "primary-container": "#00873a",
+              "inverse-on-surface": "#edf0ff",
+              "on-secondary": "#ffffff",
+              "secondary": "#0058be",
+              "primary-fixed": "#7ffc97",
+              "background": "#f9f9ff",
+              "secondary-fixed": "#d8e2ff",
+              "tertiary": "#bb0112",
+              "tertiary-container": "#e02928",
+              "on-secondary-fixed-variant": "#004395",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#410002",
+              "on-primary-fixed-variant": "#005320",
+              "primary": "#006b2c",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#6e7b6c",
+              "on-primary-fixed": "#002109",
+              "surface-bright": "#f9f9ff",
+              "tertiary-fixed": "#ffdad6",
+              "on-surface-variant": "#3e4a3d",
+              "outline-variant": "#bdcaba",
+              "surface-container-low": "#f1f3ff",
+              "surface-container-highest": "#dce2f7",
+              "on-background": "#141b2b",
+              "surface-dim": "#d3daef",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface": "#f9f9ff",
+              "surface-container": "#e9edff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm flex justify-between items-center px-6 h-16">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-green-800 dark:text-green-400 font-['Inter'] tracking-tight">FinAssistant</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6 mr-6">
+<span class="text-green-700 font-bold font-['Inter']">Home</span>
+<span class="text-slate-500 hover:bg-slate-100/50 transition-colors px-2 rounded-lg cursor-pointer font-['Inter']">Analysis</span>
+<span class="text-slate-500 hover:bg-slate-100/50 transition-colors px-2 rounded-lg cursor-pointer font-['Inter']">Search</span>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Toast Notification Overlay Container -->
+<div class="fixed top-20 right-6 z-[100] flex flex-col gap-4 w-full max-w-sm">
+<!-- Success Toast -->
+<div class="bg-surface-container-lowest shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] rounded-xl p-4 flex items-start gap-4 animate-in slide-in-from-right duration-300">
+<div class="bg-primary/10 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-on-surface font-semibold text-sm">Sucesso</p>
+<p class="text-on-surface-variant text-sm mt-1">Transação criada com sucesso</p>
+</div>
+<button class="text-outline-variant hover:text-on-surface transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<!-- Progress Bar Indication -->
+<div class="absolute bottom-0 left-0 h-1 bg-primary rounded-b-xl w-full"></div>
+</div>
+<!-- Error Toast -->
+<div class="bg-surface-container-lowest shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] rounded-xl p-4 flex items-start gap-4 border-l-4 border-tertiary">
+<div class="bg-tertiary/10 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="flex-1">
+<p class="text-on-surface font-semibold text-sm">Falha no Sistema</p>
+<p class="text-on-surface-variant text-sm mt-1">Erro ao salvar transação</p>
+</div>
+<button class="text-outline-variant hover:text-on-surface transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Info Toast -->
+<div class="bg-surface-container-lowest shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] rounded-xl p-4 flex items-start gap-4">
+<div class="bg-secondary/10 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<div class="flex-1">
+<p class="text-on-surface font-semibold text-sm">Notificação</p>
+<p class="text-on-surface-variant text-sm mt-1">WhatsApp conectado</p>
+</div>
+<button class="text-outline-variant hover:text-on-surface transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Main Content (The Ledger Canvas) -->
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<header class="mb-12">
+<p class="text-primary font-semibold tracking-widest text-[11px] uppercase mb-2">Visão Geral Mensal</p>
+<h1 class="text-on-surface font-bold text-4xl lg:text-5xl tracking-tight">Setembro, 2024</h1>
+</header>
+<!-- Editorial Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Balance Card (Hero) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex justify-between items-start mb-12">
+<div>
+<p class="text-on-surface-variant text-sm font-medium">Saldo Disponível</p>
+<h2 class="text-on-surface text-[3.5rem] font-bold leading-tight tracking-tighter">R$ 14.582,00</h2>
+</div>
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-4 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider">+12.5%</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="p-6 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">arrow_upward</span>
+<span class="text-on-surface-variant text-sm font-semibold uppercase tracking-wide">Receitas</span>
+</div>
+<p class="text-on-surface text-2xl font-bold">R$ 22.400,00</p>
+</div>
+<div class="p-6 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">arrow_downward</span>
+<span class="text-on-surface-variant text-sm font-semibold uppercase tracking-wide">Despesas</span>
+</div>
+<p class="text-on-surface text-2xl font-bold">R$ 7.818,00</p>
+</div>
+</div>
+</div>
+<!-- Side Insights (Bento Style) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-primary text-on-primary p-6 rounded-xl flex flex-col justify-between h-full min-h-[160px] relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-on-primary/80 text-sm font-medium mb-1">Dica Editorial</p>
+<h3 class="text-xl font-bold leading-tight">Seu rendimento em CDB superou a inflação.</h3>
+</div>
+<button class="relative z-10 w-fit text-sm font-bold flex items-center gap-2 mt-4 underline underline-offset-4">
+                        Ver detalhes <span class="material-symbols-outlined text-sm">east</span>
+</button>
+<!-- Abstract Background Pattern -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary-container/30 rounded-full blur-2xl"></div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<h3 class="text-on-surface font-semibold mb-6">Categorias Principais</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="text-on-surface-variant text-sm">Moradia</span>
+</div>
+<span class="text-on-surface font-bold text-sm">R$ 3.200</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-on-surface-variant text-sm">Investimentos</span>
+</div>
+<span class="text-on-surface font-bold text-sm">R$ 5.000</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<span class="text-on-surface-variant text-sm">Alimentação</span>
+</div>
+<span class="text-on-surface font-bold text-sm">R$ 1.850</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Transactions -->
+<section class="mt-16">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="text-on-surface font-bold text-2xl">Transações Recentes</h2>
+<p class="text-on-surface-variant text-sm">Últimos 7 dias de movimentação</p>
+</div>
+<button class="text-primary font-bold text-sm hover:underline underline-offset-4 transition-all">Ver Histórico Completo</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<div class="p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-secondary">shopping_cart</span>
+</div>
+<div>
+<p class="text-on-surface font-bold">Supermercado Premium</p>
+<p class="text-on-surface-variant text-xs font-medium">12 Set, 14:30 • Alimentação</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-tertiary font-bold">- R$ 450,20</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold tracking-widest">Nubank</p>
+</div>
+</div>
+<div class="p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div>
+<p class="text-on-surface font-bold">Dividendos - PETR4</p>
+<p class="text-on-surface-variant text-xs font-medium">11 Set, 09:15 • Investimentos</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-primary font-bold">+ R$ 1.280,00</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold tracking-widest">XP Investimentos</p>
+</div>
+</div>
+<div class="p-6 flex items-center justify-between hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-secondary">directions_car</span>
+</div>
+<div>
+<p class="text-on-surface font-bold">Posto Ipiranga</p>
+<p class="text-on-surface-variant text-xs font-medium">10 Set, 18:45 • Transporte</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-tertiary font-bold">- R$ 320,00</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-bold tracking-widest">Itaú Personnalité</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 pb-safe bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex justify-around items-center h-20 px-4 shadow-[0_-1px_0_0_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center justify-center bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl px-3 py-1 active:opacity-80 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 active:opacity-80 transition-all">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Analysis</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 active:opacity-80 transition-all">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 active:opacity-80 transition-all">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Profile</span>
+</div>
+</nav>
+<!-- Contextual FAB (Only visible on specific screens) -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 bg-primary text-on-primary w-14 h-14 rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform group overflow-hidden">
+<span class="material-symbols-outlined text-2xl relative z-10">add</span>
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-50"></div>
+</button>
+</body></html>

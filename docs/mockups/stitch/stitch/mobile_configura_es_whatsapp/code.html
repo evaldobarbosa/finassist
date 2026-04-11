@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - WhatsApp Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "on-secondary-container": "#fefcff",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-bright": "#f9f9ff",
+              "error-container": "#ffdad6",
+              "primary": "#006b2c",
+              "on-tertiary-fixed": "#410002",
+              "error": "#ba1a1a",
+              "surface": "#f9f9ff",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-fixed": "#002109",
+              "inverse-surface": "#293040",
+              "on-background": "#141b2b",
+              "on-surface-variant": "#3e4a3d",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-variant": "#dce2f7",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#001a42",
+              "secondary": "#0058be",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#bdcaba",
+              "on-primary-container": "#f7fff2",
+              "surface-dim": "#d3daef",
+              "surface-container-highest": "#dce2f7",
+              "surface-container-high": "#e1e8fd",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container": "#e9edff",
+              "primary-container": "#00873a",
+              "primary-fixed": "#7ffc97",
+              "on-tertiary-container": "#fffbff",
+              "outline": "#6e7b6c",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "tertiary": "#bb0112",
+              "tertiary-container": "#e02928",
+              "secondary-container": "#2170e4",
+              "inverse-primary": "#62df7d",
+              "tertiary-fixed": "#ffdad6",
+              "background": "#f9f9ff",
+              "surface-tint": "#006e2d",
+              "secondary-fixed": "#d8e2ff",
+              "on-primary-fixed-variant": "#005320"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-zinc-500 hover:bg-zinc-100 p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">FinAssistant</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man with a kind expression in soft studio lighting, corporate style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8T0J7Pm8l87qnr-6Qr0Z3i9FXOfJiwJ7lKNWwJioxaxXkoemP2wxNRz6Ho29G15Q2MR6S8TZAfq1_3XaKKJnqbOM9PfE1MV6jWIs0h6KSVAYIkCJSYNmwWLTWrbFeos_BXadD5EObQ9Q3nLEiKI6_krbyYn1raYYMI1tD6KDMmPIk-rdrteHEdbl3M6ANx1apfC3eWpjgbaN6GSDpnFDbTElZr9Ziis9nho9w-ai-8wG8UShXEv98zT2WU22-dWNfPwJ7MeMzpUoK"/>
+</div>
+</div>
+</header>
+<main class="pt-20 px-4 max-w-md mx-auto space-y-6">
+<!-- Connected Status Hero -->
+<section class="mt-4">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="chat">chat</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight text-on-surface mb-1">WhatsApp Linked</h2>
+<p class="text-on-surface-variant text-sm mb-6">Your personal ledger assistant is active</p>
+<div class="w-full bg-surface-container-low rounded-xl p-4 flex items-center justify-between mb-4">
+<div class="text-left">
+<span class="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">Active Number</span>
+<span class="text-lg font-semibold tabular-nums">+1 (555) 0123-4567</span>
+</div>
+<button class="flex items-center justify-center w-10 h-10 bg-white rounded-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+<button class="w-full py-3 px-6 bg-surface-container-high text-on-surface font-semibold rounded-xl active:scale-95 transition-all">
+                    Change number
+                </button>
+</div>
+</section>
+<!-- Usage Guide / The Editorial Feed -->
+<section class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">How to use</h3>
+<span class="h-[1px] flex-grow ml-4 bg-outline-variant/30"></span>
+</div>
+<!-- Bento-style Instruction Cards -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Text Command -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex gap-4 items-start">
+<div class="bg-primary-fixed w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="edit_note">edit_note</span>
+</div>
+<div class="flex-grow">
+<p class="text-xs font-bold text-primary uppercase tracking-tighter mb-1">Text Entry</p>
+<h4 class="text-sm font-semibold mb-2">Simply type what you spent</h4>
+<div class="bg-surface-container-low rounded-lg p-3 italic text-sm text-on-surface-variant border-l-4 border-primary/20">
+                            "Lunch at The Bistro $24.50"
+                        </div>
+</div>
+</div>
+<!-- Audio Command -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex gap-4 items-start">
+<div class="bg-secondary-fixed w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed" data-icon="mic">mic</span>
+</div>
+<div class="flex-grow">
+<p class="text-xs font-bold text-secondary uppercase tracking-tighter mb-1">Voice Note</p>
+<h4 class="text-sm font-semibold mb-2">Speak naturally on the go</h4>
+<div class="flex items-center gap-3 bg-surface-container-low rounded-lg p-3">
+<span class="material-symbols-outlined text-secondary" data-icon="graphic_eq">graphic_eq</span>
+<span class="text-sm text-on-surface-variant">"Hey assistant, I just paid $50 for gas."</span>
+</div>
+</div>
+</div>
+<!-- Photo Command -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex gap-4 items-start">
+<div class="bg-tertiary-fixed w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed" data-icon="receipt_long">receipt_long</span>
+</div>
+<div class="flex-grow">
+<p class="text-xs font-bold text-tertiary uppercase tracking-tighter mb-1">Receipt Scan</p>
+<h4 class="text-sm font-semibold mb-2">Snap a photo of any bill</h4>
+<div class="relative h-24 rounded-lg overflow-hidden mt-2">
+<img alt="Receipt scanning example" class="w-full h-full object-cover" data-alt="A clean top-down view of a grocery receipt on a light marble surface with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXycBOhPBTwEDZbVfPERCWwxPKrNdUiY7L34tO3r_nSAlRtpAN4V3x9a_mnydCraDcpGMq9w1EIm5K1xMlJ1cdFDCCasMgLSIdrn5s734KST5ZRNvljNKSCUVl-dl7WMj18no7TyIqhve9_VQdzu5qw1_aNW9n8VkcS-NZg-izuHg09-kBp4hljkryLpQHu3RDcIQmTqM7f4bcHoSgp8lDYOUjk3Jhw7MmsGslyXeMix4rdDbNRN-PxsufG3bWVDkV2_LzMLojErBh"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="center_focus_strong">center_focus_strong</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Help Section -->
+<div class="pt-2 text-center">
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                Our AI processes your messages in real-time to categorize and log your expenses automatically. Data is encrypted and private.
+            </p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 h-20 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl z-50 pb-safe shadow-[0_-4px_24px_-8px_rgba(20,27,43,0.08)]">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider">Dashboard</span>
+</a>
+<!-- Transactions -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider">Transactions</span>
+</a>
+<!-- Accounts -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-green-600 dark:hover:text-green-300 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider">Accounts</span>
+</a>
+<!-- Settings (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-green-700 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 rounded-xl px-3 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider">Settings</span>
+</a>
+</nav>
+</body></html>

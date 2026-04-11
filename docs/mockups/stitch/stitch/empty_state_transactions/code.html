@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - Transações</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e1e8fd",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-primary-container": "#f7fff2",
+              "on-primary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed-dim": "#adc6ff",
+              "inverse-primary": "#62df7d",
+              "secondary-container": "#2170e4",
+              "on-error-container": "#93000a",
+              "inverse-surface": "#293040",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-container": "#fefcff",
+              "on-error": "#ffffff",
+              "on-surface": "#141b2b",
+              "error": "#ba1a1a",
+              "primary-container": "#00873a",
+              "inverse-on-surface": "#edf0ff",
+              "on-secondary": "#ffffff",
+              "secondary": "#0058be",
+              "primary-fixed": "#7ffc97",
+              "background": "#f9f9ff",
+              "secondary-fixed": "#d8e2ff",
+              "tertiary": "#bb0112",
+              "tertiary-container": "#e02928",
+              "on-secondary-fixed-variant": "#004395",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#410002",
+              "on-primary-fixed-variant": "#005320",
+              "primary": "#006b2c",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#6e7b6c",
+              "on-primary-fixed": "#002109",
+              "surface-bright": "#f9f9ff",
+              "tertiary-fixed": "#ffdad6",
+              "on-surface-variant": "#3e4a3d",
+              "outline-variant": "#bdcaba",
+              "surface-container-low": "#f1f3ff",
+              "surface-container-highest": "#dce2f7",
+              "on-background": "#141b2b",
+              "surface-dim": "#d3daef",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface": "#f9f9ff",
+              "surface-container": "#e9edff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm dark:shadow-none flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-green-800 dark:text-green-400 font-['Inter'] tracking-tight">FinAssistant</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-16 pb-20 md:pb-0 flex flex-col items-center justify-center px-6">
+<div class="max-w-md w-full text-center space-y-8">
+<!-- Hero Empty State Visual -->
+<div class="relative flex justify-center">
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl transform scale-150"></div>
+<div class="relative w-48 h-48 bg-surface-container-lowest rounded-full flex items-center justify-center shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<span class="material-symbols-outlined text-primary text-7xl" data-icon="description" style="font-variation-settings: 'FILL' 0;">description</span>
+<!-- Decorative Element -->
+<div class="absolute -right-2 -bottom-2 w-16 h-16 bg-primary-fixed rounded-xl flex items-center justify-center rotate-12 shadow-lg">
+<span class="material-symbols-outlined text-on-primary-fixed-variant text-2xl" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+</div>
+<!-- Text Content -->
+<div class="space-y-4">
+<h1 class="text-[1.75rem] font-semibold text-on-surface leading-tight font-headline">Nenhuma transação ainda</h1>
+<p class="text-[0.875rem] text-on-surface-variant font-body leading-relaxed px-4">
+                    Parece que você ainda não registrou seus gastos ou ganhos. Comece agora para ter um controle total da sua vida financeira editorial.
+                </p>
+</div>
+<!-- Action Area (Bento-style choice) -->
+<div class="grid grid-cols-1 gap-4 pt-4">
+<!-- Primary Action: WhatsApp -->
+<button class="group flex items-center justify-between p-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl shadow-lg active:scale-[0.98] transition-all">
+<div class="flex items-center gap-4 text-left">
+<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl" data-icon="chat">chat</span>
+</div>
+<div>
+<span class="block font-semibold text-lg">Conectar WhatsApp</span>
+<span class="block text-xs opacity-90 font-label uppercase tracking-widest">IA Sincronizada</span>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Secondary Action: Manual -->
+<button class="flex items-center justify-center gap-2 p-4 bg-surface-container-low text-on-surface font-semibold rounded-xl hover:bg-surface-container-high transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Registrar manualmente
+                </button>
+</div>
+<!-- Footer Meta -->
+<div class="pt-8 opacity-60">
+<p class="text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-on-surface-variant">
+                    Seguro • Privado • Inteligente
+                </p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Visible on mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 pb-safe bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex justify-around items-center h-20 px-4 w-full shadow-[0_-1px_0_0_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl px-3 py-1 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="insights" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Analysis</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="search">search</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-green-600 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider">Profile</span>
+</a>
+</nav>
+<!-- Desktop Navigation Side Anchors (Implicit for layout) -->
+<div class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-24 flex-col items-center py-8 gap-8 bg-surface-container-low/30">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-on-primary" data-icon="insights">insights</span>
+</div>
+<div class="w-12 h-12 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</div>
+<div class="w-12 h-12 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</div>
+<div class="mt-auto w-12 h-12 rounded-xl flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</div>
+</body></html>

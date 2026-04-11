@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#adc6ff",
+              "on-secondary-container": "#fefcff",
+              "primary-fixed-dim": "#62df7d",
+              "outline-variant": "#bdcaba",
+              "secondary-fixed": "#d8e2ff",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#62df7d",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "error": "#ba1a1a",
+              "surface-bright": "#f9f9ff",
+              "on-primary-container": "#f7fff2",
+              "primary-fixed": "#7ffc97",
+              "inverse-surface": "#293040",
+              "tertiary-container": "#e02928",
+              "on-primary-fixed-variant": "#005320",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "background": "#f9f9ff",
+              "surface-container-high": "#e1e8fd",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "surface-variant": "#dce2f7",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdad6",
+              "tertiary": "#bb0112",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface-dim": "#d3daef",
+              "on-tertiary-fixed": "#410002",
+              "secondary": "#0058be",
+              "on-secondary-fixed": "#001a42",
+              "surface-container-low": "#f1f3ff",
+              "on-tertiary": "#ffffff",
+              "on-background": "#141b2b",
+              "on-secondary-fixed-variant": "#004395",
+              "on-error-container": "#93000a",
+              "primary-container": "#00873a",
+              "secondary-container": "#2170e4",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "outline": "#6e7b6c",
+              "on-surface": "#141b2b",
+              "surface-container-highest": "#dce2f7",
+              "primary": "#006b2c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm dark:shadow-none h-16 flex justify-between items-center px-6">
+<div class="text-xl font-bold text-green-800 dark:text-green-400 font-['Inter'] tracking-tight">FinAssistant</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-green-700 dark:text-green-400 font-bold font-['Inter'] transition-colors" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 px-3 py-1 rounded-lg transition-colors" href="#">Analysis</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 px-3 py-1 rounded-lg transition-colors" href="#">Search</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 px-3 py-1 rounded-lg transition-colors" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-16 pb-20 md:pb-0 flex items-center justify-center px-6">
+<!-- Editorial Empty State Layout -->
+<div class="max-w-xl w-full flex flex-col items-center text-center">
+<!-- Visual Anchor: Glassmorphism Icon Container -->
+<div class="relative mb-10">
+<!-- Background decorative glow -->
+<div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-150"></div>
+<div class="relative w-32 h-32 bg-surface-container-lowest rounded-[2rem] flex items-center justify-center shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] transform -rotate-3">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'wght' 300;">search</span>
+<!-- Decorative floating element -->
+<div class="absolute -bottom-2 -right-2 bg-secondary w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transform rotate-12">
+<span class="material-symbols-outlined text-white text-xl">filter_list_off</span>
+</div>
+</div>
+</div>
+<!-- Typography Hierarchy: Editorial Approach -->
+<div class="space-y-4">
+<span class="text-[0.6875rem] font-semibold text-secondary uppercase tracking-[0.2em] block">Resultados da Busca</span>
+<h1 class="text-3xl md:text-4xl font-bold tracking-tight text-on-surface font-headline">Nada por aqui, ainda.</h1>
+<p class="text-slate-500 max-w-sm mx-auto text-sm leading-relaxed">
+                    Não conseguimos encontrar nenhum lançamento ou análise para os filtros selecionados. Tente ajustar os parâmetros ou limpe a seleção atual.
+                </p>
+</div>
+<!-- Interaction Section -->
+<div class="mt-12 flex flex-col sm:flex-row gap-4 items-center">
+<button class="px-10 py-4 bg-primary text-on-primary rounded-xl font-semibold shadow-[0_10px_20px_-5px_rgba(0,107,44,0.3)] hover:opacity-90 active:scale-95 transition-all w-full sm:w-auto">
+                    Limpar filtros
+                </button>
+<button class="px-10 py-4 text-primary font-semibold hover:bg-primary/5 rounded-xl transition-all w-full sm:w-auto">
+                    Voltar ao Dashboard
+                </button>
+</div>
+<!-- Helpful Hints: Editorial Cards -->
+<div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 w-full text-left">
+<div class="p-6 bg-surface-container-low rounded-xl border border-outline-variant/15">
+<span class="material-symbols-outlined text-secondary mb-3">lightbulb</span>
+<h3 class="text-sm font-semibold mb-1">Dica de Busca</h3>
+<p class="text-xs text-slate-500 leading-normal">Tente usar termos mais genéricos ou remova restrições de data para ampliar sua pesquisa.</p>
+</div>
+<div class="p-6 bg-surface-container-low rounded-xl border border-outline-variant/15">
+<span class="material-symbols-outlined text-primary mb-3">history</span>
+<h3 class="text-sm font-semibold mb-1">Recentes</h3>
+<p class="text-xs text-slate-500 leading-normal">Você pode acessar suas categorias mais utilizadas diretamente na aba de Insights.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<footer class="md:hidden fixed bottom-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_-1px_0_0_rgba(0,0,0,0.05)] h-20 flex justify-around items-center px-4">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider mt-1">Analysis</span>
+</div>
+<!-- Active Search Tab -->
+<div class="flex flex-col items-center justify-center bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl px-3 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider mt-1">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[11px] font-medium font-['Inter'] uppercase tracking-wider mt-1">Profile</span>
+</div>
+</footer>
+</body></html>

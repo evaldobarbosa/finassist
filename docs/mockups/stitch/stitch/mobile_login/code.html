@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "error-container": "#ffdad6",
+              "primary-container": "#00873a",
+              "outline-variant": "#bdcaba",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-container-highest": "#dce2f7",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "background": "#f9f9ff",
+              "primary-fixed": "#7ffc97",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed": "#410002",
+              "surface-tint": "#006e2d",
+              "on-background": "#141b2b",
+              "secondary": "#0058be",
+              "error": "#ba1a1a",
+              "on-primary-container": "#f7fff2",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-dim": "#d3daef",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff",
+              "inverse-surface": "#293040",
+              "on-primary-fixed-variant": "#005320",
+              "secondary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#93000b",
+              "tertiary-fixed": "#ffdad6",
+              "on-secondary-container": "#fefcff",
+              "surface-bright": "#f9f9ff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-container-high": "#e1e8fd",
+              "inverse-primary": "#62df7d",
+              "primary": "#006b2c",
+              "tertiary": "#bb0112",
+              "on-secondary-fixed": "#001a42",
+              "secondary-container": "#2170e4",
+              "tertiary-container": "#e02928",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed": "#d8e2ff",
+              "outline": "#6e7b6c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.8);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top Branding / Form Section -->
+<main class="flex-1 flex flex-col px-8 pt-12 pb-6 max-w-md mx-auto w-full">
+<!-- Logo & Header -->
+<header class="mb-10 text-left">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<span class="font-headline font-extrabold text-xl tracking-tighter text-on-surface">FinAssistant</span>
+</div>
+<h1 class="text-[1.75rem] font-headline font-semibold leading-tight tracking-tight text-on-surface">Bem-vindo de volta</h1>
+<p class="text-on-surface-variant text-sm mt-2 font-body">Gerencie seu patrimônio com a precisão de um editor financeiro.</p>
+</header>
+<!-- Social Login -->
+<button class="w-full h-12 flex items-center justify-center gap-3 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-surface-container-low transition-colors duration-200 group active:scale-[0.98]">
+<img alt="Google Logo" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwhXSwALYCaDlIdC9HOjSzWjQHhvtZMvJG7X-yxKgWYyk8jbeyGyhiz6903GoIZQP5SDKjGi7NKMeAcGG9yLEU4gjZJkY82pJB9rXEmABvnfoPIA6yir1dBVh_ApR3B9IfYVFGq3yI35yPEjNhmneNzVeiYQddtdjns7iT0bCFBfQft2dh6c2adQA7NRqZd16wFtKTp_CePW3CyjYowxXipv8i1SoYKszOKlTn4dblDis_1SJIwT2HV_-3teVyw6DOAKlOl4LizCw4"/>
+<span class="text-sm font-semibold text-on-surface">Continuar com Google</span>
+</button>
+<!-- Divider -->
+<div class="flex items-center gap-4 my-8">
+<div class="flex-1 h-[1px] bg-outline-variant/30"></div>
+<span class="text-label-sm font-label text-zinc-400 uppercase tracking-widest">ou</span>
+<div class="flex-1 h-[1px] bg-outline-variant/30"></div>
+</div>
+<!-- Credentials Form -->
+<form class="space-y-5">
+<div>
+<label class="block text-[0.6875rem] font-semibold text-on-surface-variant uppercase tracking-wider mb-2 ml-1">E-mail</label>
+<div class="relative group">
+<input class="w-full h-12 px-4 bg-surface-container-highest/50 border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-zinc-400 text-sm" placeholder="exemplo@finassistant.com" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2 px-1">
+<label class="text-[0.6875rem] font-semibold text-on-surface-variant uppercase tracking-wider">Senha</label>
+<a class="text-[0.6875rem] font-bold text-primary hover:text-primary-container transition-colors" href="#">Esqueceu a senha?</a>
+</div>
+<div class="relative group">
+<input class="w-full h-12 px-4 bg-surface-container-highest/50 border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-zinc-400 text-sm" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full h-14 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-[0_8px_20px_-4px_rgba(0,107,44,0.3)] hover:shadow-[0_12px_24px_-4px_rgba(0,107,44,0.4)] transition-all active:scale-95 flex items-center justify-center gap-2 mt-4" type="submit">
+                Entrar
+                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+<footer class="mt-8 text-center">
+<p class="text-sm text-on-surface-variant">
+                Não tem uma conta? 
+                <a class="text-primary font-bold hover:underline underline-offset-4" href="#">Criar conta</a>
+</p>
+</footer>
+</main>
+<!-- Bottom Decorative/Branding Section -->
+<section class="relative h-48 mt-auto overflow-hidden">
+<!-- Visual Content -->
+<div class="absolute inset-0 bg-primary/5">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-40 grayscale" data-alt="Close-up of polished silver coins neatly stacked on a dark surface with dramatic green studio lighting and sharp reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYcXAL9WWR_x2o6-91AaDEods6iy7VZDGvW0EcVXeKnj9WHd09zAhI7Ge2q1WqcTUac5LFk2gcE6FaU-UQJoV-ciuiGhjvkHhWpoeMhjnnmKcjaElSeyJr6CE7kyrqx2g3WRbLNsEF8f3m_JTybyW3SUe7OPwe_r_lhrrlZMgRZ4qeM5BcUc3wO8kbww6_PKcoWSWI523MdGBg9TBwOAWaI0btgqbXzN62M-LTSMxqd7jPt4z7_VKcftYK9BZt3TDrbE2-abmIcY8x"/>
+</div>
+<!-- Glass Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<!-- Editorial Quote or Decorative Element -->
+<div class="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
+<div class="w-12 h-1 bg-primary rounded-full mb-4"></div>
+<p class="text-xs font-label uppercase tracking-[0.2em] text-on-surface-variant/60 font-medium">The Financial Editorial — Edição 2024</p>
+</div>
+</section>
+<!-- Navigation Shell Suppressed as per Linear/Transactional Page Rule -->
+</body></html>

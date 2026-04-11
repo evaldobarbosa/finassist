@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#adc6ff",
+              "on-secondary-container": "#fefcff",
+              "primary-fixed-dim": "#62df7d",
+              "outline-variant": "#bdcaba",
+              "secondary-fixed": "#d8e2ff",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#62df7d",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "error": "#ba1a1a",
+              "surface-bright": "#f9f9ff",
+              "on-primary-container": "#f7fff2",
+              "primary-fixed": "#7ffc97",
+              "inverse-surface": "#293040",
+              "tertiary-container": "#e02928",
+              "on-primary-fixed-variant": "#005320",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "background": "#f9f9ff",
+              "surface-container-high": "#e1e8fd",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "surface-variant": "#dce2f7",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdad6",
+              "tertiary": "#bb0112",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface-dim": "#d3daef",
+              "on-tertiary-fixed": "#410002",
+              "secondary": "#0058be",
+              "on-secondary-fixed": "#001a42",
+              "surface-container-low": "#f1f3ff",
+              "on-tertiary": "#ffffff",
+              "on-background": "#141b2b",
+              "on-secondary-fixed-variant": "#004395",
+              "on-error-container": "#93000a",
+              "primary-container": "#00873a",
+              "secondary-container": "#2170e4",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "outline": "#6e7b6c",
+              "on-surface": "#141b2b",
+              "surface-container-highest": "#dce2f7",
+              "primary": "#006b2c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .otp-input:focus {
+        box-shadow: 0 0 0 2px #006b2c;
+      }
+    </style>
+</head>
+<body class="bg-surface-container-low font-body text-on-surface antialiased flex items-center justify-center min-h-screen p-4">
+<!-- Transactional Screen: Navigation shells suppressed as per UX Goal -->
+<main class="w-full max-w-md">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)] overflow-hidden">
+<!-- Hero Header Section -->
+<div class="relative h-32 bg-primary overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-90"></div>
+<img class="w-full h-full object-cover mix-blend-overlay" data-alt="Abstract digital network pattern with soft green glowing lines and bokeh effects representing secure data transmission" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD0QBqwlK8XjNt9xKgQkVs7kkSZVqYz3ipIUAxMIiQ9OaW_QbN1HSy1INuOrAZa43WN-Pw-oHwv6nSnDD_QW_hplvoaFDVjf4pWyM3YC1Yfe6N0CVi2RfQQglJz1nit1xN4a7VSPwbliLopPIul8rBoHpHSlGZV6D--x1fEezHkimy5bh56MzDIPr0Da3577mRei2ZzS8R7uObadLkME2OI-CURaoB6YCKw3xwEKuoXOzXCu5gFgZnnm4jYclzBEaChs8LTjwMGxXr"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white/20 backdrop-blur-md p-3 rounded-full">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="cell_tower">cell_tower</span>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-8 pt-6">
+<div class="mb-8">
+<h1 class="text-headline-md font-semibold text-on-surface leading-tight mb-2">
+                        Verifique seu WhatsApp
+                    </h1>
+<p class="text-body-md text-on-surface-variant">
+                        Enviamos um código de 6 dígitos para o número <span class="font-semibold text-on-surface">+55 (11) 9****-1234</span>. Por favor, insira-o abaixo.
+                    </p>
+</div>
+<!-- OTP Input Grid -->
+<div class="grid grid-cols-6 gap-3 mb-8">
+<input class="otp-input w-full aspect-square text-center text-xl font-bold bg-surface-container-highest border-none rounded-lg focus:bg-surface-container-lowest transition-all" maxlength="1" placeholder="0" type="text"/>
+<input class="otp-input w-full aspect-square text-center text-xl font-bold bg-surface-container-highest border-none rounded-lg focus:bg-surface-container-lowest transition-all" maxlength="1" placeholder="0" type="text"/>
+<input class="otp-input w-full aspect-square text-center text-xl font-bold bg-surface-container-highest border-none rounded-lg focus:bg-surface-container-lowest transition-all" maxlength="1" placeholder="0" type="text"/>
+<input class="otp-input w-full aspect-square text-center text-xl font-bold bg-surface-container-highest border-none rounded-lg focus:bg-surface-container-lowest transition-all" maxlength="1" placeholder="0" type="text"/>
+<input class="otp-input w-full aspect-square text-center text-xl font-bold bg-surface-container-highest border-none rounded-lg focus:bg-surface-container-lowest transition-all" maxlength="1" placeholder="0" type="text"/>
+<input class="otp-input w-full aspect-square text-center text-xl font-bold bg-surface-container-highest border-none rounded-lg focus:bg-surface-container-lowest transition-all" maxlength="1" placeholder="0" type="text"/>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-4 px-6 rounded-xl font-semibold text-body-md shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span>Verificar Código</span>
+<span class="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Footer Links -->
+<div class="mt-8 pt-6 border-t border-outline-variant/15 flex flex-col gap-4 items-center">
+<div class="flex items-center gap-2 text-label-sm text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>Aguarde 0:59 para reenviar</span>
+</div>
+<div class="flex gap-6">
+<button class="text-primary font-semibold text-body-md hover:underline decoration-2 underline-offset-4 opacity-50 cursor-not-allowed">
+                            Reenviar SMS
+                        </button>
+<button class="text-secondary font-semibold text-body-md hover:underline decoration-2 underline-offset-4">
+                            Alterar número
+                        </button>
+</div>
+</div>
+</div>
+<!-- Security Badge -->
+<div class="bg-surface-container-low px-8 py-3 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-label-sm text-on-surface-variant uppercase tracking-widest font-bold">Conexão Criptografada</span>
+</div>
+</div>
+<!-- Supportive Editorial Content (Contextual) -->
+<div class="mt-8 px-4">
+<div class="flex items-start gap-4 p-4 bg-secondary-container/10 rounded-xl">
+<div class="bg-secondary-container p-2 rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="help">help</span>
+</div>
+<div>
+<h3 class="text-title-sm text-on-surface font-semibold mb-1">Não recebeu o código?</h3>
+<p class="text-label-sm text-on-surface-variant leading-relaxed">
+                        Verifique se o seu celular está com sinal ou se o modo "Não Perturbe" está ativado. O envio pode levar até 2 minutos em algumas operadoras.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

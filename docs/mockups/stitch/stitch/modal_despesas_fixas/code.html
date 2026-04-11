@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - Adicionar Despesas Fixas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#adc6ff",
+              "on-secondary-container": "#fefcff",
+              "primary-fixed-dim": "#62df7d",
+              "outline-variant": "#bdcaba",
+              "secondary-fixed": "#d8e2ff",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#62df7d",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#fffbff",
+              "error": "#ba1a1a",
+              "surface-bright": "#f9f9ff",
+              "on-primary-container": "#f7fff2",
+              "primary-fixed": "#7ffc97",
+              "inverse-surface": "#293040",
+              "tertiary-container": "#e02928",
+              "on-primary-fixed-variant": "#005320",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "background": "#f9f9ff",
+              "surface-container-high": "#e1e8fd",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "surface-variant": "#dce2f7",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdad6",
+              "tertiary": "#bb0112",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-tint": "#006e2d",
+              "surface-dim": "#d3daef",
+              "on-tertiary-fixed": "#410002",
+              "secondary": "#0058be",
+              "on-secondary-fixed": "#001a42",
+              "surface-container-low": "#f1f3ff",
+              "on-tertiary": "#ffffff",
+              "on-background": "#141b2b",
+              "on-secondary-fixed-variant": "#004395",
+              "on-error-container": "#93000a",
+              "primary-container": "#00873a",
+              "secondary-container": "#2170e4",
+              "on-tertiary-fixed-variant": "#93000b",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "outline": "#6e7b6c",
+              "on-surface": "#141b2b",
+              "surface-container-highest": "#dce2f7",
+              "primary": "#006b2c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-6 py-3 w-full max-w-7xl mx-auto">
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50 font-headline">FinAssistant</h1>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 mt-16 pb-24 md:pb-0 px-4 md:px-8 max-w-5xl mx-auto w-full">
+<!-- Contextual Header -->
+<div class="py-8">
+<span class="text-[0.6875rem] font-medium tracking-wide uppercase text-secondary mb-2 block">Configuração Inicial</span>
+<h2 class="text-3xl md:text-5xl font-bold tracking-tight text-on-background mb-4 font-headline">Despesas Fixas</h2>
+<p class="text-on-surface-variant max-w-lg leading-relaxed">Organize suas contas recorrentes. Definir seus custos mensais ajuda o FinAssistant a projetar seu saldo futuro com precisão editorial.</p>
+</div>
+<!-- Editorial Form Section -->
+<section class="space-y-6">
+<!-- Entry Row 1 -->
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl flex flex-col md:grid md:grid-cols-12 gap-6 items-end relative overflow-hidden transition-all hover:shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<!-- Asymmetric background accent -->
+<div class="absolute top-0 right-0 w-1 h-full bg-primary/20"></div>
+<div class="md:col-span-4 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Descrição</label>
+<input class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-slate-400" placeholder="Ex: Aluguel" type="text"/>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Valor</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500">R$</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="0,00" type="number"/>
+</div>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Vencimento</label>
+<input class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" max="31" min="1" placeholder="Dia" type="number"/>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Categoria</label>
+<select class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option>Moradia</option>
+<option>Lazer</option>
+<option>Saúde</option>
+<option>Educação</option>
+</select>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Conta</label>
+<select class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option>Principal</option>
+<option>Reserva</option>
+</select>
+</div>
+</div>
+<!-- Entry Row 2 -->
+<div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl flex flex-col md:grid md:grid-cols-12 gap-6 items-end relative overflow-hidden transition-all hover:shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<div class="absolute top-0 right-0 w-1 h-full bg-primary/20"></div>
+<div class="md:col-span-4 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Descrição</label>
+<input class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all placeholder:text-slate-400" placeholder="Ex: Internet" type="text"/>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Valor</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-500">R$</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="0,00" type="number"/>
+</div>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Vencimento</label>
+<input class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" max="31" min="1" placeholder="Dia" type="number"/>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Categoria</label>
+<select class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option>Tecnologia</option>
+<option>Moradia</option>
+<option>Lazer</option>
+</select>
+</div>
+<div class="md:col-span-2 w-full">
+<label class="text-[0.6875rem] font-semibold text-outline uppercase mb-2 block">Conta</label>
+<select class="w-full h-11 px-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option>Principal</option>
+<option>Cartão Crédito</option>
+</select>
+</div>
+</div>
+<!-- Add Button (Secondary Style) -->
+<button class="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-surface-container-high text-on-surface font-semibold hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                Adicionar outra despesa
+            </button>
+</section>
+<!-- Footer Actions -->
+<div class="mt-12 mb-24 flex flex-col md:flex-row items-center justify-between gap-4 py-8 border-t border-outline-variant/15">
+<div class="text-left hidden md:block">
+<p class="text-[0.6875rem] text-outline font-medium uppercase tracking-widest">Dica Editorial</p>
+<p class="text-xs text-on-surface-variant">Você poderá editar essas despesas a qualquer momento nas configurações.</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-3 rounded-xl text-primary font-bold hover:bg-primary-container/10 transition-all">
+                    Pular
+                </button>
+<button class="flex-[2] md:flex-none px-12 py-3 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-95 transition-all">
+                    Salvar e Continuar
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on desktop, shown on mobile as per requirement) -->
+<nav class="md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 z-50 rounded-t-2xl shadow-[0_-1px_0_0_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 tap-highlight-transparent active:opacity-70" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-[11px] font-medium tracking-wide uppercase mt-1">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 tap-highlight-transparent active:opacity-70" href="#">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span class="text-[11px] font-medium tracking-wide uppercase mt-1">Accounts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 tap-highlight-transparent active:opacity-70" href="#">
+<span class="material-symbols-outlined" data-icon="insert_chart">insert_chart</span>
+<span class="text-[11px] font-medium tracking-wide uppercase mt-1">Analysis</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[11px] font-medium tracking-wide uppercase mt-1">Settings</span>
+</a>
+</nav>
+<!-- Side Illustration/Context (Hidden on Mobile) -->
+<div class="fixed top-24 right-8 w-64 hidden xl:block pointer-events-none opacity-40">
+<div class="bg-surface-container p-6 rounded-2xl">
+<h4 class="font-headline font-bold text-on-surface mb-2">Por que despesas fixas?</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                Despesas fixas representam o alicerce da sua saúde financeira. Identificá-las permite que o sistema calcule automaticamente sua margem de investimento mensal.
+            </p>
+<div class="mt-4 flex gap-2">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"></div>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"></div>
+</div>
+</div>
+</div>
+</body></html>

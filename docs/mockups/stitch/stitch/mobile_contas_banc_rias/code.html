@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - Accounts Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "error-container": "#ffdad6",
+              "primary-container": "#00873a",
+              "outline-variant": "#bdcaba",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-container-highest": "#dce2f7",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "background": "#f9f9ff",
+              "primary-fixed": "#7ffc97",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed": "#410002",
+              "surface-tint": "#006e2d",
+              "on-background": "#141b2b",
+              "secondary": "#0058be",
+              "error": "#ba1a1a",
+              "on-primary-container": "#f7fff2",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-dim": "#d3daef",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff",
+              "inverse-surface": "#293040",
+              "on-primary-fixed-variant": "#005320",
+              "secondary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#93000b",
+              "tertiary-fixed": "#ffdad6",
+              "on-secondary-container": "#fefcff",
+              "surface-bright": "#f9f9ff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-container-high": "#e1e8fd",
+              "inverse-primary": "#62df7d",
+              "primary": "#006b2c",
+              "tertiary": "#bb0112",
+              "on-secondary-fixed": "#001a42",
+              "secondary-container": "#2170e4",
+              "tertiary-container": "#e02928",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed": "#d8e2ff",
+              "outline": "#6e7b6c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.08)]">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User profile photo" data-alt="Close-up portrait of a professional smiling woman in a bright modern office with soft natural lighting and minimalist decor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAamtAKAFrSsveFSxdv4f4d-fJZ1W_2HOnW_nP0LED8-Ah4LD-qCrbmEaIImo-2xazUjXTZVJwYsjn3Mlfv5ZEWgtqi0R4qRTwymb4cxzFSJsH4YcdPka8JzfPvL6nqaWm9QM8BhIbGY2VPEi8Qw19DVnOWvmJKRP1u0OEiLcbG_wX-DJg5iTZKsiXA6aY4gWXVu28x_GGIi469G4ELzCM6QfZ1C7ev_B99gWwE3EIg1_kCHL9l0T4SyaELZlp47FeyD-U0Mv02I-cv"/>
+</div>
+<h1 class="font-['Inter'] font-semibold text-[1.75rem] tracking-tight text-green-700">The Financial Editorial</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-zinc-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-zinc-500" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 px-6 space-y-8">
+<!-- Hero Section: Net Worth Asymmetry -->
+<section class="flex flex-col gap-1">
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider text-zinc-500">Patrimônio Líquido</span>
+<div class="flex items-baseline justify-between">
+<h2 class="text-[3.5rem] font-bold tracking-tight text-on-surface leading-none">R$ 12.450,00</h2>
+<div class="bg-primary-fixed px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[1rem] text-on-primary-fixed-variant" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] text-on-primary-fixed-variant">+2.4%</span>
+</div>
+</div>
+</section>
+<!-- Accounts Grid -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-[1.0rem] font-semibold text-on-surface">Minhas Contas</h3>
+<button class="text-primary font-semibold text-[0.875rem] hover:opacity-80 transition-opacity">Ver Todas</button>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Account Card: Carteira (Standard) -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.04)] flex flex-col gap-6 relative overflow-hidden group">
+<!-- Subtle brand background element -->
+<div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
+<span class="material-symbols-outlined text-[8rem]" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-zinc-600" data-icon="wallet">wallet</span>
+</div>
+<div>
+<h4 class="text-[1.0rem] font-semibold text-on-surface">Carteira</h4>
+<span class="font-['Inter'] font-medium text-[0.6875rem] text-zinc-500 uppercase tracking-widest">Padrão</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-zinc-400" data-icon="more_vert">more_vert</span>
+</div>
+<div class="space-y-1">
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider text-zinc-400">Saldo Disponível</span>
+<p class="text-[1.75rem] font-semibold tracking-tight text-on-surface">R$ 450,00</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex-1 bg-surface-container-high text-on-surface py-3 px-4 rounded-xl font-semibold text-[0.875rem] transition-all active:scale-95">Extrato</button>
+<button class="flex-1 bg-surface-container-high text-on-surface py-3 px-4 rounded-xl font-semibold text-[0.875rem] transition-all active:scale-95">Ajustar</button>
+<button class="flex-none aspect-square bg-primary text-on-primary p-3 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined block" data-icon="sync_alt">sync_alt</span>
+</button>
+</div>
+</div>
+<!-- Account Card: Nubank -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_24px_48px_-12px_rgba(20,27,43,0.04)] flex flex-col gap-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
+<span class="material-symbols-outlined text-[8rem]" data-icon="account_balance">account_balance</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#820ad1]/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#820ad1]" data-icon="credit_card">credit_card</span>
+</div>
+<div>
+<h4 class="text-[1.0rem] font-semibold text-on-surface">Nubank</h4>
+<span class="font-['Inter'] font-medium text-[0.6875rem] text-zinc-500 uppercase tracking-widest">Conta Corrente</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-zinc-400" data-icon="more_vert">more_vert</span>
+</div>
+<div class="space-y-1">
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider text-zinc-400">Saldo Disponível</span>
+<p class="text-[1.75rem] font-semibold tracking-tight text-on-surface">R$ 12.000,00</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex-1 bg-surface-container-high text-on-surface py-3 px-4 rounded-xl font-semibold text-[0.875rem] transition-all active:scale-95">Extrato</button>
+<button class="flex-1 bg-surface-container-high text-on-surface py-3 px-4 rounded-xl font-semibold text-[0.875rem] transition-all active:scale-95">Ajustar</button>
+<button class="flex-none aspect-square bg-primary text-on-primary p-3 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined block" data-icon="sync_alt">sync_alt</span>
+</button>
+</div>
+</div>
+<!-- Add New Account - Editorial Pattern -->
+<button class="border-2 border-dashed border-outline-variant/30 rounded-xl p-8 flex flex-col items-center justify-center gap-2 group hover:border-primary/40 transition-all active:scale-[0.98]">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-on-primary-fixed-variant" data-icon="add">add</span>
+</div>
+<span class="font-semibold text-on-surface-variant group-hover:text-primary transition-colors">+ Nova Conta</span>
+</button>
+</div>
+</section>
+<!-- Insights Bento Grid -->
+<section class="space-y-6">
+<h3 class="text-[1.0rem] font-semibold text-on-surface">Insights do Mês</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-1 bg-primary-container p-4 rounded-xl text-on-primary-container flex flex-col justify-between h-32">
+<span class="material-symbols-outlined" data-icon="savings">savings</span>
+<p class="text-[0.875rem] font-medium leading-tight">Você economizou 15% a mais que julho.</p>
+</div>
+<div class="col-span-1 bg-secondary-container p-4 rounded-xl text-on-secondary-container flex flex-col justify-between h-32">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<p class="text-[0.875rem] font-medium leading-tight">Sua rentabilidade está acima do CDI.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl z-50 rounded-t-[2rem] shadow-[0px_-8px_24px_rgba(0,0,0,0.04)]">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 opacity-70 hover:opacity-100 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Dashboard</span>
+</a>
+<!-- Transactions -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 opacity-70 hover:opacity-100 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Transactions</span>
+</a>
+<!-- Accounts (Active) -->
+<a class="flex flex-col items-center justify-center text-green-700 dark:text-green-400 font-bold bg-green-50 dark:bg-green-900/20 rounded-xl px-3 py-1 active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Accounts</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 opacity-70 hover:opacity-100 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] font-medium text-[0.6875rem] uppercase tracking-wider mt-1">Settings</span>
+</a>
+</nav>
+<!-- Contextual FAB (Only on Dashboard/Accounts main views) -->
+<button class="fixed bottom-28 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-[1.75rem]" data-icon="add">add</span>
+</button>
+</body></html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinAssistant - Recuperar Senha</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f1f3ff",
+              "error-container": "#ffdad6",
+              "primary-container": "#00873a",
+              "outline-variant": "#bdcaba",
+              "on-secondary-fixed-variant": "#004395",
+              "surface-container-highest": "#dce2f7",
+              "on-surface-variant": "#3e4a3d",
+              "surface-container": "#e9edff",
+              "background": "#f9f9ff",
+              "primary-fixed": "#7ffc97",
+              "on-surface": "#141b2b",
+              "on-tertiary-fixed": "#410002",
+              "surface-tint": "#006e2d",
+              "on-background": "#141b2b",
+              "secondary": "#0058be",
+              "error": "#ba1a1a",
+              "on-primary-container": "#f7fff2",
+              "tertiary-fixed-dim": "#ffb4ab",
+              "surface-dim": "#d3daef",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#62df7d",
+              "on-tertiary-container": "#fffbff",
+              "inverse-surface": "#293040",
+              "on-primary-fixed-variant": "#005320",
+              "secondary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#93000b",
+              "tertiary-fixed": "#ffdad6",
+              "on-secondary-container": "#fefcff",
+              "surface-bright": "#f9f9ff",
+              "inverse-on-surface": "#edf0ff",
+              "surface-container-high": "#e1e8fd",
+              "inverse-primary": "#62df7d",
+              "primary": "#006b2c",
+              "tertiary": "#bb0112",
+              "on-secondary-fixed": "#001a42",
+              "secondary-container": "#2170e4",
+              "tertiary-container": "#e02928",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#002109",
+              "surface": "#f9f9ff",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "surface-variant": "#dce2f7",
+              "secondary-fixed": "#d8e2ff",
+              "outline": "#6e7b6c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Header Navigation (Back Button) -->
+<nav class="flex items-center px-6 h-16 w-full max-w-screen-xl mx-auto fixed top-0 z-50">
+<button class="flex items-center justify-center w-10 h-10 rounded-xl hover:bg-zinc-100 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col px-6 pt-24 pb-12 w-full max-w-md mx-auto">
+<!-- Brand / Context Icon -->
+<div class="mb-8 flex justify-start">
+<div class="w-14 h-14 bg-surface-container-high rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">lock_reset</span>
+</div>
+</div>
+<!-- Headline & Editorial Lead -->
+<header class="mb-10">
+<h1 class="text-[1.75rem] font-semibold tracking-tight text-on-surface leading-tight mb-3 font-headline">
+                Recuperar senha
+            </h1>
+<p class="text-[0.875rem] text-on-surface-variant leading-relaxed font-body">
+                Insira o e-mail associado à sua conta e enviaremos um link editorial para redefinir sua credencial de acesso.
+            </p>
+</header>
+<!-- Reset Password Form Section -->
+<section class="space-y-8">
+<div class="space-y-2">
+<label class="text-[0.6875rem] font-medium uppercase tracking-wider text-outline px-1" for="email">
+                    Endereço de E-mail
+                </label>
+<div class="relative">
+<input class="w-full h-14 px-4 bg-surface-container-highest border-none rounded-xl text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all duration-200 outline-none" id="email" placeholder="nome@exemplo.com" type="email"/>
+</div>
+</div>
+<!-- Action Button with Signature Gradient -->
+<button class="w-full h-14 bg-gradient-to-br from-primary to-primary-container text-on-primary font-semibold rounded-xl shadow-lg active:scale-[0.98] transition-all duration-200">
+                Enviar link
+            </button>
+</section>
+<!-- Secondary Info / Footer Link -->
+<footer class="mt-auto pt-12 flex justify-center">
+<button class="text-[0.875rem] font-medium text-primary hover:underline decoration-2 underline-offset-4">
+                Voltar para login
+            </button>
+</footer>
+</main>
+<!-- Success State Overlay (Hidden by Default, illustrative of the requested flow) -->
+<!-- 
+    Note: To show success state, add "flex" and remove "hidden" from the div below, 
+    and hide the main canvas above.
+    -->
+<div class="hidden fixed inset-0 bg-background z-[100] flex-col px-6 items-center justify-center text-center">
+<div class="w-20 h-20 bg-primary-fixed rounded-full flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-on-primary-fixed-variant text-4xl" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<h2 class="text-[1.75rem] font-bold tracking-tight text-on-surface mb-3 font-headline">
+            E-mail enviado!
+        </h2>
+<p class="text-[0.875rem] text-on-surface-variant leading-relaxed font-body max-w-[280px] mb-12">
+            Verifique sua caixa de entrada. Enviamos as instruções para você retomar o controle de suas finanças.
+        </p>
+<button class="px-8 py-3 bg-surface-container-high text-on-surface font-semibold rounded-xl active:scale-95 transition-all">
+            Voltar para login
+        </button>
+</div>
+<!-- Background Decoration (Editorial Texture) -->
+<div class="fixed top-0 right-0 -z-10 w-64 h-64 bg-primary/5 blur-[100px] rounded-full"></div>
+<div class="fixed bottom-0 left-0 -z-10 w-80 h-80 bg-secondary/5 blur-[120px] rounded-full"></div>
+</body></html>
