@@ -22,8 +22,8 @@ Lista de funcionalidades organizadas por milestone.
 
 | Milestone | Descricao | Dependencias |
 |-----------|-----------|--------------|
-| **M5-010→012** | Matching categoria/conta (fuzzy match) | M4-026 (concluido) |
-| **M8-001→008** | Multi-tenancy basico (users, orgs) | M4 (concluido) |
+| ~~**M5-010→012**~~ | ~~Matching categoria/conta (fuzzy match)~~ | ✅ Concluido |
+| ~~**M8-001→008**~~ | ~~Multi-tenancy basico (users, orgs)~~ | ✅ Concluido |
 | **M6-018** | Relatorios/Graficos | M6 ✅ (9/11 telas prontas) |
 | ~~**M6-020**~~ | ~~Tela de Recorrencias~~ | ✅ Concluido |
 
@@ -31,8 +31,8 @@ Lista de funcionalidades organizadas por milestone.
 
 | Milestone | Descricao | Dependencias |
 |-----------|-----------|--------------|
-| **M4-050→056** | Recorrencias | ✅ Concluido |
-| **M4-060→065** | Relatorios (resumo, por categoria) | M4 (concluido) |
+| ~~**M4-050→056**~~ | ~~Recorrencias~~ | ✅ Concluido |
+| ~~**M4-060→065**~~ | ~~Relatorios (resumo, por categoria)~~ | ✅ Concluido |
 
 ### Despriorizado (Aguardando Feedback)
 
@@ -263,16 +263,16 @@ Lista de funcionalidades organizadas por milestone.
 | M4-055 | Endpoints REST /recurrences | P2 | [x] | CRUD + pause/resume/generate |
 | M4-056 | Testes: Recurrences | P2 | [x] | 16 testes |
 
-### Relatorios - MEDIO PRAZO
+### Relatorios - CONCLUIDO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M4-060 | Action: GetPeriodSummary | P2 | [ ] | Receitas, despesas, saldo |
-| M4-061 | Action: GetCategorySummary | P2 | [ ] | Totais por categoria |
-| M4-062 | Action: GetAccountsSummary | P2 | [ ] | Saldo por conta |
-| M4-063 | Endpoint GET /reports/summary | P2 | [ ] | Medio prazo |
-| M4-064 | Endpoint GET /reports/by-category | P2 | [ ] | Medio prazo |
-| M4-065 | Testes: Reports | P2 | [ ] | - |
+| M4-060 | Action: GetPeriodSummary | P2 | [x] | Receitas, despesas, saldo |
+| M4-061 | Action: GetCategorySummary | P2 | [x] | Totais por categoria |
+| M4-062 | Action: GetAccountsSummary | P2 | [x] | Saldo por conta |
+| M4-063 | Endpoint GET /reports/summary | P2 | [x] | - |
+| M4-064 | Endpoint GET /reports/by-category | P2 | [x] | + /reports/by-account |
+| M4-065 | Testes: Reports | P2 | [x] | 10 testes |
 
 ---
 
@@ -288,13 +288,13 @@ Lista de funcionalidades organizadas por milestone.
 | M5-004 | Limpar dados pendentes apos registro | P0 | [x] | - |
 | M5-005 | Enviar confirmacao de sucesso | P0 | [x] | - |
 
-### Mapeamento - CURTO PRAZO
+### Mapeamento - CONCLUIDO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M5-010 | Mapear categoria extraida → categoria do usuario | P1 | [ ] | Fuzzy match |
-| M5-011 | Usar categoria padrao se nao encontrar | P1 | [ ] | "Pendente de Classificacao" |
-| M5-012 | Usar conta padrao do usuario | P1 | [ ] | - |
+| M5-010 | Mapear categoria extraida → categoria do usuario | P1 | [x] | FindCategoryByKeyword action |
+| M5-011 | Usar categoria padrao se nao encontrar | P1 | [x] | handleWithFallback retorna "Pendente de Classificacao" |
+| M5-012 | Usar conta padrao do usuario | P1 | [x] | FindAccountByName action com handleWithFallback |
 
 ### Correcoes - DESPRIORIZADO
 
@@ -388,18 +388,18 @@ Lista de funcionalidades organizadas por milestone.
 
 > **Documentacao:** [docs/ARQUITETURA-LEDGER.md](ARQUITETURA-LEDGER.md)
 
-### Organizacoes e Usuarios
+### Organizacoes e Usuarios - CONCLUIDO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M8-001 | Migration: tabela users | P0 | [ ] | phone como identificador principal |
-| M8-002 | Migration: tabela organizations | P0 | [ ] | type: personal, couple, business |
-| M8-003 | Migration: tabela organization_users | P0 | [ ] | roles e permissoes |
-| M8-004 | Model User | P0 | [ ] | - |
-| M8-005 | Model Organization | P0 | [ ] | - |
-| M8-006 | Middleware de tenant | P0 | [ ] | Isolamento por organization_id |
-| M8-007 | Seeder: organizacao padrao para testes | P1 | [ ] | - |
-| M8-008 | Testes: Organizations | P0 | [ ] | - |
+| M8-001 | Migration: tabela users | P0 | [x] | phone como identificador principal |
+| M8-002 | Migration: tabela organizations | P0 | [x] | type: personal, couple, family, business |
+| M8-003 | Migration: tabela organization_users | P0 | [x] | roles e permissoes |
+| M8-004 | Model User | P0 | [x] | + relationships to organizations |
+| M8-005 | Model Organization | P0 | [x] | + OrganizationType enum |
+| M8-006 | Middleware de tenant | P0 | [x] | Isolamento por phone (vinculado a org) |
+| M8-007 | Seeder: organizacao padrao para testes | P1 | [x] | TestOrganizationSeeder |
+| M8-008 | Testes: Organizations | P0 | [x] | 13 testes |
 
 ### Plano de Contas
 
@@ -466,14 +466,14 @@ Lista de funcionalidades organizadas por milestone.
 ## Proximos Passos
 
 ### Sprint Atual (Curto Prazo)
-1. **M5-010→012** - Fuzzy matching de categorias/contas
-2. **M8-001→008** - Multi-tenancy basico (users, organizations)
+1. ~~**M5-010→012** - Fuzzy matching de categorias/contas~~ ✅ Concluido
+2. ~~**M8-001→008** - Multi-tenancy basico (users, organizations)~~ ✅ Concluido
 3. ~~**M6-001→007** - Setup do frontend Vue~~ ✅ Concluido
 4. ~~**M6-010→020** - Telas principais~~ ✅ Quase concluido (falta M6-018 Relatorios)
 
 ### Sprint Seguinte (Medio Prazo)
 1. ~~**M4-050→056** - Recorrencias~~ ✅ Concluido
-2. **M4-060→065** - Relatorios simples
+2. ~~**M4-060→065** - Relatorios simples~~ ✅ Concluido
 3. ~~**M8-010→026** - Ledger~~ [-] Despriorizado
 
 ---
