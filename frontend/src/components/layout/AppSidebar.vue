@@ -7,6 +7,7 @@ import {
   Wallet,
   Tags,
   CreditCard,
+  Repeat,
   Settings,
   type LucideIcon,
 } from 'lucide-vue-next'
@@ -25,6 +26,7 @@ const navItems: NavItem[] = [
   { name: 'Contas', path: '/accounts', icon: Wallet },
   { name: 'Categorias', path: '/categories', icon: Tags },
   { name: 'Cartoes', path: '/credit-cards', icon: CreditCard },
+  { name: 'Recorrencias', path: '/recurrences', icon: Repeat },
   { name: 'Configuracoes', path: '/settings', icon: Settings },
 ]
 

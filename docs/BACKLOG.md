@@ -23,14 +23,15 @@ Lista de funcionalidades organizadas por milestone.
 | Milestone | Descricao | Dependencias |
 |-----------|-----------|--------------|
 | **M5-010→012** | Matching categoria/conta (fuzzy match) | M4-026 (concluido) |
-| **M8** | Multi-tenancy + Ledger | M4 (concluido) |
-| **M6** | Interface Grafica (Vue) | M4, M5 |
+| **M8-001→008** | Multi-tenancy basico (users, orgs) | M4 (concluido) |
+| **M6-018** | Relatorios/Graficos | M6 ✅ (9/11 telas prontas) |
+| ~~**M6-020**~~ | ~~Tela de Recorrencias~~ | ✅ Concluido |
 
 ### Medio Prazo
 
 | Milestone | Descricao | Dependencias |
 |-----------|-----------|--------------|
-| **M4-050→056** | Recorrencias | M4 (concluido) |
+| **M4-050→056** | Recorrencias | ✅ Concluido |
 | **M4-060→065** | Relatorios (resumo, por categoria) | M4 (concluido) |
 
 ### Despriorizado (Aguardando Feedback)
@@ -39,6 +40,7 @@ Lista de funcionalidades organizadas por milestone.
 |-----------|-----------|--------|
 | **M5-020→022** | Correcoes do usuario | Aguardar usuarios reais testarem |
 | **M7** | Consultas de Posicoes | Complexidade vs valor |
+| **M8-010→035** | Ledger (partidas dobradas) | Over-engineering para finanças pessoais |
 
 ---
 
@@ -210,10 +212,12 @@ Lista de funcionalidades organizadas por milestone.
 | M4-081 | Migration: tabela installments (demonstrativo) | P1 | [x] | Parcelas - apenas informativo |
 | M4-082 | Model InstallmentPurchase | P1 | [x] | valor_total, parcelas, cartao_id |
 | M4-083 | Model Installment | P1 | [x] | Vinculado a compra |
-| M4-084 | Action: CreateInstallmentPurchase | P1 | [ ] | Cria compra + projecao parcelas |
-| M4-085 | Action: CalculateInvoiceMonth | P1 | [ ] | Baseado no fechamento do cartao |
+| M4-084 | Action: CreateInstallmentPurchase | P1 | [x] | Cria compra + projecao parcelas |
+| M4-085 | Action: CalculateInvoiceMonth | P1 | [x] | CreditCard::getInvoiceMonthForDate() |
 | M4-086 | Categoria "Pendente de classificacao" | P0 | [x] | Fallback para OCR/audio |
-| M4-087 | Testes: InstallmentPurchases | P1 | [ ] | - |
+| M4-087 | Testes: InstallmentPurchases | P1 | [x] | 20 testes (action + controller) |
+| M4-088 | Endpoints REST /installment-purchases | P1 | [x] | index, show, by-month, summary |
+| M4-089 | Endpoint: marcar parcela como paga | P2 | [x] | POST /installments/{id}/mark-paid |
 
 ### Categorias
 
@@ -247,17 +251,17 @@ Lista de funcionalidades organizadas por milestone.
 | M4-040 | Filtros: periodo, categoria, conta, tipo | P1 | [x] | - |
 | M4-041 | Testes: Transactions | P0 | [x] | - |
 
-### Recorrencias - MEDIO PRAZO
+### Recorrencias - CONCLUIDO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M4-050 | Migration: tabela recurrences | P2 | [ ] | Medio prazo |
-| M4-051 | Model Recurrence | P2 | [ ] | Medio prazo |
-| M4-052 | Enum: RecurrenceFrequency | P2 | [ ] | daily, weekly, monthly, yearly |
-| M4-053 | Action: CreateRecurrence | P2 | [ ] | - |
-| M4-054 | Action: GeneratePendingTransactions | P2 | [ ] | Job/Command |
-| M4-055 | Endpoints REST /recurrences | P2 | [ ] | - |
-| M4-056 | Testes: Recurrences | P2 | [ ] | - |
+| M4-050 | Migration: tabela recurrences | P2 | [x] | Scheduling fields (day_of_month, day_of_week, etc) |
+| M4-051 | Model Recurrence | P2 | [x] | Com scopes, metodos e relacionamentos |
+| M4-052 | Enum: RecurrenceFrequency | P2 | [x] | daily, weekly, monthly, yearly |
+| M4-053 | Action: CreateRecurrence | P2 | [x] | + UpdateRecurrence, DeleteRecurrence |
+| M4-054 | Action: GeneratePendingTransactions | P2 | [x] | Job/Command - cria PendingTransaction |
+| M4-055 | Endpoints REST /recurrences | P2 | [x] | CRUD + pause/resume/generate |
+| M4-056 | Testes: Recurrences | P2 | [x] | 16 testes |
 
 ### Relatorios - MEDIO PRAZO
 
@@ -302,46 +306,51 @@ Lista de funcionalidades organizadas por milestone.
 
 ---
 
-## M6 - Interface Grafica - CURTO PRAZO
+## M6 - Interface Grafica - QUASE CONCLUIDO
 
-### Setup
+### Setup - CONCLUIDO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M6-001 | Criar projeto Vue 3 + TypeScript | P0 | [ ] | Vite |
-| M6-002 | Configurar Tailwind CSS 4 | P0 | [ ] | - |
-| M6-003 | Configurar shadcn-vue | P0 | [ ] | Componentes |
-| M6-004 | Configurar Pinia | P0 | [ ] | Estado |
-| M6-005 | Configurar roteamento (Vue Router) | P0 | [ ] | - |
-| M6-006 | Cliente HTTP (axios/fetch) | P0 | [ ] | - |
-| M6-007 | Autenticacao (integrar com API) | P0 | [ ] | - |
+| M6-001 | Criar projeto Vue 3 + TypeScript | P0 | [x] | Vite + pnpm |
+| M6-002 | Configurar Tailwind CSS 4 | P0 | [x] | - |
+| M6-003 | Configurar shadcn-vue | P0 | [x] | components.json |
+| M6-004 | Configurar Pinia | P0 | [x] | Estado |
+| M6-005 | Configurar roteamento (Vue Router) | P0 | [x] | - |
+| M6-006 | Cliente HTTP (axios/fetch) | P0 | [x] | fetch nativo |
+| M6-007 | Autenticacao (integrar com API) | P0 | [x] | X-Phone header |
 
 ### Telas
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M6-010 | Login via WhatsApp | P0 | [ ] | - |
-| M6-011 | Dashboard | P0 | [ ] | Cards de resumo |
-| M6-012 | Lista de transacoes | P0 | [ ] | Com filtros |
-| M6-013 | Formulario de transacao | P0 | [ ] | Criar/editar |
-| M6-014 | Lista de contas | P1 | [ ] | - |
-| M6-015 | Formulario de conta | P1 | [ ] | - |
-| M6-016 | Lista de categorias | P1 | [ ] | - |
-| M6-017 | Formulario de categoria | P1 | [ ] | - |
+| M6-010 | Login via WhatsApp | P0 | [x] | LoginView + RegisterView |
+| M6-011 | Dashboard | P0 | [x] | SummaryCards, RecentTransactions, PeriodFilter |
+| M6-012 | Lista de transacoes | P0 | [x] | TransactionsView com filtros |
+| M6-013 | Formulario de transacao | P0 | [x] | TransactionModal |
+| M6-014 | Lista de contas | P1 | [x] | AccountsView com AccountCard |
+| M6-015 | Formulario de conta | P1 | [x] | AccountModal |
+| M6-016 | Lista de categorias | P1 | [x] | CategoriesView com CategoryTable |
+| M6-017 | Formulario de categoria | P1 | [x] | CategoryModal + ColorPicker + IconPicker |
 | M6-018 | Relatorios/Graficos | P2 | [ ] | - |
-| M6-019 | Configuracoes | P2 | [ ] | - |
-| M6-020 | Recorrencias | P2 | [ ] | - |
+| M6-019 | Configuracoes | P2 | [x] | SettingsView |
+| M6-020 | Recorrencias | P2 | [x] | RecurrencesView + RecurrenceCard + RecurrenceModal |
+| M6-021 | Cartoes de Credito | P1 | [x] | CreditCardsView + InvoiceDetails |
 
 ### Componentes
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M6-030 | Card de resumo financeiro | P0 | [ ] | Ref: GranaZen |
-| M6-031 | Lista de transacoes | P0 | [ ] | - |
-| M6-032 | Filtros de periodo | P0 | [ ] | - |
-| M6-033 | Modal de confirmacao | P1 | [ ] | - |
+| M6-030 | Card de resumo financeiro | P0 | [x] | SummaryCards.vue |
+| M6-031 | Lista de transacoes | P0 | [x] | TransactionList + TransactionListItem |
+| M6-032 | Filtros de periodo | P0 | [x] | PeriodFilter.vue |
+| M6-033 | Modal de confirmacao | P1 | [x] | Dialog (shadcn-vue) |
 | M6-034 | Grafico de pizza (categorias) | P2 | [ ] | - |
 | M6-035 | Grafico de linhas (evolucao) | P2 | [ ] | - |
+| M6-036 | Layout responsivo | P0 | [x] | AppLayout + AppSidebar + MobileNav |
+| M6-037 | FAB (botao flutuante) | P1 | [x] | FloatingActionButton.vue |
+| M6-038 | Color Picker | P2 | [x] | ColorPicker.vue |
+| M6-039 | Icon Picker | P2 | [x] | IconPicker.vue |
 
 ---
 
@@ -403,28 +412,30 @@ Lista de funcionalidades organizadas por milestone.
 | M8-014 | Vincular categories ao chart_accounts | P2 | [ ] | FK opcional |
 | M8-015 | Vincular accounts ao chart_accounts | P2 | [ ] | FK opcional |
 
-### Ledger (Feature Flag)
+### Ledger (Feature Flag) - DESPRIORIZADO
+
+> **Motivo:** Over-engineering para um app de finanças pessoais via WhatsApp. Usuários não pensam em débito/crédito. Nenhum app de referência (YNAB, Mobills, GranaZen) expõe partidas dobradas. Documentação preservada em `docs/ARQUITETURA-LEDGER.md` caso necessário no futuro.
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M8-020 | Config: features.ledger.enabled | P1 | [ ] | Default: false |
-| M8-021 | Migration: tabela ledger_entries | P1 | [ ] | Partidas dobradas |
-| M8-022 | Model LedgerEntry | P1 | [ ] | - |
-| M8-023 | Service: LedgerService | P1 | [ ] | Gera entries automaticamente |
-| M8-024 | Validacao: debitos = creditos | P1 | [ ] | LedgerImbalanceException |
-| M8-025 | Integrar LedgerService no TransactionService | P1 | [ ] | Condicional a feature flag |
-| M8-026 | Testes: LedgerService | P1 | [ ] | - |
+| M8-020 | Config: features.ledger.enabled | P3 | [-] | Despriorizado |
+| M8-021 | Migration: tabela ledger_entries | P3 | [-] | Despriorizado |
+| M8-022 | Model LedgerEntry | P3 | [-] | Despriorizado |
+| M8-023 | Service: LedgerService | P3 | [-] | Despriorizado |
+| M8-024 | Validacao: debitos = creditos | P3 | [-] | Despriorizado |
+| M8-025 | Integrar LedgerService no TransactionService | P3 | [-] | Despriorizado |
+| M8-026 | Testes: LedgerService | P3 | [-] | Despriorizado |
 
-### Relatorios Contabeis (requer Ledger)
+### Relatorios Contabeis (requer Ledger) - DESPRIORIZADO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M8-030 | Action: GetBalancete | P2 | [ ] | Saldo de todas as contas |
-| M8-031 | Action: GetDRE | P2 | [ ] | Demonstracao do Resultado |
-| M8-032 | Action: GetBalancoPatrimonial | P2 | [ ] | Ativos = Passivos + PL |
-| M8-033 | Action: GetRazaoAnalitico | P3 | [ ] | Movimentacao por conta |
-| M8-034 | Endpoint GET /reports/balancete | P2 | [ ] | - |
-| M8-035 | Endpoint GET /reports/dre | P2 | [ ] | - |
+| M8-030 | Action: GetBalancete | P3 | [-] | Despriorizado |
+| M8-031 | Action: GetDRE | P3 | [-] | Despriorizado |
+| M8-032 | Action: GetBalancoPatrimonial | P3 | [-] | Despriorizado |
+| M8-033 | Action: GetRazaoAnalitico | P3 | [-] | Despriorizado |
+| M8-034 | Endpoint GET /reports/balancete | P3 | [-] | Despriorizado |
+| M8-035 | Endpoint GET /reports/dre | P3 | [-] | Despriorizado |
 
 ---
 
@@ -457,12 +468,13 @@ Lista de funcionalidades organizadas por milestone.
 ### Sprint Atual (Curto Prazo)
 1. **M5-010→012** - Fuzzy matching de categorias/contas
 2. **M8-001→008** - Multi-tenancy basico (users, organizations)
-3. **M6-001→007** - Setup do frontend Vue
+3. ~~**M6-001→007** - Setup do frontend Vue~~ ✅ Concluido
+4. ~~**M6-010→020** - Telas principais~~ ✅ Quase concluido (falta M6-018 Relatorios)
 
 ### Sprint Seguinte (Medio Prazo)
-1. **M4-050→056** - Recorrencias
-2. **M4-060→065** - Relatorios
-3. **M8-010→026** - Ledger (feature flag)
+1. ~~**M4-050→056** - Recorrencias~~ ✅ Concluido
+2. **M4-060→065** - Relatorios simples
+3. ~~**M8-010→026** - Ledger~~ [-] Despriorizado
 
 ---
 

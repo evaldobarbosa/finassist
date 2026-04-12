@@ -47,6 +47,12 @@ const router = createRouter({
       meta: { requiresAuth: true, title: 'Cartoes de Credito' }
     },
     {
+      path: '/recurrences',
+      name: 'recurrences',
+      component: () => import('@/views/RecurrencesView.vue'),
+      meta: { requiresAuth: true, title: 'Recorrencias' }
+    },
+    {
       path: '/settings',
       name: 'settings',
       component: () => import('@/views/SettingsView.vue'),

@@ -22,7 +22,7 @@ const navItems: NavItem[] = [
   { name: 'Inicio', path: '/', icon: LayoutDashboard },
   { name: 'Transacoes', path: '/transactions', icon: Receipt },
   { name: 'Contas', path: '/accounts', icon: Wallet },
-  { name: 'Mais', path: '/settings', icon: MoreHorizontal, matchPaths: ['/settings', '/categories', '/credit-cards'] },
+  { name: 'Mais', path: '/settings', icon: MoreHorizontal, matchPaths: ['/settings', '/categories', '/credit-cards', '/recurrences'] },
 ]
 
 const currentPath = computed(() => route.path)

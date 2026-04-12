@@ -98,6 +98,17 @@ export interface PaginatedResponse<T> {
   total_pages: number
 }
 
+export interface TransactionsResponse {
+  data: Transaction[]
+  receitas: number
+  despesas: number
+  saldo: number
+  current_page: number
+  last_page: number
+  per_page: number
+  total: number
+}
+
 // Dashboard types
 export interface DashboardSummary {
   previous_balance: number
@@ -106,4 +117,33 @@ export interface DashboardSummary {
   current_balance: number
   period_start: string
   period_end: string
+}
+
+// Recurrence types
+export type RecurrenceFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
+
+export interface Recurrence {
+  id: string
+  phone: string
+  account_id: string
+  category_id?: string
+  credit_card_id?: string
+  type: 'income' | 'expense'
+  frequency: RecurrenceFrequency
+  amount: number
+  description: string
+  notes?: string
+  day_of_month?: number
+  day_of_week?: number
+  month_of_year?: number
+  start_date: string
+  end_date?: string
+  last_generated_at?: string
+  next_due_date: string
+  is_active: boolean
+  account?: Account
+  category?: Category
+  credit_card?: CreditCard
+  created_at: string
+  updated_at: string
 }
