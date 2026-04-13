@@ -453,6 +453,18 @@ Lista de funcionalidades organizadas por milestone.
 | DT-015 | Implementar retry para falhas | P2 | [ ] | Reprocessar eventos com erro |
 | DT-016 | Dashboard de filas (Horizon) | P3 | [ ] | Monitoramento de jobs |
 
+### OCR / Processamento de Imagens
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| DT-020 | Melhorar OCR para imagens horizontais | P2 | [ ] | Tesseract tem dificuldade com layouts horizontais |
+| DT-021 | Adicionar suporte a GPT-4 Vision | P2 | [ ] | Melhor precisao para comprovantes complexos |
+| DT-022 | Adicionar suporte a Gemini Vision | P2 | [ ] | Alternativa mais barata ao GPT-4 |
+| DT-023 | Preprocessamento adaptativo de imagens | P3 | [ ] | Detectar orientacao, ajustar contraste/escala |
+| DT-024 | Fallback automatico entre drivers OCR | P3 | [ ] | Se Tesseract falhar, tentar Vision API |
+
+> **Status atual:** OCR com Tesseract funciona bem para imagens verticais. Suficiente para testes.
+
 ### Docker / Containers
 
 | ID | Item | Prioridade | Status | Notas |

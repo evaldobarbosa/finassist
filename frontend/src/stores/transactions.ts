@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type { Transaction, TransactionType } from '@/types'
 
@@ -7,19 +7,33 @@ export interface TransactionFilters {
   type: TransactionType | ''
   account_id: string
   category_id: string
-  start_date: string
-  end_date: string
 }
 
 export const useTransactionsStore = defineStore('transactions', () => {
+  // Period state (month/year)
+  const currentDate = new Date()
+  const period = ref({
+    month: currentDate.getMonth(),
+    year: currentDate.getFullYear(),
+  })
+
+  // Compute period dates from month/year
+  const periodDates = computed(() => {
+    const startDate = new Date(period.value.year, period.value.month, 1)
+    const endDate = new Date(period.value.year, period.value.month + 1, 0)
+
+    return {
+      start: startDate.toISOString().split('T')[0],
+      end: endDate.toISOString().split('T')[0],
+    }
+  })
+
   // State
   const filters = ref<TransactionFilters>({
     search: '',
     type: '',
     account_id: '',
     category_id: '',
-    start_date: '',
-    end_date: '',
   })
 
   const currentPage = ref(1)
@@ -36,13 +50,16 @@ export const useTransactionsStore = defineStore('transactions', () => {
       filters.value.search ||
       filters.value.type ||
       filters.value.account_id ||
-      filters.value.category_id ||
-      filters.value.start_date ||
-      filters.value.end_date
+      filters.value.category_id
     )
   })
 
   // Actions
+  function setPeriod(newPeriod: { month: number; year: number }) {
+    period.value = newPeriod
+    currentPage.value = 1 // Reset to first page when period changes
+  }
+
   function setFilters(newFilters: Partial<TransactionFilters>) {
     filters.value = { ...filters.value, ...newFilters }
     currentPage.value = 1 // Reset to first page when filters change
@@ -54,8 +71,6 @@ export const useTransactionsStore = defineStore('transactions', () => {
       type: '',
       account_id: '',
       category_id: '',
-      start_date: '',
-      end_date: '',
     }
     currentPage.value = 1
   }
@@ -87,6 +102,8 @@ export const useTransactionsStore = defineStore('transactions', () => {
     const params: Record<string, string> = {
       page: currentPage.value.toString(),
       per_page: perPage.value.toString(),
+      start_date: periodDates.value.start,
+      end_date: periodDates.value.end,
     }
 
     if (filters.value.search) {
@@ -101,18 +118,14 @@ export const useTransactionsStore = defineStore('transactions', () => {
     if (filters.value.category_id) {
       params.category_id = filters.value.category_id
     }
-    if (filters.value.start_date) {
-      params.start_date = filters.value.start_date
-    }
-    if (filters.value.end_date) {
-      params.end_date = filters.value.end_date
-    }
 
     return params
   }
 
   return {
     // State
+    period,
+    periodDates,
     filters,
     currentPage,
     perPage,
@@ -125,6 +138,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
     hasActiveFilters,
 
     // Actions
+    setPeriod,
     setFilters,
     resetFilters,
     setPage,

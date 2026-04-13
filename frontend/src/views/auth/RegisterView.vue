@@ -1,168 +1,81 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { MessageCircle, ArrowLeft, ArrowRight, Loader2, User, Mail, CheckCircle } from 'lucide-vue-next'
-import { useAuthStore } from '@/stores/auth'
-import { api } from '@/lib/api'
-import { PhoneInput } from '@/components/ui/phone-input'
-import { OtpInput } from '@/components/ui/otp-input'
-import { Input } from '@/components/ui/input'
+import { Loader2, Eye, EyeOff, CheckCircle } from 'lucide-vue-next'
+import { useAuth } from '@/composables/useAuth'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 const router = useRouter()
-const authStore = useAuthStore()
+const { register } = useAuth()
 
-type Step = 'phone' | 'verification' | 'profile'
-
-const step = ref<Step>('phone')
-const phone = ref('')
-const verificationCode = ref('')
 const name = ref('')
 const email = ref('')
+const password = ref('')
+const passwordConfirmation = ref('')
+const showPassword = ref(false)
+const showPasswordConfirmation = ref(false)
 const isLoading = ref(false)
 const error = ref('')
-const resendCountdown = ref(0)
 
-const isPhoneValid = computed(() => phone.value.length === 11)
-const isProfileValid = computed(() => name.value.trim().length >= 2)
+const isFormValid = computed(() => {
+  return (
+    name.value.trim().length >= 2 &&
+    email.value.includes('@') &&
+    password.value.length >= 8 &&
+    password.value === passwordConfirmation.value
+  )
+})
 
-const steps = [
-  { id: 'phone', label: 'Telefone' },
-  { id: 'verification', label: 'Verificar' },
-  { id: 'profile', label: 'Perfil' },
-]
+const passwordStrength = computed(() => {
+  const pwd = password.value
+  if (!pwd) return 0
+  let strength = 0
+  if (pwd.length >= 8) strength++
+  if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) strength++
+  if (/\d/.test(pwd)) strength++
+  if (/[^a-zA-Z0-9]/.test(pwd)) strength++
+  return strength
+})
 
-const currentStepIndex = computed(() => steps.findIndex(s => s.id === step.value))
+const passwordStrengthLabel = computed(() => {
+  const labels = ['Muito fraca', 'Fraca', 'Media', 'Forte', 'Muito forte']
+  return labels[passwordStrength.value]
+})
 
-async function handlePhoneSubmit() {
-  if (!isPhoneValid.value) {
-    error.value = 'Digite um numero de telefone valido'
-    return
-  }
+const passwordStrengthColor = computed(() => {
+  const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-500', 'bg-emerald-500']
+  return colors[passwordStrength.value]
+})
 
-  isLoading.value = true
-  error.value = ''
-
-  try {
-    await api.post('/auth/request-code', { phone: phone.value })
-    step.value = 'verification'
-    startResendCountdown()
-  } catch (e) {
-    error.value = 'Erro ao enviar codigo. Tente novamente.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-async function handleVerificationSubmit(code?: string) {
-  const codeToVerify = code || verificationCode.value
-
-  if (codeToVerify.length !== 6) {
-    error.value = 'Digite o codigo completo'
-    return
-  }
-
-  isLoading.value = true
-  error.value = ''
-
-  try {
-    await api.post('/auth/verify-code', {
-      phone: phone.value,
-      code: codeToVerify,
-    })
-    step.value = 'profile'
-  } catch (e) {
-    error.value = 'Codigo invalido ou expirado.'
-    verificationCode.value = ''
-  } finally {
-    isLoading.value = false
-  }
-}
-
-async function handleProfileSubmit() {
-  if (!isProfileValid.value) {
-    error.value = 'Digite seu nome'
-    return
-  }
-
-  isLoading.value = true
-  error.value = ''
-
-  try {
-    const response = await api.post<{ id: string; phone: string; name: string; email?: string }>('/users', {
-      phone: phone.value,
-      name: name.value.trim(),
-      email: email.value.trim() || undefined,
-    })
-
-    authStore.setPhone(phone.value)
-    authStore.setUser({
-      ...response,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    })
-
-    router.push({ name: 'dashboard' })
-  } catch (e) {
-    error.value = 'Erro ao criar conta. Tente novamente.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-function handleCodeComplete(code: string) {
-  handleVerificationSubmit(code)
-}
-
-function startResendCountdown() {
-  resendCountdown.value = 60
-  const interval = setInterval(() => {
-    resendCountdown.value--
-    if (resendCountdown.value <= 0) {
-      clearInterval(interval)
+async function handleSubmit() {
+  if (!isFormValid.value) {
+    if (password.value !== passwordConfirmation.value) {
+      error.value = 'As senhas nao conferem'
+    } else if (password.value.length < 8) {
+      error.value = 'A senha deve ter pelo menos 8 caracteres'
+    } else {
+      error.value = 'Preencha todos os campos corretamente'
     }
-  }, 1000)
-}
-
-async function resendCode() {
-  if (resendCountdown.value > 0) return
+    return
+  }
 
   isLoading.value = true
   error.value = ''
 
   try {
-    await api.post('/auth/request-code', { phone: phone.value })
-    startResendCountdown()
-  } catch (e) {
-    error.value = 'Erro ao reenviar codigo.'
+    await register({
+      name: name.value.trim(),
+      email: email.value,
+      password: password.value,
+      password_confirmation: passwordConfirmation.value,
+    })
+  } catch (e: any) {
+    error.value = e.data?.message || e.message || 'Erro ao criar conta. Tente novamente.'
   } finally {
     isLoading.value = false
   }
-}
-
-function goBack() {
-  error.value = ''
-  if (step.value === 'verification') {
-    step.value = 'phone'
-    verificationCode.value = ''
-  } else if (step.value === 'profile') {
-    step.value = 'verification'
-  }
-}
-
-// Demo registration
-function handleDemoRegister() {
-  authStore.setPhone(phone.value)
-  authStore.setUser({
-    id: '1',
-    phone: phone.value,
-    name: name.value || 'Usuario Demo',
-    email: email.value || undefined,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  })
-  router.push({ name: 'dashboard' })
 }
 </script>
 
@@ -215,199 +128,127 @@ function handleDemoRegister() {
           <h1 class="text-2xl font-bold text-primary">FinAssistant</h1>
         </div>
 
-        <!-- Progress Steps -->
-        <div class="flex items-center justify-center gap-2 mb-8">
-          <template v-for="(s, index) in steps" :key="s.id">
-            <div
-              :class="[
-                'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition',
-                index < currentStepIndex
-                  ? 'bg-primary text-white'
-                  : index === currentStepIndex
-                    ? 'bg-primary text-white'
-                    : 'bg-surface-container text-on-surface-variant'
-              ]"
-            >
-              <CheckCircle v-if="index < currentStepIndex" class="h-4 w-4" />
-              <span v-else>{{ index + 1 }}</span>
-            </div>
-            <div
-              v-if="index < steps.length - 1"
-              :class="[
-                'w-12 h-1 rounded transition',
-                index < currentStepIndex ? 'bg-primary' : 'bg-surface-container'
-              ]"
-            ></div>
-          </template>
-        </div>
+        <h2 class="text-2xl font-semibold text-on-surface mb-2">Criar conta</h2>
+        <p class="text-on-surface-variant mb-8">
+          Preencha os dados abaixo para comecar
+        </p>
 
-        <!-- Step: Phone Input -->
-        <div v-if="step === 'phone'">
-          <h2 class="text-2xl font-semibold text-on-surface mb-2">Criar conta</h2>
-          <p class="text-on-surface-variant mb-8">
-            Comece informando seu numero de WhatsApp
-          </p>
-
-          <form @submit.prevent="handlePhoneSubmit" class="space-y-6">
-            <div>
-              <Label class="mb-2">Numero de WhatsApp</Label>
-              <PhoneInput
-                v-model="phone"
-                :disabled="isLoading"
-                :error="!!error"
-              />
-            </div>
-
-            <p v-if="error" class="text-tertiary text-sm flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-              {{ error }}
-            </p>
-
-            <Button
-              type="submit"
-              class="w-full h-12"
-              :disabled="isLoading || !isPhoneValid"
-            >
-              <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
-              <span>Continuar</span>
-              <ArrowRight v-if="!isLoading" class="h-5 w-5 ml-2" />
-            </Button>
-          </form>
-
-          <p class="mt-8 text-center text-sm text-on-surface-variant">
-            Ja tem uma conta?
-            <router-link to="/login" class="text-primary font-medium hover:underline">
-              Entrar
-            </router-link>
-          </p>
-        </div>
-
-        <!-- Step: Verification Code -->
-        <div v-else-if="step === 'verification'">
-          <button
-            @click="goBack"
-            class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface mb-6 transition"
-          >
-            <ArrowLeft class="h-4 w-4" />
-            <span class="text-sm">Voltar</span>
-          </button>
-
-          <h2 class="text-2xl font-semibold text-on-surface mb-2">Verificar codigo</h2>
-          <p class="text-on-surface-variant mb-2">
-            Digite o codigo enviado para
-          </p>
-          <p class="text-on-surface font-medium mb-8">
-            +55 {{ phone.slice(0, 2) }} {{ phone.slice(2, 7) }}-{{ phone.slice(7) }}
-          </p>
-
-          <form @submit.prevent="() => handleVerificationSubmit()" class="space-y-6">
-            <OtpInput
-              v-model="verificationCode"
+        <form @submit.prevent="handleSubmit" class="space-y-5">
+          <div class="space-y-2">
+            <Label for="name">Nome</Label>
+            <Input
+              id="name"
+              v-model="name"
+              type="text"
+              placeholder="Seu nome completo"
               :disabled="isLoading"
-              :error="!!error"
-              @complete="handleCodeComplete"
+              autocomplete="name"
             />
-
-            <p v-if="error" class="text-tertiary text-sm text-center">
-              {{ error }}
-            </p>
-
-            <Button
-              type="submit"
-              class="w-full h-12"
-              :disabled="isLoading || verificationCode.length !== 6"
-            >
-              <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
-              <span>Verificar</span>
-              <ArrowRight v-if="!isLoading" class="h-5 w-5 ml-2" />
-            </Button>
-          </form>
-
-          <div class="mt-6 text-center">
-            <button
-              @click="resendCode"
-              :disabled="resendCountdown > 0 || isLoading"
-              :class="[
-                'text-sm font-medium transition',
-                resendCountdown > 0 ? 'text-on-surface-variant' : 'text-primary hover:underline'
-              ]"
-            >
-              {{ resendCountdown > 0 ? `Reenviar em ${resendCountdown}s` : 'Reenviar codigo' }}
-            </button>
           </div>
-        </div>
 
-        <!-- Step: Profile -->
-        <div v-else-if="step === 'profile'">
-          <button
-            @click="goBack"
-            class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface mb-6 transition"
-          >
-            <ArrowLeft class="h-4 w-4" />
-            <span class="text-sm">Voltar</span>
-          </button>
+          <div class="space-y-2">
+            <Label for="email">Email</Label>
+            <Input
+              id="email"
+              v-model="email"
+              type="email"
+              placeholder="seu@email.com"
+              :disabled="isLoading"
+              autocomplete="email"
+            />
+          </div>
 
-          <h2 class="text-2xl font-semibold text-on-surface mb-2">Seu perfil</h2>
-          <p class="text-on-surface-variant mb-8">
-            Conte-nos um pouco sobre voce
+          <div class="space-y-2">
+            <Label for="password">Senha</Label>
+            <div class="relative">
+              <Input
+                id="password"
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                placeholder="Minimo 8 caracteres"
+                :disabled="isLoading"
+                autocomplete="new-password"
+                class="pr-10"
+              />
+              <button
+                type="button"
+                @click="showPassword = !showPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface"
+              >
+                <EyeOff v-if="showPassword" class="h-4 w-4" />
+                <Eye v-else class="h-4 w-4" />
+              </button>
+            </div>
+            <!-- Password strength indicator -->
+            <div v-if="password" class="space-y-1">
+              <div class="flex gap-1">
+                <div
+                  v-for="i in 4"
+                  :key="i"
+                  :class="[
+                    'h-1 flex-1 rounded',
+                    i <= passwordStrength ? passwordStrengthColor : 'bg-surface-container'
+                  ]"
+                ></div>
+              </div>
+              <p class="text-xs text-on-surface-variant">
+                Forca da senha: {{ passwordStrengthLabel }}
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <Label for="passwordConfirmation">Confirmar senha</Label>
+            <div class="relative">
+              <Input
+                id="passwordConfirmation"
+                v-model="passwordConfirmation"
+                :type="showPasswordConfirmation ? 'text' : 'password'"
+                placeholder="Digite a senha novamente"
+                :disabled="isLoading"
+                autocomplete="new-password"
+                class="pr-10"
+              />
+              <button
+                type="button"
+                @click="showPasswordConfirmation = !showPasswordConfirmation"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface"
+              >
+                <EyeOff v-if="showPasswordConfirmation" class="h-4 w-4" />
+                <Eye v-else class="h-4 w-4" />
+              </button>
+            </div>
+            <p
+              v-if="passwordConfirmation && password !== passwordConfirmation"
+              class="text-xs text-tertiary"
+            >
+              As senhas nao conferem
+            </p>
+          </div>
+
+          <p v-if="error" class="text-tertiary text-sm flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            {{ error }}
           </p>
 
-          <form @submit.prevent="handleProfileSubmit" class="space-y-6">
-            <div>
-              <Label class="mb-2">Nome *</Label>
-              <div class="relative">
-                <User class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-on-surface-variant" />
-                <Input
-                  v-model="name"
-                  type="text"
-                  placeholder="Como devemos te chamar?"
-                  class="pl-10 h-12"
-                  :disabled="isLoading"
-                />
-              </div>
-            </div>
+          <Button
+            type="submit"
+            class="w-full h-12"
+            :disabled="isLoading || !isFormValid"
+          >
+            <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
+            {{ isLoading ? 'Criando conta...' : 'Criar conta' }}
+          </Button>
+        </form>
 
-            <div>
-              <Label class="mb-2">Email (opcional)</Label>
-              <div class="relative">
-                <Mail class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-on-surface-variant" />
-                <Input
-                  v-model="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  class="pl-10 h-12"
-                  :disabled="isLoading"
-                />
-              </div>
-            </div>
-
-            <p v-if="error" class="text-tertiary text-sm">
-              {{ error }}
-            </p>
-
-            <Button
-              type="submit"
-              class="w-full h-12"
-              :disabled="isLoading || !isProfileValid"
-            >
-              <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
-              <CheckCircle v-else class="h-5 w-5 mr-2" />
-              {{ isLoading ? 'Criando conta...' : 'Criar conta' }}
-            </Button>
-
-            <!-- Demo button -->
-            <Button
-              type="button"
-              variant="outline"
-              class="w-full"
-              @click="handleDemoRegister"
-            >
-              Criar sem verificacao (Demo)
-            </Button>
-          </form>
-        </div>
+        <p class="mt-8 text-center text-sm text-on-surface-variant">
+          Ja tem uma conta?
+          <router-link to="/login" class="text-primary font-medium hover:underline">
+            Entrar
+          </router-link>
+        </p>
       </div>
     </div>
   </div>

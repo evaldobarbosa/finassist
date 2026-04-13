@@ -9,8 +9,6 @@ services:
       - ./api:/var/www/html
       - ./api/vendor:/var/www/html/vendor
       - ./Traducoes:/var/www/html/Traducoes:ro
-    ports:
-      - "8000:8080"
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
@@ -19,7 +17,7 @@ services:
       - DB_PORT=5432
       - DB_DATABASE=finassistant
       - DB_USERNAME=finassistant
-      - DB_PASSWORD=finassistant
+      - DB_PASSWORD=secret
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
@@ -27,7 +25,12 @@ services:
       - SESSION_DRIVER=redis
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6333
-      - WHISPER_URL=http://whisper:9000
+      - WHISPER_HOST=http://whisper:9000
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailpit
+      - MAIL_PORT=1025
+    env_file:
+      - ./api/.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -57,14 +60,16 @@ services:
       - DB_PORT=5432
       - DB_DATABASE=finassistant
       - DB_USERNAME=finassistant
-      - DB_PASSWORD=finassistant
+      - DB_PASSWORD=secret
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QUEUE_CONNECTION=redis
       - CACHE_STORE=redis
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6333
-      - WHISPER_URL=http://whisper:9000
+      - WHISPER_HOST=http://whisper:9000
+    env_file:
+      - ./api/.env
     depends_on:
       - api
     networks:
@@ -89,12 +94,14 @@ services:
       - DB_PORT=5432
       - DB_DATABASE=finassistant
       - DB_USERNAME=finassistant
-      - DB_PASSWORD=finassistant
+      - DB_PASSWORD=secret
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6333
-      - WHISPER_URL=http://whisper:9000
+      - WHISPER_HOST=http://whisper:9000
+    env_file:
+      - ./api/.env
     depends_on:
       - api
     networks:
@@ -108,11 +115,9 @@ services:
     volumes:
       - ./frontend:/app
       - frontend_node_modules:/app/node_modules
-    ports:
-      - "5173:5173"
     environment:
       - NODE_ENV=development
-      - VITE_API_URL=http://localhost:8000/api/v1
+      - VITE_API_URL=https://api-fina.code2.dev/api/v1
     networks:
       - finassistant-network
     command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev --host"
@@ -123,9 +128,7 @@ services:
     environment:
       POSTGRES_DB: finassistant
       POSTGRES_USER: finassistant
-      POSTGRES_PASSWORD: finassistant
-    ports:
-      - "5432:5432"
+      POSTGRES_PASSWORD: secret
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -140,8 +143,6 @@ services:
     image: redis:7-alpine
     container_name: finassistant-redis
     command: redis-server --appendonly yes
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -155,9 +156,6 @@ services:
   qdrant:
     image: qdrant/qdrant:latest
     container_name: finassistant-qdrant
-    ports:
-      - "6333:6333"
-      - "6334:6334"
     volumes:
       - qdrant_data:/qdrant/storage
     networks:
@@ -177,18 +175,26 @@ services:
   mailpit:
     image: axllent/mailpit:latest
     container_name: finassistant-mailpit
-    ports:
-      - "8025:8025"  # UI Web
-      - "1025:1025"  # SMTP
     networks:
       - finassistant-network
-      - proxymng
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: finassistant-cloudflared
+    restart: unless-stopped
+    volumes:
+      - ./cloudflared.yml:/etc/cloudflared/config.yml:ro
+      - ./cloudflared-credentials.json:/etc/cloudflared/credentials.json:ro
+    command: tunnel --config /etc/cloudflared/config.yml run
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - finassistant-network
 
 networks:
   finassistant-network:
     driver: bridge
-  proxymng:
-    external: true
 
 volumes:
   postgres_data:

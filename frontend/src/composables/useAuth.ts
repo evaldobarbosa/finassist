@@ -3,17 +3,14 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { api, ApiError } from '@/lib/api'
 import { redirectAfterLogin } from '@/router/guards'
-import type { User } from '@/types'
+import type { User, AuthResponse, LoginCredentials, RegisterData } from '@/types'
 
-interface OtpRequestResponse {
+interface MessageResponse {
   message: string
-  phone: string
-  expires_in: number
 }
 
-interface OtpVerifyResponse {
-  message: string
-  user: User & { is_new: boolean }
+interface UserResponse {
+  user: User
 }
 
 export function useAuth() {
@@ -23,68 +20,64 @@ export function useAuth() {
 
   const isAuthenticated = computed(() => authStore.isAuthenticated)
   const user = computed(() => authStore.user)
-  const phone = computed(() => authStore.phone)
+  const token = computed(() => authStore.token)
   const userName = computed(() => authStore.userName)
   const userInitials = computed(() => authStore.userInitials)
 
-  async function requestVerificationCode(phoneNumber: string): Promise<OtpRequestResponse> {
-    const normalizedPhone = phoneNumber.replace(/\D/g, '')
-    const response = await api.post<OtpRequestResponse>('/auth/otp/request', {
-      phone: normalizedPhone,
-    })
-    return response
-  }
+  async function login(credentials: LoginCredentials): Promise<void> {
+    const response = await api.post<AuthResponse>('/auth/login', credentials)
 
-  async function verifyCode(phoneNumber: string, code: string): Promise<OtpVerifyResponse> {
-    const normalizedPhone = phoneNumber.replace(/\D/g, '')
-    const response = await api.post<OtpVerifyResponse>('/auth/otp/verify', {
-      phone: normalizedPhone,
-      code,
-    })
-
-    // Set auth state
-    authStore.setPhone(normalizedPhone)
-    authStore.setUser(response.user)
-
-    return response
-  }
-
-  async function login(phoneNumber: string, code: string): Promise<void> {
-    const response = await verifyCode(phoneNumber, code)
+    authStore.setAuth(response.token, response.user)
 
     const redirect = route.query.redirect as string | undefined
     router.push(redirectAfterLogin(redirect))
   }
 
-  async function resendCode(phoneNumber: string): Promise<OtpRequestResponse> {
-    const normalizedPhone = phoneNumber.replace(/\D/g, '')
-    const response = await api.post<OtpRequestResponse>('/auth/otp/resend', {
-      phone: normalizedPhone,
-    })
-    return response
-  }
+  async function register(data: RegisterData): Promise<void> {
+    const response = await api.post<AuthResponse>('/auth/register', data)
 
-  async function register(data: {
-    phone: string
-    name: string
-    email?: string
-  }): Promise<void> {
-    // In OTP flow, registration happens automatically on first login
-    // Just redirect to dashboard after verify
+    authStore.setAuth(response.token, response.user)
+
     router.push({ name: 'dashboard' })
   }
 
-  function logout(): void {
+  async function logout(): Promise<void> {
+    try {
+      await api.post<MessageResponse>('/auth/logout')
+    } catch {
+      // Ignore errors, clear local state anyway
+    }
+
     authStore.logout()
     router.push({ name: 'login' })
   }
 
+  async function forgotPassword(email: string): Promise<MessageResponse> {
+    const response = await api.post<MessageResponse>('/auth/forgot-password', { email })
+    return response
+  }
+
+  async function resetPassword(data: {
+    token: string
+    email: string
+    password: string
+    password_confirmation: string
+  }): Promise<MessageResponse> {
+    const response = await api.post<MessageResponse>('/auth/reset-password', data)
+    return response
+  }
+
+  async function resendVerification(): Promise<MessageResponse> {
+    const response = await api.post<MessageResponse>('/auth/resend-verification')
+    return response
+  }
+
   async function fetchCurrentUser(): Promise<void> {
-    if (!authStore.phone) return
+    if (!authStore.token) return
 
     try {
-      const userData = await api.get<User>('/users/me')
-      authStore.setUser(userData)
+      const response = await api.get<UserResponse>('/user')
+      authStore.setUser(response.user)
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
         authStore.logout()
@@ -93,23 +86,33 @@ export function useAuth() {
   }
 
   async function updateProfile(updates: Partial<User>): Promise<void> {
-    const userData = await api.patch<User>('/users/me', updates)
-    authStore.setUser(userData)
+    const response = await api.put<UserResponse>('/user/profile', updates)
+    authStore.setUser(response.user)
+  }
+
+  async function updatePassword(data: {
+    current_password: string
+    password: string
+    password_confirmation: string
+  }): Promise<MessageResponse> {
+    const response = await api.put<MessageResponse>('/user/password', data)
+    return response
   }
 
   return {
     isAuthenticated,
     user,
-    phone,
+    token,
     userName,
     userInitials,
-    requestVerificationCode,
-    verifyCode,
     login,
-    resendCode,
     register,
     logout,
+    forgotPassword,
+    resetPassword,
+    resendVerification,
     fetchCurrentUser,
     updateProfile,
+    updatePassword,
   }
 }

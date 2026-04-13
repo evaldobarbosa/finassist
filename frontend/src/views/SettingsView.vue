@@ -3,7 +3,6 @@ import { ref, computed } from 'vue'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import {
   User,
-  Phone,
   Bell,
   CreditCard,
   LogOut,
@@ -15,6 +14,7 @@ import {
   Sparkles,
 } from 'lucide-vue-next'
 import AppLayout from '@/components/layout/AppLayout.vue'
+import WhatsAppTab from '@/components/settings/WhatsAppTab.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -171,25 +171,6 @@ const isPremium = computed(() => subscription.value.plan === 'premium')
                     />
                   </div>
 
-                  <div>
-                    <Label class="mb-2">Telefone</Label>
-                    <div class="flex items-center gap-2">
-                      <Input
-                        :model-value="user?.phone || '+55 11 99999-9999'"
-                        type="text"
-                        disabled
-                        class="flex-1"
-                      />
-                      <Badge variant="success">
-                        <Check class="h-3 w-3 mr-1" />
-                        Verificado
-                      </Badge>
-                    </div>
-                    <p class="text-xs text-on-surface-variant mt-1">
-                      O telefone e usado para login e nao pode ser alterado
-                    </p>
-                  </div>
-
                   <Button type="submit" :disabled="updateProfileMutation.isPending.value">
                     <Loader2 v-if="updateProfileMutation.isPending.value" class="h-4 w-4 animate-spin mr-2" />
                     Salvar alteracoes
@@ -213,75 +194,8 @@ const isPremium = computed(() => subscription.value.plan === 'premium')
             </div>
 
             <!-- WhatsApp Tab -->
-            <div v-show="activeTab === 'whatsapp'" class="space-y-6">
-              <div class="bg-surface-container-lowest rounded-xl shadow-editorial p-6">
-                <h2 class="text-lg font-semibold text-on-surface mb-4 flex items-center gap-2">
-                  <MessageSquare class="h-5 w-5 text-green-500" />
-                  Integracao com WhatsApp
-                </h2>
-
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between p-4 bg-green-500/10 rounded-lg">
-                    <div class="flex items-center gap-3">
-                      <Phone class="h-10 w-10 p-2 bg-green-500 text-white rounded-full" />
-                      <div>
-                        <p class="font-medium text-on-surface">WhatsApp conectado</p>
-                        <p class="text-sm text-on-surface-variant">{{ user?.phone || '+55 11 99999-9999' }}</p>
-                      </div>
-                    </div>
-                    <Badge variant="success">
-                      <Check class="h-3 w-3 mr-1" />
-                      Ativo
-                    </Badge>
-                  </div>
-
-                  <div class="space-y-3">
-                    <h3 class="font-medium text-on-surface">O que voce pode fazer:</h3>
-                    <ul class="space-y-2 text-on-surface-variant">
-                      <li class="flex items-start gap-2">
-                        <Check class="h-4 w-4 text-green-500 mt-0.5" />
-                        Registrar transacoes por mensagem de texto
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <Check class="h-4 w-4 text-green-500 mt-0.5" />
-                        Receber resumos diarios e semanais
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <Check class="h-4 w-4 text-green-500 mt-0.5" />
-                        Consultar saldo e extrato
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <Check class="h-4 w-4 text-green-500 mt-0.5" />
-                        Alertas de vencimento de contas
-                      </li>
-                    </ul>
-                  </div>
-
-                  <Separator />
-
-                  <div>
-                    <h3 class="font-medium text-on-surface mb-2">Comandos disponiveis:</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div class="p-3 bg-surface-container rounded-lg">
-                        <code class="text-primary text-sm">gastei 50 com almoco</code>
-                        <p class="text-xs text-on-surface-variant mt-1">Registra uma despesa</p>
-                      </div>
-                      <div class="p-3 bg-surface-container rounded-lg">
-                        <code class="text-primary text-sm">recebi 3000 de salario</code>
-                        <p class="text-xs text-on-surface-variant mt-1">Registra uma receita</p>
-                      </div>
-                      <div class="p-3 bg-surface-container rounded-lg">
-                        <code class="text-primary text-sm">saldo</code>
-                        <p class="text-xs text-on-surface-variant mt-1">Consulta o saldo atual</p>
-                      </div>
-                      <div class="p-3 bg-surface-container rounded-lg">
-                        <code class="text-primary text-sm">extrato</code>
-                        <p class="text-xs text-on-surface-variant mt-1">Ultimas transacoes</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div v-show="activeTab === 'whatsapp'">
+              <WhatsAppTab />
             </div>
 
             <!-- Notifications Tab -->

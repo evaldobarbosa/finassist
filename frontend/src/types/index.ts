@@ -1,11 +1,32 @@
 // User types
 export interface User {
   id: string
-  phone: string
   name?: string
   email?: string
+  phone?: string
+  email_verified_at?: string
+  phone_verified_at?: string
   created_at: string
   updated_at: string
+}
+
+// Auth types
+export interface AuthResponse {
+  message: string
+  user: User
+  token: string
+}
+
+export interface LoginCredentials {
+  email: string
+  password: string
+}
+
+export interface RegisterData {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
 }
 
 // Account types
@@ -119,12 +140,62 @@ export interface DashboardSummary {
   period_end: string
 }
 
+// Installment types
+export interface InstallmentPurchase {
+  id: string
+  user_id: number
+  credit_card_id?: string
+  transaction_id?: string
+  total_amount: number
+  installment_count: number
+  installment_amount: number
+  purchase_date: string
+  merchant?: string
+  source: 'credit_card' | 'bank_loan' | 'vehicle' | 'mortgage' | 'store'
+  fin_extra_info?: {
+    interest_rate?: number
+    interest_type?: 'monthly' | 'yearly'
+    total_interest?: number
+    outstanding_balance?: number
+    institution_name?: string
+    contract_number?: string
+    first_due_date?: string
+    amortization_type?: 'price' | 'sac'
+  }
+  credit_card?: CreditCard
+  installments?: Installment[]
+  created_at: string
+  updated_at: string
+}
+
+export interface Installment {
+  id: string
+  installment_purchase_id: string
+  number: number
+  amount: number
+  invoice_month: string
+  status: 'pending' | 'paid'
+  paid_at?: string
+  installment_purchase?: InstallmentPurchase
+  created_at: string
+  updated_at: string
+}
+
+export interface InstallmentsByMonthResponse {
+  invoice_month: string
+  total: number
+  pending_total: number
+  paid_total: number
+  installments_count: number
+  data: Installment[]
+}
+
 // Recurrence types
 export type RecurrenceFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
 
 export interface Recurrence {
   id: string
-  phone: string
+  user_id: number
   account_id: string
   category_id?: string
   credit_card_id?: string

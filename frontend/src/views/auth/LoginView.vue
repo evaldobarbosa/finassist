@@ -1,30 +1,24 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { MessageCircle, ArrowLeft, Loader2 } from 'lucide-vue-next'
-import { useAuthStore } from '@/stores/auth'
-import { api } from '@/lib/api'
-import { PhoneInput } from '@/components/ui/phone-input'
-import { OtpInput } from '@/components/ui/otp-input'
+import { MessageCircle, Loader2, Eye, EyeOff } from 'lucide-vue-next'
+import { useAuth } from '@/composables/useAuth'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 const router = useRouter()
-const authStore = useAuthStore()
+const { login } = useAuth()
 
-type Step = 'phone' | 'verification'
-
-const step = ref<Step>('phone')
-const phone = ref('')
-const verificationCode = ref('')
+const email = ref('')
+const password = ref('')
+const showPassword = ref(false)
 const isLoading = ref(false)
 const error = ref('')
-const resendCountdown = ref(0)
 
-const isPhoneValid = computed(() => phone.value.length === 11)
-
-async function handlePhoneSubmit() {
-  if (!isPhoneValid.value) {
-    error.value = 'Digite um numero de telefone valido'
+async function handleSubmit() {
+  if (!email.value || !password.value) {
+    error.value = 'Preencha email e senha'
     return
   }
 
@@ -32,103 +26,12 @@ async function handlePhoneSubmit() {
   error.value = ''
 
   try {
-    // Request verification code (sent via Telegram for testing)
-    await api.post('/auth/otp/request', { phone: phone.value })
-    step.value = 'verification'
-    startResendCountdown()
-  } catch (e) {
-    error.value = 'Erro ao enviar codigo. Tente novamente.'
+    await login({ email: email.value, password: password.value })
+  } catch (e: any) {
+    error.value = e.data?.message || e.message || 'Erro ao fazer login. Verifique suas credenciais.'
   } finally {
     isLoading.value = false
   }
-}
-
-async function handleVerificationSubmit(code?: string) {
-  const codeToVerify = code || verificationCode.value
-
-  if (codeToVerify.length !== 6) {
-    error.value = 'Digite o codigo completo'
-    return
-  }
-
-  isLoading.value = true
-  error.value = ''
-
-  try {
-    // Verify the OTP code and get user data
-    const response = await api.post<{ message: string; user: { id: string; phone: string; name?: string; email?: string; is_new?: boolean } }>('/auth/otp/verify', {
-      phone: phone.value,
-      code: codeToVerify,
-    })
-
-    // Store phone and user data
-    authStore.setPhone(phone.value)
-    if (response.user) {
-      authStore.setUser({
-        ...response.user,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
-    }
-
-    router.push({ name: 'dashboard' })
-  } catch (e) {
-    error.value = 'Codigo invalido ou expirado. Tente novamente.'
-    verificationCode.value = ''
-  } finally {
-    isLoading.value = false
-  }
-}
-
-function handleCodeComplete(code: string) {
-  handleVerificationSubmit(code)
-}
-
-function startResendCountdown() {
-  resendCountdown.value = 60
-  const interval = setInterval(() => {
-    resendCountdown.value--
-    if (resendCountdown.value <= 0) {
-      clearInterval(interval)
-    }
-  }, 1000)
-}
-
-async function resendCode() {
-  if (resendCountdown.value > 0) return
-
-  isLoading.value = true
-  error.value = ''
-
-  try {
-    await api.post('/auth/otp/resend', { phone: phone.value })
-    startResendCountdown()
-  } catch (e) {
-    error.value = 'Erro ao reenviar codigo.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-function goBack() {
-  if (step.value === 'verification') {
-    step.value = 'phone'
-    verificationCode.value = ''
-    error.value = ''
-  }
-}
-
-// For demo purposes - skip verification in development
-function handleDemoLogin() {
-  authStore.setPhone(phone.value)
-  authStore.setUser({
-    id: '1',
-    phone: phone.value,
-    name: 'Usuario Demo',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  })
-  router.push({ name: 'dashboard' })
 }
 </script>
 
@@ -166,121 +69,78 @@ function handleDemoLogin() {
           <h1 class="text-2xl font-bold text-primary">FinAssistant</h1>
         </div>
 
-        <!-- Step: Phone Input -->
-        <div v-if="step === 'phone'">
-          <h2 class="text-2xl font-semibold text-on-surface mb-2">Bem-vindo de volta</h2>
-          <p class="text-on-surface-variant mb-8">
-            Digite seu numero de WhatsApp para entrar
-          </p>
+        <h2 class="text-2xl font-semibold text-on-surface mb-2">Bem-vindo de volta</h2>
+        <p class="text-on-surface-variant mb-8">
+          Entre com seu email e senha para acessar sua conta
+        </p>
 
-          <form @submit.prevent="handlePhoneSubmit" class="space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-on-surface mb-2">
-                Numero de WhatsApp
-              </label>
-              <PhoneInput
-                v-model="phone"
-                :disabled="isLoading"
-                :error="!!error"
-              />
-            </div>
-
-            <p v-if="error" class="text-tertiary text-sm flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-              {{ error }}
-            </p>
-
-            <Button
-              type="submit"
-              class="w-full h-12"
-              :disabled="isLoading || !isPhoneValid"
-            >
-              <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
-              <MessageCircle v-else class="h-5 w-5 mr-2" />
-              {{ isLoading ? 'Enviando...' : 'Receber codigo via WhatsApp' }}
-            </Button>
-
-            <!-- Demo login button (development only) -->
-            <Button
-              v-if="isPhoneValid"
-              type="button"
-              variant="outline"
-              class="w-full"
-              @click="handleDemoLogin"
-            >
-              Entrar sem verificacao (Demo)
-            </Button>
-          </form>
-
-          <p class="mt-8 text-center text-sm text-on-surface-variant">
-            Nao tem uma conta?
-            <router-link to="/register" class="text-primary font-medium hover:underline">
-              Cadastre-se
-            </router-link>
-          </p>
-        </div>
-
-        <!-- Step: Verification Code -->
-        <div v-else-if="step === 'verification'">
-          <button
-            @click="goBack"
-            class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface mb-6 transition"
-          >
-            <ArrowLeft class="h-4 w-4" />
-            <span class="text-sm">Voltar</span>
-          </button>
-
-          <h2 class="text-2xl font-semibold text-on-surface mb-2">Verificar codigo</h2>
-          <p class="text-on-surface-variant mb-2">
-            Digite o codigo de 6 digitos enviado para
-          </p>
-          <p class="text-on-surface font-medium mb-8">
-            +55 {{ phone.slice(0, 2) }} {{ phone.slice(2, 7) }}-{{ phone.slice(7) }}
-          </p>
-
-          <form @submit.prevent="() => handleVerificationSubmit()" class="space-y-6">
-            <OtpInput
-              v-model="verificationCode"
+        <form @submit.prevent="handleSubmit" class="space-y-6">
+          <div class="space-y-2">
+            <Label for="email">Email</Label>
+            <Input
+              id="email"
+              v-model="email"
+              type="email"
+              placeholder="seu@email.com"
               :disabled="isLoading"
-              :error="!!error"
-              @complete="handleCodeComplete"
+              autocomplete="email"
             />
-
-            <p v-if="error" class="text-tertiary text-sm text-center flex items-center justify-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-              {{ error }}
-            </p>
-
-            <Button
-              type="submit"
-              class="w-full h-12"
-              :disabled="isLoading || verificationCode.length !== 6"
-            >
-              <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
-              {{ isLoading ? 'Verificando...' : 'Verificar' }}
-            </Button>
-          </form>
-
-          <div class="mt-6 text-center">
-            <p class="text-sm text-on-surface-variant mb-2">Nao recebeu o codigo?</p>
-            <button
-              @click="resendCode"
-              :disabled="resendCountdown > 0 || isLoading"
-              :class="[
-                'text-sm font-medium transition',
-                resendCountdown > 0 || isLoading
-                  ? 'text-on-surface-variant cursor-not-allowed'
-                  : 'text-primary hover:underline'
-              ]"
-            >
-              {{ resendCountdown > 0 ? `Reenviar em ${resendCountdown}s` : 'Reenviar codigo' }}
-            </button>
           </div>
-        </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <Label for="password">Senha</Label>
+              <router-link
+                to="/forgot-password"
+                class="text-sm text-primary hover:underline"
+              >
+                Esqueci minha senha
+              </router-link>
+            </div>
+            <div class="relative">
+              <Input
+                id="password"
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                placeholder="Digite sua senha"
+                :disabled="isLoading"
+                autocomplete="current-password"
+                class="pr-10"
+              />
+              <button
+                type="button"
+                @click="showPassword = !showPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface"
+              >
+                <EyeOff v-if="showPassword" class="h-4 w-4" />
+                <Eye v-else class="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <p v-if="error" class="text-tertiary text-sm flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            {{ error }}
+          </p>
+
+          <Button
+            type="submit"
+            class="w-full h-12"
+            :disabled="isLoading || !email || !password"
+          >
+            <Loader2 v-if="isLoading" class="h-5 w-5 animate-spin mr-2" />
+            {{ isLoading ? 'Entrando...' : 'Entrar' }}
+          </Button>
+        </form>
+
+        <p class="mt-8 text-center text-sm text-on-surface-variant">
+          Nao tem uma conta?
+          <router-link to="/register" class="text-primary font-medium hover:underline">
+            Cadastre-se
+          </router-link>
+        </p>
       </div>
     </div>
   </div>

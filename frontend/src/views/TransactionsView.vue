@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import { Plus } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import AppLayout from '@/components/layout/AppLayout.vue'
+import PeriodFilter from '@/components/dashboard/PeriodFilter.vue'
 import TransactionFilters from '@/components/transactions/TransactionFilters.vue'
 import TransactionList from '@/components/transactions/TransactionList.vue'
 import TransactionModal from '@/components/transactions/TransactionModal.vue'
@@ -12,7 +13,7 @@ import { Button } from '@/components/ui/button'
 import { useTransactionsStore } from '@/stores/transactions'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
-import type { Transaction, Account, Category, PaginatedResponse } from '@/types'
+import type { Transaction, Account, Category, TransactionsResponse } from '@/types'
 
 const route = useRoute()
 const queryClient = useQueryClient()
@@ -20,6 +21,7 @@ const transactionsStore = useTransactionsStore()
 const { success, error: showError } = useToast()
 
 const {
+  period,
   filters,
   currentPage,
   isModalOpen,
@@ -48,7 +50,7 @@ const { data: transactionsData, isLoading, refetch } = useQuery({
   queryKey: ['transactions', queryParams],
   queryFn: () => {
     const params = new URLSearchParams(queryParams.value)
-    return api.get<PaginatedResponse<Transaction>>(`/transactions?${params.toString()}`)
+    return api.get<TransactionsResponse>(`/transactions?${params.toString()}`)
   },
 })
 
@@ -110,19 +112,21 @@ watch(() => route.query.id, (id) => {
 
 // Computed data
 const transactions = computed(() => transactionsData.value?.data || [])
-const totalPages = computed(() => transactionsData.value?.total_pages || 1)
+const totalPages = computed(() => transactionsData.value?.last_page || 1)
 const accountsList = computed(() => accounts.value || [])
 const categoriesList = computed(() => categories.value || [])
 
-const totalAmount = computed(() => {
-  const data = transactions.value
-  return {
-    income: data.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0),
-    expense: data.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0),
-  }
-})
+// Use totals from API response
+const totalAmount = computed(() => ({
+  income: transactionsData.value?.receitas || 0,
+  expense: transactionsData.value?.despesas || 0,
+}))
 
 // Handlers
+function handlePeriodChange(newPeriod: { month: number; year: number }) {
+  transactionsStore.setPeriod(newPeriod)
+}
+
 function handleFiltersChange(newFilters: typeof filters.value) {
   transactionsStore.setFilters(newFilters)
 }
@@ -154,121 +158,6 @@ function handlePageChange(page: number) {
 function openCreateModal() {
   transactionsStore.openCreateModal('expense')
 }
-
-// Demo data for when API is not available
-const demoTransactions: Transaction[] = [
-  {
-    id: '1',
-    description: 'Salario',
-    amount: 8500,
-    type: 'income',
-    date: new Date().toISOString(),
-    account_id: '1',
-    category_id: '1',
-    is_recurring: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    description: 'Supermercado Extra',
-    amount: 450.80,
-    type: 'expense',
-    date: new Date(Date.now() - 86400000).toISOString(),
-    account_id: '1',
-    category_id: '2',
-    is_recurring: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    description: 'Netflix',
-    amount: 39.90,
-    type: 'expense',
-    date: new Date(Date.now() - 86400000 * 2).toISOString(),
-    account_id: '1',
-    category_id: '3',
-    is_recurring: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '4',
-    description: 'Freelance - Projeto Web',
-    amount: 2500,
-    type: 'income',
-    date: new Date(Date.now() - 86400000 * 3).toISOString(),
-    account_id: '1',
-    category_id: '1',
-    is_recurring: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '5',
-    description: 'Aluguel',
-    amount: 1500,
-    type: 'expense',
-    date: new Date(Date.now() - 86400000 * 5).toISOString(),
-    account_id: '1',
-    category_id: '4',
-    is_recurring: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '6',
-    description: 'Conta de Luz',
-    amount: 180.50,
-    type: 'expense',
-    date: new Date(Date.now() - 86400000 * 5).toISOString(),
-    account_id: '1',
-    category_id: '4',
-    is_recurring: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '7',
-    description: 'Transferencia para Poupanca',
-    amount: 500,
-    type: 'transfer',
-    date: new Date(Date.now() - 86400000 * 7).toISOString(),
-    account_id: '1',
-    destination_account_id: '2',
-    is_recurring: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-]
-
-const demoAccounts: Account[] = [
-  { id: '1', name: 'Conta Principal', type: 'checking', balance: 10300, is_default: true, include_in_total: true, created_at: '', updated_at: '' },
-  { id: '2', name: 'Poupanca', type: 'savings', balance: 5000, is_default: false, include_in_total: true, created_at: '', updated_at: '' },
-]
-
-const demoCategories: Category[] = [
-  { id: '1', name: 'Salario', type: 'income', color: '#006b2c', created_at: '', updated_at: '' },
-  { id: '2', name: 'Alimentacao', type: 'expense', color: '#ff6b6b', created_at: '', updated_at: '' },
-  { id: '3', name: 'Entretenimento', type: 'expense', color: '#9b59b6', created_at: '', updated_at: '' },
-  { id: '4', name: 'Moradia', type: 'expense', color: '#3498db', created_at: '', updated_at: '' },
-]
-
-const useDemoData = computed(() => !isLoading.value && transactions.value.length === 0 && !transactionsStore.hasActiveFilters)
-
-const displayTransactions = computed(() => useDemoData.value ? demoTransactions : transactions.value)
-const displayAccounts = computed(() => accountsList.value.length > 0 ? accountsList.value : demoAccounts)
-const displayCategories = computed(() => categoriesList.value.length > 0 ? categoriesList.value : demoCategories)
-const displayTotalAmount = computed(() => {
-  if (useDemoData.value) {
-    return {
-      income: demoTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0),
-      expense: demoTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0),
-    }
-  }
-  return totalAmount.value
-})
 </script>
 
 <template>
@@ -277,8 +166,8 @@ const displayTotalAmount = computed(() => {
       <!-- Header -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-on-surface">Transacoes</h1>
-          <p class="text-on-surface-variant">Gerencie suas receitas e despesas</p>
+          <h1 class="text-2xl font-bold text-on-surface">Extrato</h1>
+          <p class="text-on-surface-variant">Historico de transacoes</p>
         </div>
         <Button @click="openCreateModal">
           <Plus class="h-4 w-4 mr-2" />
@@ -286,34 +175,31 @@ const displayTotalAmount = computed(() => {
         </Button>
       </div>
 
-      <!-- Filters -->
+      <!-- Filters with Period Selector -->
       <TransactionFilters
         :model-value="filters"
-        :accounts="displayAccounts"
-        :categories="displayCategories"
+        :accounts="accountsList"
+        :categories="categoriesList"
         @update:model-value="handleFiltersChange"
-      />
+      >
+        <template #period>
+          <PeriodFilter :model-value="period" @update:model-value="handlePeriodChange" />
+        </template>
+      </TransactionFilters>
 
       <!-- Transaction List -->
       <TransactionList
-        :transactions="displayTransactions"
-        :categories="displayCategories"
-        :accounts="displayAccounts"
+        :transactions="transactions"
+        :categories="categoriesList"
+        :accounts="accountsList"
         :is-loading="isLoading"
         :page="currentPage"
         :total-pages="totalPages"
-        :total-amount="displayTotalAmount"
+        :total-amount="totalAmount"
         @edit="handleEdit"
         @delete="handleDelete"
         @page-change="handlePageChange"
       />
-
-      <!-- Demo data indicator -->
-      <div v-if="useDemoData" class="text-center">
-        <p class="text-sm text-on-surface-variant">
-          Exibindo dados de demonstracao. Conecte a API para ver dados reais.
-        </p>
-      </div>
     </div>
 
     <!-- Transaction Modal -->
@@ -321,8 +207,8 @@ const displayTotalAmount = computed(() => {
       v-model:open="isModalOpen"
       :type="modalMode === 'create' ? defaultTransactionType : undefined"
       :transaction="selectedTransaction"
-      :accounts="displayAccounts"
-      :categories="displayCategories"
+      :accounts="accountsList"
+      :categories="categoriesList"
       :is-loading="createMutation.isPending.value || updateMutation.isPending.value"
       :is-deleting="deleteMutation.isPending.value"
       @submit="handleModalSubmit"

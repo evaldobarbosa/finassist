@@ -86,19 +86,19 @@ const accountsList = computed(() => accounts.value || [])
 const totalBalance = computed(() => {
   return accountsList.value
     .filter(a => a.include_in_total)
-    .reduce((sum, a) => sum + a.balance, 0)
+    .reduce((sum, a) => sum + Number(a.balance || 0), 0)
 })
 
 const positiveBalance = computed(() => {
   return accountsList.value
-    .filter(a => a.include_in_total && a.balance > 0)
-    .reduce((sum, a) => sum + a.balance, 0)
+    .filter(a => a.include_in_total && Number(a.balance || 0) > 0)
+    .reduce((sum, a) => sum + Number(a.balance || 0), 0)
 })
 
 const negativeBalance = computed(() => {
   return accountsList.value
-    .filter(a => a.include_in_total && a.balance < 0)
-    .reduce((sum, a) => sum + Math.abs(a.balance), 0)
+    .filter(a => a.include_in_total && Number(a.balance || 0) < 0)
+    .reduce((sum, a) => sum + Math.abs(Number(a.balance || 0)), 0)
 })
 
 // Handlers
@@ -126,89 +126,6 @@ function handleModalDelete(id: string) {
   deleteMutation.mutate(id)
 }
 
-// Demo data
-const demoAccounts: Account[] = [
-  {
-    id: '1',
-    name: 'Nubank',
-    type: 'checking',
-    balance: 5432.50,
-    color: '#8A05BE',
-    is_default: true,
-    include_in_total: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Bradesco',
-    type: 'checking',
-    balance: 1250.00,
-    color: '#CC092F',
-    is_default: false,
-    include_in_total: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    name: 'Poupanca Caixa',
-    type: 'savings',
-    balance: 8500.00,
-    color: '#0058be',
-    is_default: false,
-    include_in_total: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '4',
-    name: 'Carteira',
-    type: 'wallet',
-    balance: 150.00,
-    color: '#f39c12',
-    is_default: false,
-    include_in_total: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: '5',
-    name: 'Tesouro Direto',
-    type: 'investment',
-    balance: 12000.00,
-    color: '#9b59b6',
-    is_default: false,
-    include_in_total: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-]
-
-const useDemoData = computed(() => !isLoading.value && accountsList.value.length === 0)
-
-const displayAccounts = computed(() => useDemoData.value ? demoAccounts : accountsList.value)
-
-const displayTotalBalance = computed(() => {
-  if (useDemoData.value) {
-    return demoAccounts.filter(a => a.include_in_total).reduce((sum, a) => sum + a.balance, 0)
-  }
-  return totalBalance.value
-})
-
-const displayPositiveBalance = computed(() => {
-  if (useDemoData.value) {
-    return demoAccounts.filter(a => a.include_in_total && a.balance > 0).reduce((sum, a) => sum + a.balance, 0)
-  }
-  return positiveBalance.value
-})
-
-const displayNegativeBalance = computed(() => {
-  if (useDemoData.value) {
-    return demoAccounts.filter(a => a.include_in_total && a.balance < 0).reduce((sum, a) => sum + Math.abs(a.balance), 0)
-  }
-  return negativeBalance.value
-})
 </script>
 
 <template>
@@ -238,10 +155,10 @@ const displayNegativeBalance = computed(() => {
           <p
             :class="[
               'text-2xl font-bold',
-              displayTotalBalance >= 0 ? 'text-on-surface' : 'text-tertiary'
+              totalBalance >= 0 ? 'text-on-surface' : 'text-tertiary'
             ]"
           >
-            {{ formatCurrency(displayTotalBalance) }}
+            {{ formatCurrency(totalBalance) }}
           </p>
         </div>
 
@@ -253,7 +170,7 @@ const displayNegativeBalance = computed(() => {
             <span class="text-sm text-on-surface-variant">Saldos Positivos</span>
           </div>
           <p class="text-2xl font-bold text-primary">
-            {{ formatCurrency(displayPositiveBalance) }}
+            {{ formatCurrency(positiveBalance) }}
           </p>
         </div>
 
@@ -265,7 +182,7 @@ const displayNegativeBalance = computed(() => {
             <span class="text-sm text-on-surface-variant">Saldos Negativos</span>
           </div>
           <p class="text-2xl font-bold text-tertiary">
-            {{ formatCurrency(displayNegativeBalance) }}
+            {{ formatCurrency(negativeBalance) }}
           </p>
         </div>
       </div>
@@ -293,7 +210,7 @@ const displayNegativeBalance = computed(() => {
 
       <!-- Empty State -->
       <div
-        v-else-if="!useDemoData && accountsList.length === 0"
+        v-else-if="accountsList.length === 0"
         class="bg-surface-container-lowest rounded-xl p-12 shadow-editorial text-center"
       >
         <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mx-auto mb-4">
@@ -312,20 +229,13 @@ const displayNegativeBalance = computed(() => {
       <!-- Accounts Grid -->
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <AccountCard
-          v-for="account in displayAccounts"
+          v-for="account in accountsList"
           :key="account.id"
           :account="account"
           @edit="handleEdit"
           @delete="handleDelete"
           @set-default="handleSetDefault"
         />
-      </div>
-
-      <!-- Demo data indicator -->
-      <div v-if="useDemoData" class="text-center">
-        <p class="text-sm text-on-surface-variant">
-          Exibindo dados de demonstracao. Conecte a API para ver dados reais.
-        </p>
       </div>
     </div>
 

@@ -128,51 +128,6 @@ function handleModalDelete(id: string) {
   deleteMutation.mutate(id)
 }
 
-// Demo data
-const demoCategories: Category[] = [
-  { id: '1', name: 'Salario', type: 'income', color: '#006b2c', created_at: '', updated_at: '' },
-  { id: '2', name: 'Freelance', type: 'income', color: '#0058be', created_at: '', updated_at: '' },
-  { id: '3', name: 'Investimentos', type: 'income', color: '#9b59b6', parent_id: '2', created_at: '', updated_at: '' },
-  { id: '4', name: 'Alimentacao', type: 'expense', color: '#ff6b6b', budget_limit: 800, created_at: '', updated_at: '' },
-  { id: '5', name: 'Restaurantes', type: 'expense', color: '#e74c3c', parent_id: '4', budget_limit: 400, created_at: '', updated_at: '' },
-  { id: '6', name: 'Supermercado', type: 'expense', color: '#c0392b', parent_id: '4', budget_limit: 400, created_at: '', updated_at: '' },
-  { id: '7', name: 'Moradia', type: 'expense', color: '#3498db', budget_limit: 2000, created_at: '', updated_at: '' },
-  { id: '8', name: 'Transporte', type: 'expense', color: '#f39c12', budget_limit: 500, created_at: '', updated_at: '' },
-  { id: '9', name: 'Entretenimento', type: 'expense', color: '#9b59b6', budget_limit: 300, created_at: '', updated_at: '' },
-  { id: '10', name: 'Saude', type: 'expense', color: '#1abc9c', budget_limit: 400, created_at: '', updated_at: '' },
-]
-
-const useDemoData = computed(() => !isLoading.value && (categories.value?.length || 0) === 0)
-
-const displayCategories = computed(() => {
-  if (useDemoData.value) {
-    let result = demoCategories
-
-    if (typeFilter.value !== 'all') {
-      result = result.filter(c => c.type === typeFilter.value)
-    }
-
-    if (searchQuery.value) {
-      const query = searchQuery.value.toLowerCase()
-      result = result.filter(c => c.name.toLowerCase().includes(query))
-    }
-
-    return result
-  }
-
-  return filteredCategories.value
-})
-
-const displayCounts = computed(() => {
-  if (useDemoData.value) {
-    return {
-      total: demoCategories.length,
-      income: demoCategories.filter(c => c.type === 'income').length,
-      expense: demoCategories.filter(c => c.type === 'expense').length,
-    }
-  }
-  return categoryCounts.value
-})
 </script>
 
 <template>
@@ -183,7 +138,7 @@ const displayCounts = computed(() => {
         <div>
           <h1 class="text-2xl font-bold text-on-surface">Categorias</h1>
           <p class="text-on-surface-variant">
-            {{ displayCounts.total }} categorias ({{ displayCounts.income }} receitas, {{ displayCounts.expense }} despesas)
+            {{ categoryCounts.total }} categorias ({{ categoryCounts.income }} receitas, {{ categoryCounts.expense }} despesas)
           </p>
         </div>
         <Button @click="categoriesStore.openCreateModal">
@@ -232,25 +187,18 @@ const displayCounts = computed(() => {
 
       <!-- Categories Table -->
       <CategoryTable
-        :categories="displayCategories"
+        :categories="filteredCategories"
         :is-loading="isLoading"
         @edit="handleEdit"
         @delete="handleDelete"
       />
-
-      <!-- Demo data indicator -->
-      <div v-if="useDemoData" class="text-center">
-        <p class="text-sm text-on-surface-variant">
-          Exibindo dados de demonstracao. Conecte a API para ver dados reais.
-        </p>
-      </div>
     </div>
 
     <!-- Category Modal -->
     <CategoryModal
       v-model:open="isModalOpen"
       :category="selectedCategory"
-      :categories="displayCategories"
+      :categories="filteredCategories"
       :is-loading="createMutation.isPending.value || updateMutation.isPending.value"
       :is-deleting="deleteMutation.isPending.value"
       @submit="handleModalSubmit"

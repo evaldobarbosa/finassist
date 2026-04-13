@@ -5,7 +5,7 @@ import type { User } from '@/types'
 const STORAGE_KEY = 'finassistant_auth'
 
 interface StoredAuth {
-  phone: string | null
+  token: string | null
   user: User | null
 }
 
@@ -19,7 +19,7 @@ function loadFromStorage(): StoredAuth {
     // Invalid JSON, clear storage
     localStorage.removeItem(STORAGE_KEY)
   }
-  return { phone: null, user: null }
+  return { token: null, user: null }
 }
 
 function saveToStorage(data: StoredAuth) {
@@ -30,9 +30,9 @@ export const useAuthStore = defineStore('auth', () => {
   const stored = loadFromStorage()
 
   const user = ref<User | null>(stored.user)
-  const phone = ref<string | null>(stored.phone)
+  const token = ref<string | null>(stored.token)
 
-  const isAuthenticated = computed(() => !!phone.value)
+  const isAuthenticated = computed(() => !!token.value)
   const userName = computed(() => user.value?.name || 'Usuario')
   const userInitials = computed(() => {
     if (user.value?.name) {
@@ -47,12 +47,12 @@ export const useAuthStore = defineStore('auth', () => {
   })
 
   // Persist changes to localStorage
-  watch([phone, user], () => {
-    saveToStorage({ phone: phone.value, user: user.value })
+  watch([token, user], () => {
+    saveToStorage({ token: token.value, user: user.value })
   }, { deep: true })
 
-  function setPhone(newPhone: string) {
-    phone.value = newPhone
+  function setToken(newToken: string) {
+    token.value = newToken
   }
 
   function setUser(newUser: User) {
@@ -65,20 +65,26 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  function setAuth(newToken: string, newUser: User) {
+    token.value = newToken
+    user.value = newUser
+  }
+
   function logout() {
     user.value = null
-    phone.value = null
+    token.value = null
     localStorage.removeItem(STORAGE_KEY)
   }
 
   return {
     user,
-    phone,
+    token,
     isAuthenticated,
     userName,
     userInitials,
-    setPhone,
+    setToken,
     setUser,
+    setAuth,
     updateUser,
     logout,
   }

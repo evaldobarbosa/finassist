@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useQuery } from '@tanstack/vue-query'
 import {
-  X,
   ChevronLeft,
   ChevronRight,
   Calendar,
@@ -9,16 +9,24 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
+  CreditCard,
+  Layers,
 } from 'lucide-vue-next'
-import { formatCurrency, formatDate } from '@/lib/utils'
+import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import type { CreditCard, Transaction } from '@/types'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { api } from '@/lib/api'
+import type { CreditCard as CreditCardType, InstallmentsByMonthResponse } from '@/types'
 
 const props = defineProps<{
   open: boolean
-  card: CreditCard | null
-  transactions?: Transaction[]
+  card: CreditCardType | null
 }>()
 
 const emit = defineEmits<{
@@ -28,30 +36,45 @@ const emit = defineEmits<{
 
 const currentMonth = ref(new Date())
 
+const monthKey = computed(() => {
+  const year = currentMonth.value.getFullYear()
+  const month = String(currentMonth.value.getMonth() + 1).padStart(2, '0')
+  return `${year}-${month}`
+})
+
 const monthLabel = computed(() => {
   return currentMonth.value.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
 })
 
-// Filter transactions for current month's invoice
-const invoiceTransactions = computed(() => {
-  if (!props.transactions || !props.card) return []
+// Fetch installments for current month
+const { data: installmentsData, isLoading, refetch } = useQuery({
+  queryKey: ['installments-by-month', monthKey, props.card?.id],
+  queryFn: () => api.get<InstallmentsByMonthResponse>(`/installments/by-month?month=${monthKey.value}`),
+  enabled: computed(() => props.open && !!props.card),
+})
 
-  const closingDay = props.card.closing_day || 1
-  const year = currentMonth.value.getFullYear()
-  const month = currentMonth.value.getMonth()
-
-  // Invoice period: from closing day of previous month to closing day of current month
-  const startDate = new Date(year, month - 1, closingDay + 1)
-  const endDate = new Date(year, month, closingDay)
-
-  return props.transactions.filter(t => {
-    const txDate = new Date(t.date)
-    return txDate >= startDate && txDate <= endDate && t.type === 'expense'
-  }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+// Filter installments for current card
+const cardInstallments = computed(() => {
+  if (!installmentsData.value?.data || !props.card) return []
+  return installmentsData.value.data.filter(
+    inst => inst.installment_purchase?.credit_card_id === props.card?.id
+  )
 })
 
 const invoiceTotal = computed(() => {
-  return invoiceTransactions.value.reduce((sum, t) => sum + t.amount, 0)
+  return cardInstallments.value.reduce((sum, inst) => sum + Number(inst.amount || 0), 0)
+})
+
+const pendingTotal = computed(() => {
+  return cardInstallments.value
+    .filter(inst => inst.status === 'pending')
+    .reduce((sum, inst) => sum + Number(inst.amount || 0), 0)
+})
+
+const paidTotal = computed(() => {
+  return cardInstallments.value
+    .filter(inst => inst.status === 'paid')
+    .reduce((sum, inst) => sum + Number(inst.amount || 0), 0)
 })
 
 const invoiceStatus = computed(() => {
@@ -59,12 +82,16 @@ const invoiceStatus = computed(() => {
   const dueDay = props.card?.due_day || 1
   const dueDate = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth(), dueDay)
 
-  if (today > dueDate) {
+  if (pendingTotal.value === 0 && invoiceTotal.value > 0) {
+    return { label: 'Paga', variant: 'default' as const, icon: CheckCircle }
+  }
+
+  if (today > dueDate && pendingTotal.value > 0) {
     return { label: 'Vencida', variant: 'destructive' as const, icon: AlertTriangle }
   }
 
   const diffDays = Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-  if (diffDays <= 7) {
+  if (diffDays <= 7 && diffDays >= 0) {
     return { label: 'Vence em breve', variant: 'warning' as const, icon: Clock }
   }
 
@@ -79,59 +106,60 @@ function nextMonth() {
   currentMonth.value = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth() + 1, 1)
 }
 
-function handleClose() {
-  emit('update:open', false)
-}
-
 function handlePayInvoice() {
   if (props.card) {
     emit('pay-invoice', props.card.id, invoiceTotal.value)
   }
 }
 
-// Group transactions by date
-const groupedTransactions = computed(() => {
-  const groups: Record<string, Transaction[]> = {}
+// Group installments by purchase (merchant)
+const groupedInstallments = computed(() => {
+  const groups: Record<string, typeof cardInstallments.value> = {}
 
-  invoiceTransactions.value.forEach(t => {
-    const dateKey = new Date(t.date).toLocaleDateString('pt-BR')
-    if (!groups[dateKey]) {
-      groups[dateKey] = []
+  cardInstallments.value.forEach(inst => {
+    const key = inst.installment_purchase_id
+    if (!groups[key]) {
+      groups[key] = []
     }
-    groups[dateKey].push(t)
+    groups[key].push(inst)
   })
 
-  return Object.entries(groups).map(([date, transactions]) => ({
-    date,
-    transactions,
-    total: transactions.reduce((sum, t) => sum + t.amount, 0),
-  }))
+  return Object.entries(groups).map(([purchaseId, installments]) => {
+    const purchase = installments[0].installment_purchase
+    return {
+      purchaseId,
+      merchant: purchase?.merchant || 'Compra parcelada',
+      purchaseDate: purchase?.purchase_date,
+      totalAmount: purchase?.total_amount || 0,
+      installmentCount: purchase?.installment_count || 0,
+      installments,
+      monthTotal: installments.reduce((sum, inst) => sum + Number(inst.amount || 0), 0),
+    }
+  }).sort((a, b) => b.monthTotal - a.monthTotal)
+})
+
+// Refetch when month changes
+watch(monthKey, () => {
+  if (props.open && props.card) {
+    refetch()
+  }
 })
 </script>
 
 <template>
-  <div
-    v-if="open && card"
-    class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
-    @click.self="handleClose"
-  >
-    <div class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+  <Dialog :open="open && !!card" @update:open="emit('update:open', $event)">
+    <DialogContent class="max-w-2xl max-h-[90vh] flex flex-col p-0 gap-0">
       <!-- Header -->
-      <div class="flex items-center justify-between p-4 border-b border-outline-variant">
-        <div class="flex items-center gap-3">
-          <button @click="handleClose" class="p-2 rounded-lg hover:bg-surface-container transition">
-            <X class="h-5 w-5 text-on-surface-variant" />
-          </button>
-          <div>
-            <h2 class="font-semibold text-on-surface">Fatura {{ card.name }}</h2>
-            <p class="text-sm text-on-surface-variant">**** {{ card.last_four_digits }}</p>
-          </div>
+      <DialogHeader class="flex flex-row items-center justify-between p-4 border-b border-outline-variant space-y-0">
+        <div>
+          <DialogTitle class="font-semibold text-on-surface">Fatura {{ card?.name }}</DialogTitle>
+          <p class="text-sm text-on-surface-variant">**** {{ card?.last_four_digits }}</p>
         </div>
         <Badge :variant="invoiceStatus.variant">
           <component :is="invoiceStatus.icon" class="h-3 w-3 mr-1" />
           {{ invoiceStatus.label }}
         </Badge>
-      </div>
+      </DialogHeader>
 
       <!-- Month Navigation -->
       <div class="flex items-center justify-between p-4 bg-surface-container">
@@ -150,8 +178,12 @@ const groupedTransactions = computed(() => {
           <div>
             <p class="text-sm text-on-surface-variant">Total da fatura</p>
             <p class="text-2xl font-bold text-on-surface">{{ formatCurrency(invoiceTotal) }}</p>
+            <div v-if="paidTotal > 0" class="flex gap-3 mt-1 text-sm">
+              <span class="text-primary">Pago: {{ formatCurrency(paidTotal) }}</span>
+              <span v-if="pendingTotal > 0" class="text-tertiary">Pendente: {{ formatCurrency(pendingTotal) }}</span>
+            </div>
           </div>
-          <Button @click="handlePayInvoice" :disabled="invoiceTotal === 0">
+          <Button @click="handlePayInvoice" :disabled="pendingTotal === 0">
             <CheckCircle class="h-4 w-4 mr-2" />
             Pagar Fatura
           </Button>
@@ -159,51 +191,82 @@ const groupedTransactions = computed(() => {
         <div class="flex gap-4 mt-4 text-sm">
           <div>
             <span class="text-on-surface-variant">Fechamento: </span>
-            <span class="font-medium text-on-surface">Dia {{ card.closing_day }}</span>
+            <span class="font-medium text-on-surface">Dia {{ card?.closing_day }}</span>
           </div>
           <div>
             <span class="text-on-surface-variant">Vencimento: </span>
-            <span class="font-medium text-on-surface">Dia {{ card.due_day }}</span>
+            <span class="font-medium text-on-surface">Dia {{ card?.due_day }}</span>
           </div>
         </div>
       </div>
 
-      <!-- Transactions List -->
+      <!-- Installments List -->
       <div class="flex-1 overflow-y-auto p-4">
-        <div v-if="groupedTransactions.length === 0" class="text-center py-12">
-          <Receipt class="h-12 w-12 mx-auto text-on-surface-variant mb-4" />
-          <p class="text-on-surface-variant">Nenhuma transacao neste periodo</p>
+        <!-- Loading -->
+        <div v-if="isLoading" class="space-y-4">
+          <div v-for="i in 3" :key="i" class="h-20 bg-surface-container rounded-lg animate-pulse" />
         </div>
 
-        <div v-else class="space-y-6">
-          <div v-for="group in groupedTransactions" :key="group.date">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-sm font-medium text-on-surface-variant">{{ group.date }}</span>
-              <span class="text-sm text-tertiary">-{{ formatCurrency(group.total) }}</span>
-            </div>
-            <div class="space-y-2">
-              <div
-                v-for="transaction in group.transactions"
-                :key="transaction.id"
-                class="flex items-center justify-between p-3 bg-surface-container rounded-lg"
-              >
+        <!-- Empty State -->
+        <div v-else-if="groupedInstallments.length === 0" class="text-center py-12">
+          <Receipt class="h-12 w-12 mx-auto text-on-surface-variant mb-4" />
+          <p class="text-on-surface-variant">Nenhuma parcela neste periodo</p>
+        </div>
+
+        <!-- Installments by Purchase -->
+        <div v-else class="space-y-4">
+          <div
+            v-for="group in groupedInstallments"
+            :key="group.purchaseId"
+            class="bg-surface-container rounded-xl overflow-hidden"
+          >
+            <!-- Purchase Header -->
+            <div class="p-4 border-b border-outline-variant/50">
+              <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
-                    <Receipt class="h-5 w-5 text-on-surface-variant" />
+                    <Layers class="h-5 w-5 text-on-surface-variant" />
                   </div>
                   <div>
-                    <p class="font-medium text-on-surface">{{ transaction.description }}</p>
-                    <p v-if="transaction.installment_info" class="text-xs text-on-surface-variant">
-                      {{ transaction.installment_info }}
+                    <p class="font-medium text-on-surface">{{ group.merchant }}</p>
+                    <p class="text-xs text-on-surface-variant">
+                      Total: {{ formatCurrency(group.totalAmount) }} em {{ group.installmentCount }}x
                     </p>
                   </div>
                 </div>
-                <span class="font-medium text-tertiary">-{{ formatCurrency(transaction.amount) }}</span>
+                <span class="font-semibold text-tertiary">-{{ formatCurrency(group.monthTotal) }}</span>
+              </div>
+            </div>
+
+            <!-- Installment Details -->
+            <div class="divide-y divide-outline-variant/30">
+              <div
+                v-for="installment in group.installments"
+                :key="installment.id"
+                class="flex items-center justify-between p-3 px-4"
+              >
+                <div class="flex items-center gap-3">
+                  <Badge
+                    :variant="installment.status === 'paid' ? 'default' : 'outline'"
+                    class="text-xs"
+                  >
+                    {{ installment.number }}/{{ group.installmentCount }}
+                  </Badge>
+                  <span class="text-sm text-on-surface-variant">
+                    {{ installment.status === 'paid' ? 'Paga' : 'Pendente' }}
+                  </span>
+                </div>
+                <span
+                  class="font-medium"
+                  :class="installment.status === 'paid' ? 'text-on-surface-variant line-through' : 'text-tertiary'"
+                >
+                  -{{ formatCurrency(installment.amount) }}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </DialogContent>
+  </Dialog>
 </template>

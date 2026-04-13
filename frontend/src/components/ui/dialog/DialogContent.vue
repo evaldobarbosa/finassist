@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { DialogContent, DialogOverlay, DialogPortal, type DialogContentEmits, type DialogContentProps, useForwardPropsEmits } from 'radix-vue'
+import { DialogClose, DialogContent, DialogOverlay, DialogPortal, type DialogContentEmits, type DialogContentProps, useForwardPropsEmits } from 'radix-vue'
 import { X } from 'lucide-vue-next'
 import { cn } from '@/lib/utils'
 
@@ -28,12 +28,12 @@ const forwarded = useForwardPropsEmits(props, emits)
     >
       <slot />
 
-      <button
+      <DialogClose
         class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-surface transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none"
       >
         <X class="h-4 w-4" />
         <span class="sr-only">Fechar</span>
-      </button>
+      </DialogClose>
     </DialogContent>
   </DialogPortal>
 </template>

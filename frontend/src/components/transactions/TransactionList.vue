@@ -42,8 +42,9 @@ const groupedTransactions = computed(() => {
     formattedDate: formatDateHeader(date),
     transactions: groups[date],
     total: groups[date].reduce((sum, t) => {
-      if (t.type === 'income') return sum + t.amount
-      if (t.type === 'expense') return sum - t.amount
+      const amount = Number(t.amount || 0)
+      if (t.type === 'income') return sum + amount
+      if (t.type === 'expense') return sum - amount
       return sum
     }, 0),
   }))

@@ -18,8 +18,6 @@ export interface TransactionFiltersValue {
   type: TransactionType | ''
   account_id: string
   category_id: string
-  start_date: string
-  end_date: string
 }
 
 const props = defineProps<{
@@ -55,8 +53,6 @@ const activeFilterCount = computed(() => {
   if (localFilters.value.type) count++
   if (localFilters.value.account_id) count++
   if (localFilters.value.category_id) count++
-  if (localFilters.value.start_date) count++
-  if (localFilters.value.end_date) count++
   return count
 })
 
@@ -76,8 +72,6 @@ function clearFilters() {
     type: '',
     account_id: '',
     category_id: '',
-    start_date: '',
-    end_date: '',
   }
   localFilters.value = cleared
   emit('update:modelValue', cleared)
@@ -90,10 +84,10 @@ function toggleExpanded() {
 
 <template>
   <div class="bg-surface-container-lowest rounded-xl shadow-editorial">
-    <!-- Search and Filter Toggle -->
-    <div class="p-4 flex gap-3">
+    <!-- Search, Filter Toggle, and Period Selector -->
+    <div class="p-4 flex flex-wrap gap-3 items-center">
       <!-- Search -->
-      <div class="flex-1 relative">
+      <div class="flex-1 min-w-[200px] relative">
         <Search class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-on-surface-variant" />
         <Input
           :model-value="localFilters.search"
@@ -122,12 +116,17 @@ function toggleExpanded() {
           ]"
         />
       </Button>
+
+      <!-- Period Selector Slot -->
+      <div v-if="$slots.period" class="ml-auto pl-4 border-l border-outline-variant">
+        <slot name="period" />
+      </div>
     </div>
 
     <!-- Expanded Filters -->
     <Transition name="slide">
       <div v-if="isExpanded" class="px-4 pb-4 border-t border-outline-variant pt-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Type Filter -->
           <div>
             <label class="block text-sm font-medium text-on-surface-variant mb-2">
@@ -203,29 +202,6 @@ function toggleExpanded() {
                 </SelectItem>
               </SelectContent>
             </Select>
-          </div>
-
-          <!-- Date Range -->
-          <div>
-            <label class="block text-sm font-medium text-on-surface-variant mb-2">
-              Periodo
-            </label>
-            <div class="flex gap-2">
-              <Input
-                :model-value="localFilters.start_date"
-                @update:model-value="updateFilter('start_date', $event as string)"
-                type="date"
-                class="flex-1"
-                placeholder="De"
-              />
-              <Input
-                :model-value="localFilters.end_date"
-                @update:model-value="updateFilter('end_date', $event as string)"
-                type="date"
-                class="flex-1"
-                placeholder="Ate"
-              />
-            </div>
           </div>
         </div>
 

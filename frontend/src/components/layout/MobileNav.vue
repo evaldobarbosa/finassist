@@ -20,9 +20,9 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: 'Inicio', path: '/', icon: LayoutDashboard },
-  { name: 'Transacoes', path: '/transactions', icon: Receipt },
-  { name: 'Contas', path: '/accounts', icon: Wallet },
-  { name: 'Mais', path: '/settings', icon: MoreHorizontal, matchPaths: ['/settings', '/categories', '/credit-cards', '/recurrences'] },
+  { name: 'Extrato', path: '/transactions', icon: Receipt },
+  { name: 'Cartoes', path: '/credit-cards', icon: Wallet },
+  { name: 'Mais', path: '/settings', icon: MoreHorizontal, matchPaths: ['/settings', '/categories', '/accounts', '/recurrences'] },
 ]
 
 const currentPath = computed(() => route.path)

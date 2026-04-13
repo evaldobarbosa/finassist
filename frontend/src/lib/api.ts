@@ -11,14 +11,28 @@ export class ApiError extends Error {
   }
 }
 
+function getTokenFromStorage(): string | null {
+  try {
+    const authData = localStorage.getItem('finassistant_auth')
+    if (authData) {
+      const parsed = JSON.parse(authData)
+      if (parsed.token) return parsed.token
+    }
+  } catch {
+    // Invalid JSON, ignore
+  }
+  return null
+}
+
 async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const phone = localStorage.getItem('phone')
+  const token = getTokenFromStorage()
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...(phone && { 'X-Phone': phone }),
+      'Accept': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` }),
       ...options.headers,
     },
   })

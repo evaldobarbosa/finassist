@@ -1,0 +1,17 @@
+# Cloudflare Tunnel config para FinAssistant
+# Credentials copiados de ~/.cloudflared/
+
+tunnel: ebe5df75-df09-429c-91b4-91a4f7489294
+credentials-file: /etc/cloudflared/credentials.json
+
+ingress:
+  # Frontend Vue.js
+  - hostname: fina.code2.dev
+    service: http://finassistant-frontend:3000
+
+  # API Laravel
+  - hostname: api-fina.code2.dev
+    service: http://finassistant-api:8080
+
+  # Catch-all (obrigatorio)
+  - service: http_status:404

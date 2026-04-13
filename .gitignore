@@ -15,3 +15,7 @@ Thumbs.db
 *.swp
 *.swo
 vpn-basa
+
+# Secrets
+.env
+cloudflared-credentials.json

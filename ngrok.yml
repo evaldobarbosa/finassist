@@ -1,17 +1,14 @@
-# Configuracao ngrok para FinAssistant
-# Uso: ngrok start --config ngrok.yml --all
+# Configuracao ngrok para FinAssistant (Docker)
+# O authtoken eh passado via variavel de ambiente NGROK_AUTHTOKEN
+# Nota: Hostnames customizados requerem plano pago
 
 version: "3"
-agent:
-  authtoken: ${NGROK_AUTHTOKEN}
 
 tunnels:
   frontend:
     proto: http
-    addr: 5180
-    hostname: fina.code2.dev
+    addr: finassistant-frontend:5173
 
   api:
     proto: http
-    addr: 8000
-    hostname: api-fina.code2.dev
+    addr: finassistant-api:8080
