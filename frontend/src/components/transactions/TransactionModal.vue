@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { Loader2, Calendar, Repeat, AlertTriangle } from 'lucide-vue-next'
+import { Loader2, Calendar, Repeat, AlertTriangle, CreditCard } from 'lucide-vue-next'
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CurrencyInput, parseCurrency, formatCurrency } from '@/components/ui/currency-input'
 import {
   Select,
   SelectContent,
@@ -19,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import type { Transaction, TransactionType, Account, Category } from '@/types'
+import type { Transaction, TransactionType, Account, Category, CreditCard as CreditCardType } from '@/types'
 
 const props = defineProps<{
   open: boolean
@@ -27,6 +28,7 @@ const props = defineProps<{
   transaction?: Transaction | null
   accounts: Account[]
   categories: Category[]
+  creditCards?: CreditCardType[]
   isLoading?: boolean
   isDeleting?: boolean
 }>()
@@ -65,6 +67,15 @@ const filteredCategories = computed(() => {
 
 const isTransfer = computed(() => form.value.type === 'transfer')
 
+// Find credit card associated with the selected account
+const creditCardForSelectedAccount = computed(() => {
+  if (!form.value.account_id || !props.creditCards) return null
+  return props.creditCards.find(c => c.account_id === form.value.account_id)
+})
+
+// Check if installment is available (account has a credit card)
+const canInstallment = computed(() => !!creditCardForSelectedAccount.value)
+
 const modalTitle = computed(() => {
   if (isEditMode.value) return 'Editar Transacao'
   switch (form.value.type) {
@@ -81,6 +92,13 @@ const typeColors: Record<TransactionType, string> = {
   transfer: 'bg-secondary',
 }
 
+// Reset installment when account changes to one without credit card
+watch(() => form.value.account_id, () => {
+  if (form.value.is_installment && !creditCardForSelectedAccount.value) {
+    form.value.is_installment = false
+  }
+})
+
 // Initialize form when modal opens or transaction changes
 watch([() => props.open, () => props.transaction, () => props.type], () => {
   if (props.open) {
@@ -88,7 +106,7 @@ watch([() => props.open, () => props.transaction, () => props.type], () => {
     if (props.transaction) {
       form.value = {
         description: props.transaction.description,
-        amount: props.transaction.amount.toString(),
+        amount: formatCurrency(Number(props.transaction.amount)),
         type: props.transaction.type,
         date: props.transaction.date.split('T')[0],
         account_id: props.transaction.account_id,
@@ -118,17 +136,6 @@ watch([() => props.open, () => props.transaction, () => props.type], () => {
   }
 }, { immediate: true })
 
-function handleAmountInput(event: Event) {
-  const target = event.target as HTMLInputElement
-  let value = target.value.replace(/[^\d.,]/g, '')
-  value = value.replace(',', '.')
-  const parts = value.split('.')
-  if (parts.length > 2) {
-    value = parts[0] + '.' + parts.slice(1).join('')
-  }
-  form.value.amount = value
-}
-
 function handleClose() {
   emit('update:open', false)
 }
@@ -141,7 +148,7 @@ function handleSubmit() {
     return
   }
 
-  const amount = parseFloat(form.value.amount)
+  const amount = form.value.amount ? parseCurrency(form.value.amount) : 0
   if (isNaN(amount) || amount <= 0) {
     error.value = 'Digite um valor valido'
     return
@@ -163,8 +170,13 @@ function handleSubmit() {
   }
 
   const totalInstallments = form.value.is_installment ? parseInt(form.value.total_installments) : undefined
-  if (form.value.is_installment && (!totalInstallments || totalInstallments < 2 || totalInstallments > 48)) {
-    error.value = 'Numero de parcelas deve ser entre 2 e 48'
+  if (form.value.is_installment && (!totalInstallments || totalInstallments < 2 || totalInstallments > 36)) {
+    error.value = 'Numero de parcelas deve ser entre 2 e 36'
+    return
+  }
+
+  if (form.value.is_installment && !creditCardForSelectedAccount.value) {
+    error.value = 'Selecione uma conta de cartao de credito para parcelamento'
     return
   }
 
@@ -174,11 +186,13 @@ function handleSubmit() {
     type: form.value.type,
     date: form.value.date,
     account_id: form.value.account_id,
-    category_id: form.value.category_id || undefined,
+    category_id: form.value.category_id && form.value.category_id !== '_none' ? form.value.category_id : undefined,
     destination_account_id: isTransfer.value ? form.value.destination_account_id : undefined,
+    credit_card_id: form.value.is_installment ? creditCardForSelectedAccount.value?.id : undefined,
     notes: form.value.notes.trim() || undefined,
     is_recurring: form.value.is_recurring,
-    total_installments: totalInstallments,
+    is_installment: form.value.is_installment,
+    installment_total: totalInstallments,
   })
 }
 
@@ -201,6 +215,7 @@ function toggleRecurring() {
 }
 
 function toggleInstallment() {
+  if (!canInstallment.value) return
   form.value.is_installment = !form.value.is_installment
   if (form.value.is_installment) {
     form.value.is_recurring = false
@@ -274,17 +289,10 @@ function toggleInstallment() {
           <!-- Amount -->
           <div>
             <Label class="mb-2">Valor *</Label>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">R$</span>
-              <Input
-                :model-value="form.amount"
-                @input="handleAmountInput"
-                type="text"
-                inputmode="decimal"
-                placeholder="0,00"
-                class="pl-10 text-lg font-semibold h-12"
-              />
-            </div>
+            <CurrencyInput
+              v-model="form.amount"
+              class="text-lg font-semibold h-12"
+            />
           </div>
 
           <!-- Description -->
@@ -356,7 +364,7 @@ function toggleInstallment() {
                 <SelectValue placeholder="Selecione uma categoria" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Sem categoria</SelectItem>
+                <SelectItem value="_none">Sem categoria</SelectItem>
                 <SelectItem
                   v-for="category in filteredCategories"
                   :key="category.id"
@@ -392,34 +400,40 @@ function toggleInstallment() {
             <button
               type="button"
               @click="toggleInstallment"
+              :disabled="!canInstallment"
+              :title="!canInstallment ? 'Selecione uma conta de cartao de credito' : ''"
               :class="[
                 'flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border transition',
                 form.is_installment
                   ? 'border-primary bg-primary-fixed/20 text-primary'
-                  : 'border-outline-variant text-on-surface-variant hover:bg-surface-container'
+                  : !canInstallment
+                    ? 'border-outline-variant text-on-surface-variant/50 cursor-not-allowed'
+                    : 'border-outline-variant text-on-surface-variant hover:bg-surface-container'
               ]"
             >
+              <CreditCard class="h-4 w-4" />
               <span class="text-sm font-medium">Parcelado</span>
             </button>
           </div>
 
-          <!-- Installment Count -->
-          <div v-if="form.is_installment && !isEditMode">
-            <Label class="mb-2">Numero de parcelas</Label>
-            <Select v-model="form.total_installments">
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
-                  v-for="n in 12"
-                  :key="n"
-                  :value="(n + 1).toString()"
-                >
-                  {{ n + 1 }}x
-                </SelectItem>
-              </SelectContent>
-            </Select>
+          <!-- Installment Options -->
+          <div v-if="form.is_installment && !isEditMode" class="space-y-3 p-4 bg-surface-container rounded-lg">
+            <div class="flex items-center justify-between">
+              <Label>Numero de parcelas</Label>
+              <span class="text-lg font-semibold text-primary">{{ form.total_installments }}x</span>
+            </div>
+            <input
+              type="range"
+              v-model="form.total_installments"
+              min="2"
+              max="36"
+              step="1"
+              class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary"
+            />
+            <div class="flex justify-between text-xs text-on-surface-variant">
+              <span>2x</span>
+              <span>36x</span>
+            </div>
           </div>
 
           <!-- Notes -->

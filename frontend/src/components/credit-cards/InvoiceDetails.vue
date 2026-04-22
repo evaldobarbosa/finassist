@@ -9,7 +9,7 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
-  CreditCard,
+  ShoppingCart,
   Layers,
 } from 'lucide-vue-next'
 import { formatCurrency } from '@/lib/utils'
@@ -22,7 +22,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { api } from '@/lib/api'
-import type { CreditCard as CreditCardType, InstallmentsByMonthResponse } from '@/types'
+import type { CreditCard as CreditCardType, CreditCardStatementResponse, CreditCardStatementTransaction } from '@/types'
 
 const props = defineProps<{
   open: boolean
@@ -46,35 +46,29 @@ const monthLabel = computed(() => {
   return currentMonth.value.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
 })
 
-// Fetch installments for current month
-const { data: installmentsData, isLoading, refetch } = useQuery({
-  queryKey: ['installments-by-month', monthKey, props.card?.id],
-  queryFn: () => api.get<InstallmentsByMonthResponse>(`/installments/by-month?month=${monthKey.value}`),
+// Fetch statement for current month
+const { data: statementData, isLoading, refetch } = useQuery({
+  queryKey: ['credit-card-statement', props.card?.id, monthKey],
+  queryFn: () => api.get<CreditCardStatementResponse>(`/credit-cards/${props.card?.id}/statement/${monthKey.value}`),
   enabled: computed(() => props.open && !!props.card),
 })
 
-// Filter installments for current card
-const cardInstallments = computed(() => {
-  if (!installmentsData.value?.data || !props.card) return []
-  return installmentsData.value.data.filter(
-    inst => inst.installment_purchase?.credit_card_id === props.card?.id
-  )
-})
+const transactions = computed(() => statementData.value?.data?.transactions || [])
 
 const invoiceTotal = computed(() => {
-  return cardInstallments.value.reduce((sum, inst) => sum + Number(inst.amount || 0), 0)
+  return parseFloat(statementData.value?.data?.total || '0')
 })
 
 const pendingTotal = computed(() => {
-  return cardInstallments.value
-    .filter(inst => inst.status === 'pending')
-    .reduce((sum, inst) => sum + Number(inst.amount || 0), 0)
+  return transactions.value
+    .filter(t => t.status === 'pending')
+    .reduce((sum, t) => sum + parseFloat(t.amount), 0)
 })
 
-const paidTotal = computed(() => {
-  return cardInstallments.value
-    .filter(inst => inst.status === 'paid')
-    .reduce((sum, inst) => sum + Number(inst.amount || 0), 0)
+const confirmedTotal = computed(() => {
+  return transactions.value
+    .filter(t => t.status === 'confirmed')
+    .reduce((sum, t) => sum + parseFloat(t.amount), 0)
 })
 
 const invoiceStatus = computed(() => {
@@ -112,31 +106,21 @@ function handlePayInvoice() {
   }
 }
 
-// Group installments by purchase (merchant)
-const groupedInstallments = computed(() => {
-  const groups: Record<string, typeof cardInstallments.value> = {}
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })
+}
 
-  cardInstallments.value.forEach(inst => {
-    const key = inst.installment_purchase_id
-    if (!groups[key]) {
-      groups[key] = []
-    }
-    groups[key].push(inst)
-  })
+function getTransactionIcon(transaction: CreditCardStatementTransaction) {
+  return transaction.is_installment ? Layers : ShoppingCart
+}
 
-  return Object.entries(groups).map(([purchaseId, installments]) => {
-    const purchase = installments[0].installment_purchase
-    return {
-      purchaseId,
-      merchant: purchase?.merchant || 'Compra parcelada',
-      purchaseDate: purchase?.purchase_date,
-      totalAmount: purchase?.total_amount || 0,
-      installmentCount: purchase?.installment_count || 0,
-      installments,
-      monthTotal: installments.reduce((sum, inst) => sum + Number(inst.amount || 0), 0),
-    }
-  }).sort((a, b) => b.monthTotal - a.monthTotal)
-})
+function getInstallmentLabel(transaction: CreditCardStatementTransaction): string {
+  if (transaction.is_installment && transaction.installment_number && transaction.installment_total) {
+    return `${transaction.installment_number}/${transaction.installment_total}`
+  }
+  return ''
+}
 
 // Refetch when month changes
 watch(monthKey, () => {
@@ -178,8 +162,8 @@ watch(monthKey, () => {
           <div>
             <p class="text-sm text-on-surface-variant">Total da fatura</p>
             <p class="text-2xl font-bold text-on-surface">{{ formatCurrency(invoiceTotal) }}</p>
-            <div v-if="paidTotal > 0" class="flex gap-3 mt-1 text-sm">
-              <span class="text-primary">Pago: {{ formatCurrency(paidTotal) }}</span>
+            <div v-if="confirmedTotal > 0" class="flex gap-3 mt-1 text-sm">
+              <span class="text-primary">Pago: {{ formatCurrency(confirmedTotal) }}</span>
               <span v-if="pendingTotal > 0" class="text-tertiary">Pendente: {{ formatCurrency(pendingTotal) }}</span>
             </div>
           </div>
@@ -200,69 +184,73 @@ watch(monthKey, () => {
         </div>
       </div>
 
-      <!-- Installments List -->
+      <!-- Transactions List -->
       <div class="flex-1 overflow-y-auto p-4">
         <!-- Loading -->
         <div v-if="isLoading" class="space-y-4">
-          <div v-for="i in 3" :key="i" class="h-20 bg-surface-container rounded-lg animate-pulse" />
+          <div v-for="i in 3" :key="i" class="h-16 bg-surface-container rounded-lg animate-pulse" />
         </div>
 
         <!-- Empty State -->
-        <div v-else-if="groupedInstallments.length === 0" class="text-center py-12">
+        <div v-else-if="transactions.length === 0" class="text-center py-12">
           <Receipt class="h-12 w-12 mx-auto text-on-surface-variant mb-4" />
-          <p class="text-on-surface-variant">Nenhuma parcela neste periodo</p>
+          <p class="text-on-surface-variant">Nenhuma transacao neste periodo</p>
         </div>
 
-        <!-- Installments by Purchase -->
-        <div v-else class="space-y-4">
+        <!-- Transactions -->
+        <div v-else class="space-y-2">
           <div
-            v-for="group in groupedInstallments"
-            :key="group.purchaseId"
-            class="bg-surface-container rounded-xl overflow-hidden"
+            v-for="transaction in transactions"
+            :key="transaction.id"
+            class="flex items-center gap-3 p-3 bg-surface-container rounded-lg"
           >
-            <!-- Purchase Header -->
-            <div class="p-4 border-b border-outline-variant/50">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
-                    <Layers class="h-5 w-5 text-on-surface-variant" />
-                  </div>
-                  <div>
-                    <p class="font-medium text-on-surface">{{ group.merchant }}</p>
-                    <p class="text-xs text-on-surface-variant">
-                      Total: {{ formatCurrency(group.totalAmount) }} em {{ group.installmentCount }}x
-                    </p>
-                  </div>
-                </div>
-                <span class="font-semibold text-tertiary">-{{ formatCurrency(group.monthTotal) }}</span>
+            <!-- Icon -->
+            <div
+              class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+              :class="transaction.is_installment ? 'bg-secondary/10' : 'bg-tertiary/10'"
+            >
+              <component
+                :is="getTransactionIcon(transaction)"
+                class="h-5 w-5"
+                :class="transaction.is_installment ? 'text-secondary' : 'text-tertiary'"
+              />
+            </div>
+
+            <!-- Details -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <p class="font-medium text-on-surface truncate">{{ transaction.description }}</p>
+                <Badge v-if="transaction.is_installment" variant="outline" class="text-xs shrink-0">
+                  {{ getInstallmentLabel(transaction) }}
+                </Badge>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-on-surface-variant">
+                <span>{{ formatDate(transaction.date) }}</span>
+                <span v-if="transaction.category" class="flex items-center gap-1">
+                  <span
+                    class="w-2 h-2 rounded-full"
+                    :style="{ backgroundColor: transaction.category.color }"
+                  />
+                  {{ transaction.category.name }}
+                </span>
               </div>
             </div>
 
-            <!-- Installment Details -->
-            <div class="divide-y divide-outline-variant/30">
-              <div
-                v-for="installment in group.installments"
-                :key="installment.id"
-                class="flex items-center justify-between p-3 px-4"
+            <!-- Amount -->
+            <div class="text-right shrink-0">
+              <p
+                class="font-semibold"
+                :class="transaction.status === 'confirmed' ? 'text-on-surface-variant line-through' : 'text-tertiary'"
               >
-                <div class="flex items-center gap-3">
-                  <Badge
-                    :variant="installment.status === 'paid' ? 'default' : 'outline'"
-                    class="text-xs"
-                  >
-                    {{ installment.number }}/{{ group.installmentCount }}
-                  </Badge>
-                  <span class="text-sm text-on-surface-variant">
-                    {{ installment.status === 'paid' ? 'Paga' : 'Pendente' }}
-                  </span>
-                </div>
-                <span
-                  class="font-medium"
-                  :class="installment.status === 'paid' ? 'text-on-surface-variant line-through' : 'text-tertiary'"
-                >
-                  -{{ formatCurrency(installment.amount) }}
-                </span>
-              </div>
+                -{{ formatCurrency(parseFloat(transaction.amount)) }}
+              </p>
+              <Badge
+                v-if="transaction.status === 'confirmed'"
+                variant="default"
+                class="text-xs"
+              >
+                Pago
+              </Badge>
             </div>
           </div>
         </div>

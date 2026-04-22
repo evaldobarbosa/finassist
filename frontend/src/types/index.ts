@@ -68,9 +68,12 @@ export interface Transaction {
   account_id: string
   category_id?: string
   destination_account_id?: string
+  credit_card_id?: string
   notes?: string
   is_recurring: boolean
+  is_installment?: boolean
   installment_number?: number
+  installment_total?: number
   total_installments?: number
   installment_info?: string
   created_at: string
@@ -188,6 +191,34 @@ export interface InstallmentsByMonthResponse {
   paid_total: number
   installments_count: number
   data: Installment[]
+}
+
+export interface CreditCardStatementTransaction {
+  id: string
+  amount: string
+  description: string
+  date: string
+  type: 'expense' | 'income'
+  status: 'pending' | 'confirmed'
+  category: {
+    id: string
+    name: string
+    color: string
+    icon?: string
+  } | null
+  notes?: string
+  is_installment: boolean
+  installment_number?: number
+  installment_total?: number
+}
+
+export interface CreditCardStatementResponse {
+  data: {
+    month: string
+    credit_card_id: string
+    total: string
+    transactions: CreditCardStatementTransaction[]
+  }
 }
 
 // Recurrence types

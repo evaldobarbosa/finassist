@@ -108,12 +108,6 @@ const isPremium = computed(() => subscription.value.plan === 'premium')
   <AppLayout>
     <div class="p-4 lg:p-6">
       <div class="max-w-4xl mx-auto">
-        <!-- Header -->
-        <div class="mb-6">
-          <h1 class="text-2xl font-bold text-on-surface">Configuracoes</h1>
-          <p class="text-on-surface-variant">Gerencie sua conta e preferencias</p>
-        </div>
-
         <div class="flex flex-col lg:flex-row gap-6">
           <!-- Sidebar Navigation -->
           <nav class="lg:w-64 shrink-0">

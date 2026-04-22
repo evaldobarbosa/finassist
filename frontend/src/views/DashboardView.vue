@@ -11,7 +11,7 @@ import TransactionModal from '@/components/transactions/TransactionModal.vue'
 import { Button } from '@/components/ui/button'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
-import type { DashboardSummary, Transaction, Account, Category, TransactionType } from '@/types'
+import type { DashboardSummary, Transaction, Account, Category, TransactionType, CreditCard } from '@/types'
 
 const router = useRouter()
 const queryClient = useQueryClient()
@@ -59,6 +59,13 @@ const { data: accounts } = useQuery({
 const { data: categories } = useQuery({
   queryKey: ['categories'],
   queryFn: () => api.get<Category[]>('/categories'),
+  staleTime: 1000 * 60, // 1 minute - refetch after 1 min
+})
+
+// Fetch credit cards
+const { data: creditCards } = useQuery({
+  queryKey: ['credit-cards'],
+  queryFn: () => api.get<CreditCard[]>('/credit-cards'),
 })
 
 // Create transaction mutation
@@ -104,17 +111,15 @@ const summaryData = computed(() => summary.value || {
 const transactions = computed(() => transactionsData.value?.data || [])
 const accountsList = computed(() => accounts.value || [])
 const categoriesList = computed(() => categories.value || [])
+const creditCardsList = computed(() => creditCards.value || [])
 </script>
 
 <template>
   <AppLayout>
     <div class="p-4 lg:p-6 space-y-6">
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-bold text-on-surface">Dashboard</h1>
-          <p class="text-on-surface-variant capitalize">{{ currentMonthLabel }}</p>
-        </div>
+      <!-- Actions -->
+      <div class="flex items-center justify-between">
+        <p class="text-on-surface-variant capitalize">{{ currentMonthLabel }}</p>
         <Button variant="outline" @click="goToExtrato">
           <FileText class="h-4 w-4 mr-2" />
           Ver extrato do mes
@@ -153,6 +158,7 @@ const categoriesList = computed(() => categories.value || [])
       :type="transactionType"
       :accounts="accountsList"
       :categories="categoriesList"
+      :credit-cards="creditCardsList"
       :is-loading="createTransaction.isPending.value"
       @submit="handleTransactionSubmit"
     />

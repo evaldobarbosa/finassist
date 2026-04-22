@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import { Plus } from 'lucide-vue-next'
@@ -13,22 +13,43 @@ import { Button } from '@/components/ui/button'
 import { useTransactionsStore } from '@/stores/transactions'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
-import type { Transaction, Account, Category, TransactionsResponse } from '@/types'
+import type { Transaction, Account, Category, TransactionsResponse, CreditCard } from '@/types'
 
 const route = useRoute()
 const queryClient = useQueryClient()
-const transactionsStore = useTransactionsStore()
+const store = useTransactionsStore()
 const { success, error: showError } = useToast()
 
+// Use storeToRefs for reactive state
 const {
-  period,
   filters,
   currentPage,
   isModalOpen,
   modalMode,
   selectedTransaction,
   defaultTransactionType,
-} = storeToRefs(transactionsStore)
+} = storeToRefs(store)
+
+// Period - manage locally to avoid store issues
+const currentDate = new Date()
+const period = ref({
+  month: currentDate.getMonth(),
+  year: currentDate.getFullYear(),
+})
+
+function handlePeriodChange(newPeriod: { month: number; year: number }) {
+  period.value = newPeriod
+}
+
+// Compute period dates
+const periodDates = computed(() => {
+  const startDate = new Date(period.value.year, period.value.month, 1)
+  const endDate = new Date(period.value.year, period.value.month + 1, 0)
+  return {
+    start: startDate.toISOString().split('T')[0],
+    end: endDate.toISOString().split('T')[0],
+  }
+})
 
 // Fetch accounts
 const { data: accounts } = useQuery({
@@ -42,12 +63,32 @@ const { data: categories } = useQuery({
   queryFn: () => api.get<Category[]>('/categories'),
 })
 
-// Build query string from filters
-const queryParams = computed(() => transactionsStore.getQueryParams())
+// Fetch credit cards
+const { data: creditCards } = useQuery({
+  queryKey: ['credit-cards'],
+  queryFn: () => api.get<CreditCard[]>('/credit-cards'),
+})
+
+// Build query params for API
+const queryParams = computed(() => {
+  const params: Record<string, string> = {
+    page: currentPage.value.toString(),
+    per_page: '20',
+    start_date: periodDates.value.start,
+    end_date: periodDates.value.end,
+  }
+
+  if (filters.value.search) params.search = filters.value.search
+  if (filters.value.type) params.type = filters.value.type
+  if (filters.value.account_id) params.account_id = filters.value.account_id
+  if (filters.value.category_id) params.category_id = filters.value.category_id
+
+  return params
+})
 
 // Fetch transactions
 const { data: transactionsData, isLoading, refetch } = useQuery({
-  queryKey: ['transactions', queryParams],
+  queryKey: computed(() => ['transactions', periodDates.value, filters.value, currentPage.value]),
   queryFn: () => {
     const params = new URLSearchParams(queryParams.value)
     return api.get<TransactionsResponse>(`/transactions?${params.toString()}`)
@@ -61,7 +102,7 @@ const createMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: ['transactions'] })
     queryClient.invalidateQueries({ queryKey: ['dashboard'] })
     queryClient.invalidateQueries({ queryKey: ['accounts'] })
-    transactionsStore.closeModal()
+    store.closeModal()
     success('Transacao adicionada', 'Sua transacao foi registrada com sucesso')
   },
   onError: () => {
@@ -77,7 +118,7 @@ const updateMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: ['transactions'] })
     queryClient.invalidateQueries({ queryKey: ['dashboard'] })
     queryClient.invalidateQueries({ queryKey: ['accounts'] })
-    transactionsStore.closeModal()
+    store.closeModal()
     success('Transacao atualizada', 'Sua transacao foi atualizada com sucesso')
   },
   onError: () => {
@@ -92,7 +133,7 @@ const deleteMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: ['transactions'] })
     queryClient.invalidateQueries({ queryKey: ['dashboard'] })
     queryClient.invalidateQueries({ queryKey: ['accounts'] })
-    transactionsStore.closeModal()
+    store.closeModal()
     success('Transacao excluida', 'Sua transacao foi excluida com sucesso')
   },
   onError: () => {
@@ -105,7 +146,7 @@ watch(() => route.query.id, (id) => {
   if (id && transactionsData.value?.data) {
     const transaction = transactionsData.value.data.find(t => t.id === id)
     if (transaction) {
-      transactionsStore.openEditModal(transaction)
+      store.openEditModal(transaction)
     }
   }
 }, { immediate: true })
@@ -115,6 +156,7 @@ const transactions = computed(() => transactionsData.value?.data || [])
 const totalPages = computed(() => transactionsData.value?.last_page || 1)
 const accountsList = computed(() => accounts.value || [])
 const categoriesList = computed(() => categories.value || [])
+const creditCardsList = computed(() => creditCards.value || [])
 
 // Use totals from API response
 const totalAmount = computed(() => ({
@@ -123,20 +165,16 @@ const totalAmount = computed(() => ({
 }))
 
 // Handlers
-function handlePeriodChange(newPeriod: { month: number; year: number }) {
-  transactionsStore.setPeriod(newPeriod)
-}
-
 function handleFiltersChange(newFilters: typeof filters.value) {
-  transactionsStore.setFilters(newFilters)
+  store.setFilters(newFilters)
 }
 
 function handleEdit(transaction: Transaction) {
-  transactionsStore.openEditModal(transaction)
+  store.openEditModal(transaction)
 }
 
 function handleDelete(transaction: Transaction) {
-  transactionsStore.openEditModal(transaction)
+  store.openEditModal(transaction)
 }
 
 function handleModalSubmit(data: Partial<Transaction>) {
@@ -152,23 +190,19 @@ function handleModalDelete(id: string) {
 }
 
 function handlePageChange(page: number) {
-  transactionsStore.setPage(page)
+  store.setPage(page)
 }
 
 function openCreateModal() {
-  transactionsStore.openCreateModal('expense')
+  store.openCreateModal('expense')
 }
 </script>
 
 <template>
   <AppLayout>
     <div class="p-4 lg:p-6 space-y-6">
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-bold text-on-surface">Extrato</h1>
-          <p class="text-on-surface-variant">Historico de transacoes</p>
-        </div>
+      <!-- Actions -->
+      <div class="flex justify-end">
         <Button @click="openCreateModal">
           <Plus class="h-4 w-4 mr-2" />
           Nova Transacao
@@ -209,6 +243,7 @@ function openCreateModal() {
       :transaction="selectedTransaction"
       :accounts="accountsList"
       :categories="categoriesList"
+      :credit-cards="creditCardsList"
       :is-loading="createMutation.isPending.value || updateMutation.isPending.value"
       :is-deleting="deleteMutation.isPending.value"
       @submit="handleModalSubmit"

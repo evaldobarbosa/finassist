@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CurrencyInput, parseCurrency, formatCurrency } from '@/components/ui/currency-input'
 import {
   Select,
   SelectContent,
@@ -79,7 +80,7 @@ watch([() => props.open, () => props.category], () => {
         color: props.category.color,
         icon: props.category.icon || 'wallet',
         parent_id: props.category.parent_id || '',
-        budget_limit: props.category.budget_limit?.toString() || '',
+        budget_limit: props.category.budget_limit ? formatCurrency(Number(props.category.budget_limit)) : '',
       }
     } else {
       form.value = {
@@ -95,13 +96,6 @@ watch([() => props.open, () => props.category], () => {
   }
 }, { immediate: true })
 
-function handleBudgetInput(event: Event) {
-  const target = event.target as HTMLInputElement
-  let value = target.value.replace(/[^\d.,]/g, '')
-  value = value.replace(',', '.')
-  form.value.budget_limit = value
-}
-
 function handleClose() {
   emit('update:open', false)
 }
@@ -115,7 +109,7 @@ function handleSubmit() {
   }
 
   const budgetLimit = form.value.budget_limit
-    ? parseFloat(form.value.budget_limit)
+    ? parseCurrency(form.value.budget_limit)
     : undefined
 
   if (budgetLimit !== undefined && (isNaN(budgetLimit) || budgetLimit < 0)) {
@@ -128,7 +122,7 @@ function handleSubmit() {
     type: form.value.type,
     color: form.value.color,
     icon: form.value.icon,
-    parent_id: form.value.parent_id || undefined,
+    parent_id: form.value.parent_id && form.value.parent_id !== '_none' ? form.value.parent_id : undefined,
     budget_limit: budgetLimit,
   })
 }
@@ -291,7 +285,7 @@ function setType(type: CategoryType) {
                   <SelectValue placeholder="Nenhuma (categoria principal)" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Nenhuma (categoria principal)</SelectItem>
+                  <SelectItem value="_none">Nenhuma (categoria principal)</SelectItem>
                   <SelectItem
                     v-for="parent in availableParents"
                     :key="parent.id"
@@ -351,17 +345,7 @@ function setType(type: CategoryType) {
           <div v-show="activeTab === 'budget'" class="space-y-5">
             <div v-if="form.type === 'expense'">
               <Label class="mb-2">Limite mensal (opcional)</Label>
-              <div class="relative">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">R$</span>
-                <Input
-                  :model-value="form.budget_limit"
-                  @input="handleBudgetInput"
-                  type="text"
-                  inputmode="decimal"
-                  placeholder="0,00"
-                  class="pl-10"
-                />
-              </div>
+              <CurrencyInput v-model="form.budget_limit" />
               <p class="text-xs text-on-surface-variant mt-1">
                 Voce sera notificado quando atingir este limite
               </p>

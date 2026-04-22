@@ -131,12 +131,8 @@ function handleModalDelete(id: string) {
 <template>
   <AppLayout>
     <div class="p-4 lg:p-6 space-y-6">
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-bold text-on-surface">Contas</h1>
-          <p class="text-on-surface-variant">Gerencie suas contas bancarias e carteiras</p>
-        </div>
+      <!-- Actions -->
+      <div class="flex justify-end">
         <Button @click="accountsStore.openCreateModal">
           <Plus class="h-4 w-4 mr-2" />
           Nova Conta

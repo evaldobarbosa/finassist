@@ -1,5 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { Bell, Search } from 'lucide-vue-next'
+
+const route = useRoute()
+
+const pageTitles: Record<string, { title: string; subtitle?: string }> = {
+  '/': { title: 'Dashboard', subtitle: 'Visao geral das suas financas' },
+  '/transactions': { title: 'Extrato', subtitle: 'Historico de transacoes' },
+  '/accounts': { title: 'Contas', subtitle: 'Gerencie suas contas' },
+  '/credit-cards': { title: 'Cartoes', subtitle: 'Seus cartoes de credito' },
+  '/categories': { title: 'Categorias', subtitle: 'Organize suas transacoes' },
+  '/recurrences': { title: 'Recorrencias', subtitle: 'Transacoes recorrentes' },
+  '/settings': { title: 'Configuracoes', subtitle: 'Preferencias da conta' },
+}
+
+const pageInfo = computed(() => {
+  return pageTitles[route.path] || { title: 'FinAssistant' }
+})
 </script>
 
 <template>
@@ -10,22 +28,16 @@ import { Bell, Search } from 'lucide-vue-next'
         <span class="text-xl font-bold text-primary">FinAssistant</span>
       </div>
 
-      <!-- Search (Desktop) -->
-      <div class="hidden lg:block flex-1 max-w-md">
-        <div class="relative">
-          <Search class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-on-surface-variant" />
-          <input
-            type="text"
-            placeholder="Buscar transacoes..."
-            class="w-full pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
-          />
-        </div>
+      <!-- Page Title (Desktop) -->
+      <div class="hidden lg:block">
+        <h1 class="text-lg font-semibold text-on-surface">{{ pageInfo.title }}</h1>
+        <p v-if="pageInfo.subtitle" class="text-sm text-on-surface-variant">{{ pageInfo.subtitle }}</p>
       </div>
 
       <!-- Right Actions -->
       <div class="flex items-center gap-2">
-        <!-- Search button (Mobile) -->
-        <button class="lg:hidden p-2 rounded-lg hover:bg-surface-container transition">
+        <!-- Search button -->
+        <button class="p-2 rounded-lg hover:bg-surface-container transition">
           <Search class="h-5 w-5 text-on-surface-variant" />
         </button>
 

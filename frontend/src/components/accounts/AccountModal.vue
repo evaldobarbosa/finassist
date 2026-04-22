@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CurrencyInput, parseCurrency, formatCurrency } from '@/components/ui/currency-input'
 import type { Account } from '@/types'
 
 type AccountType = 'checking' | 'savings' | 'wallet' | 'investment'
@@ -73,7 +74,7 @@ watch([() => props.open, () => props.account], () => {
       form.value = {
         name: props.account.name,
         type: props.account.type,
-        balance: props.account.balance.toString(),
+        balance: formatCurrency(Number(props.account.balance)),
         color: props.account.color || '#006b2c',
         is_default: props.account.is_default,
         include_in_total: props.account.include_in_total,
@@ -82,7 +83,7 @@ watch([() => props.open, () => props.account], () => {
       form.value = {
         name: '',
         type: 'checking',
-        balance: '0',
+        balance: '0,00',
         color: '#006b2c',
         is_default: false,
         include_in_total: true,
@@ -91,13 +92,6 @@ watch([() => props.open, () => props.account], () => {
     error.value = ''
   }
 }, { immediate: true })
-
-function handleBalanceInput(event: Event) {
-  const target = event.target as HTMLInputElement
-  let value = target.value.replace(/[^\d.,-]/g, '')
-  value = value.replace(',', '.')
-  form.value.balance = value
-}
 
 function handleClose() {
   emit('update:open', false)
@@ -111,7 +105,7 @@ function handleSubmit() {
     return
   }
 
-  const balance = parseFloat(form.value.balance) || 0
+  const balance = form.value.balance ? parseCurrency(form.value.balance) : 0
 
   emit('submit', {
     name: form.value.name.trim(),
@@ -210,17 +204,7 @@ function handleDelete() {
           <!-- Initial Balance (only for new accounts) -->
           <div v-if="!isEditMode">
             <Label class="mb-2">Saldo inicial</Label>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">R$</span>
-              <Input
-                :model-value="form.balance"
-                @input="handleBalanceInput"
-                type="text"
-                inputmode="decimal"
-                placeholder="0,00"
-                class="pl-10"
-              />
-            </div>
+            <CurrencyInput v-model="form.balance" />
             <p class="text-xs text-on-surface-variant mt-1">
               Informe o saldo atual desta conta
             </p>

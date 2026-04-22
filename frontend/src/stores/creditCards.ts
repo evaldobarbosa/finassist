@@ -12,6 +12,10 @@ export const useCreditCardsStore = defineStore('creditCards', () => {
   const isInvoiceOpen = ref(false)
   const invoiceCard = ref<CreditCard | null>(null)
 
+  // Add transaction modal state
+  const isAddTransactionOpen = ref(false)
+  const addTransactionCard = ref<CreditCard | null>(null)
+
   // Actions
   function openCreateModal() {
     selectedCard.value = null
@@ -40,6 +44,16 @@ export const useCreditCardsStore = defineStore('creditCards', () => {
     invoiceCard.value = null
   }
 
+  function openAddTransaction(card: CreditCard) {
+    addTransactionCard.value = card
+    isAddTransactionOpen.value = true
+  }
+
+  function closeAddTransaction() {
+    isAddTransactionOpen.value = false
+    addTransactionCard.value = null
+  }
+
   return {
     // State
     isModalOpen,
@@ -47,6 +61,8 @@ export const useCreditCardsStore = defineStore('creditCards', () => {
     selectedCard,
     isInvoiceOpen,
     invoiceCard,
+    isAddTransactionOpen,
+    addTransactionCard,
 
     // Actions
     openCreateModal,
@@ -54,5 +70,7 @@ export const useCreditCardsStore = defineStore('creditCards', () => {
     closeModal,
     openInvoice,
     closeInvoice,
+    openAddTransaction,
+    closeAddTransaction,
   }
 })

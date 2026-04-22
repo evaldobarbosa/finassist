@@ -4,13 +4,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query'
 import { Plus, CreditCard } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import AppLayout from '@/components/layout/AppLayout.vue'
-import { CreditCardCard, CreditCardModal, InvoiceDetails } from '@/components/credit-cards'
+import { CreditCardCard, CreditCardModal, InvoiceDetails, AddTransactionModal } from '@/components/credit-cards'
 import { Button } from '@/components/ui/button'
 import { useCreditCardsStore } from '@/stores/creditCards'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
 import { formatCurrency } from '@/lib/utils'
-import type { CreditCard as CreditCardType, Account } from '@/types'
+import type { CreditCard as CreditCardType } from '@/types'
 
 const queryClient = useQueryClient()
 const creditCardsStore = useCreditCardsStore()
@@ -22,18 +22,14 @@ const {
   selectedCard,
   isInvoiceOpen,
   invoiceCard,
+  isAddTransactionOpen,
+  addTransactionCard,
 } = storeToRefs(creditCardsStore)
 
 // Fetch credit cards
 const { data: creditCards, isLoading } = useQuery({
   queryKey: ['credit-cards'],
   queryFn: () => api.get<CreditCardType[]>('/credit-cards'),
-})
-
-// Fetch accounts for payment
-const { data: accounts } = useQuery({
-  queryKey: ['accounts'],
-  queryFn: () => api.get<Account[]>('/accounts'),
 })
 
 // Create credit card
@@ -76,9 +72,23 @@ const deleteMutation = useMutation({
   },
 })
 
+// Add transaction to credit card
+const addTransactionMutation = useMutation({
+  mutationFn: ({ cardId, data }: { cardId: string; data: { amount: number; description: string; date?: string; category_id?: string; notes?: string } }) =>
+    api.post(`/credit-cards/${cardId}/transactions`, data),
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['credit-cards'] })
+    queryClient.invalidateQueries({ queryKey: ['credit-card-statement'] })
+    creditCardsStore.closeAddTransaction()
+    success('Compra adicionada', 'A compra foi registrada no cartao')
+  },
+  onError: () => {
+    showError('Erro', 'Nao foi possivel adicionar a compra')
+  },
+})
+
 // Computed values
 const cardsList = computed(() => creditCards.value || [])
-const accountsList = computed(() => accounts.value || [])
 
 const totalLimit = computed(() => {
   return cardsList.value.reduce((sum, card) => sum + Number(card.limit || 0), 0)
@@ -105,6 +115,16 @@ function handleViewInvoice(card: CreditCardType) {
   creditCardsStore.openInvoice(card)
 }
 
+function handleAddTransaction(card: CreditCardType) {
+  creditCardsStore.openAddTransaction(card)
+}
+
+function handleAddTransactionSubmit(data: { amount: number; description: string; date?: string; category_id?: string; notes?: string }) {
+  if (addTransactionCard.value) {
+    addTransactionMutation.mutate({ cardId: addTransactionCard.value.id, data })
+  }
+}
+
 function handleModalSubmit(data: Partial<CreditCardType>) {
   if (modalMode.value === 'edit' && selectedCard.value) {
     updateMutation.mutate({ id: selectedCard.value.id, ...data })
@@ -128,14 +148,11 @@ function handlePayInvoice(cardId: string, amount: number) {
 <template>
   <AppLayout>
     <div class="p-4 lg:p-6 space-y-6">
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-bold text-on-surface">Cartoes de Credito</h1>
-          <p class="text-on-surface-variant">
-            {{ cardsList.length }} cartao(s) cadastrado(s)
-          </p>
-        </div>
+      <!-- Actions -->
+      <div class="flex items-center justify-between">
+        <p class="text-on-surface-variant text-sm">
+          {{ cardsList.length }} cartao(s) cadastrado(s)
+        </p>
         <Button @click="creditCardsStore.openCreateModal">
           <Plus class="h-4 w-4 mr-2" />
           Novo Cartao
@@ -193,6 +210,7 @@ function handlePayInvoice(cardId: string, amount: number) {
           @edit="handleEdit"
           @delete="handleDelete"
           @view-invoice="handleViewInvoice"
+          @add-transaction="handleAddTransaction"
         />
       </div>
     </div>
@@ -201,7 +219,6 @@ function handlePayInvoice(cardId: string, amount: number) {
     <CreditCardModal
       v-model:open="isModalOpen"
       :card="selectedCard"
-      :accounts="accountsList"
       :is-loading="createMutation.isPending.value || updateMutation.isPending.value"
       :is-deleting="deleteMutation.isPending.value"
       @submit="handleModalSubmit"
@@ -213,6 +230,14 @@ function handlePayInvoice(cardId: string, amount: number) {
       v-model:open="isInvoiceOpen"
       :card="invoiceCard"
       @pay-invoice="handlePayInvoice"
+    />
+
+    <!-- Add Transaction Modal -->
+    <AddTransactionModal
+      v-model:open="isAddTransactionOpen"
+      :card="addTransactionCard"
+      :is-loading="addTransactionMutation.isPending.value"
+      @submit="handleAddTransactionSubmit"
     />
   </AppLayout>
 </template>

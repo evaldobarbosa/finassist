@@ -19,7 +19,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -37,12 +36,12 @@ interface NavItem {
 const mainNavItems: NavItem[] = [
   { name: 'Dashboard', path: '/', icon: LayoutDashboard },
   { name: 'Extrato', path: '/transactions', icon: Receipt },
-  { name: 'Cartoes', path: '/credit-cards', icon: CreditCard },
   { name: 'Recorrencias', path: '/recurrences', icon: Repeat },
 ]
 
 const secondaryNavItems: NavItem[] = [
   { name: 'Contas', path: '/accounts', icon: Wallet },
+  { name: 'Cartoes', path: '/credit-cards', icon: CreditCard },
   { name: 'Categorias', path: '/categories', icon: Tags },
 ]
 
@@ -66,7 +65,7 @@ const userInitials = computed(() => {
 
 const userName = computed(() => authStore.user?.name || 'Usuario')
 const userPhone = computed(() => {
-  const phone = authStore.phone || ''
+  const phone = authStore.user?.phone || ''
   if (phone.length >= 11) {
     const cleanPhone = phone.replace(/\D/g, '')
     if (cleanPhone.length === 13) {
@@ -101,8 +100,9 @@ function handleLogout() {
       </div>
     </div>
 
-    <!-- Main Navigation -->
+    <!-- Navigation -->
     <nav class="flex-1 p-4 overflow-y-auto">
+      <!-- Main Navigation -->
       <ul class="space-y-1">
         <li v-for="item in mainNavItems" :key="item.path">
           <router-link
@@ -151,36 +151,29 @@ function handleLogout() {
     </nav>
 
     <!-- User Footer -->
-    <div class="p-4 border-t border-outline-variant">
+    <div class="p-3 border-t border-outline-variant">
       <DropdownMenu>
-        <DropdownMenuTrigger class="w-full">
-          <button class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition">
-            <Avatar class="h-9 w-9">
-              <AvatarFallback>{{ userInitials }}</AvatarFallback>
+        <DropdownMenuTrigger asChild>
+          <button class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+            <Avatar class="h-10 w-10 shrink-0">
+              <AvatarFallback class="bg-primary text-white text-sm">{{ userInitials }}</AvatarFallback>
             </Avatar>
-            <div class="flex-1 text-left">
+            <div class="flex-1 min-w-0 text-left">
               <p class="text-sm font-medium text-on-surface truncate">{{ userName }}</p>
               <p class="text-xs text-on-surface-variant truncate">{{ userPhone }}</p>
             </div>
-            <ChevronUp class="h-4 w-4 text-on-surface-variant" />
+            <ChevronUp class="h-4 w-4 text-on-surface-variant shrink-0" />
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" side="top" class="w-56">
-          <DropdownMenuLabel>
-            <div class="flex flex-col space-y-1">
-              <p class="text-sm font-medium">{{ userName }}</p>
-              <p class="text-xs text-on-surface-variant">{{ userPhone }}</p>
-            </div>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+        <DropdownMenuContent align="start" side="top" :sideOffset="8" class="w-[232px]">
           <DropdownMenuItem @click="goToProfile" class="cursor-pointer">
             <User class="mr-2 h-4 w-4" />
-            <span>Perfil do usuario</span>
+            <span>Configuracoes</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem @click="handleLogout" class="cursor-pointer text-tertiary">
+          <DropdownMenuItem @click="handleLogout" class="cursor-pointer text-tertiary focus:text-tertiary">
             <LogOut class="mr-2 h-4 w-4" />
-            <span>Sair</span>
+            <span>Sair da conta</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

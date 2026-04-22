@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, nextTick } from 'vue'
 import {
   CreditCard,
   MoreVertical,
@@ -7,6 +7,7 @@ import {
   Trash2,
   Calendar,
   AlertTriangle,
+  Plus,
 } from 'lucide-vue-next'
 import { formatCurrency } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -27,7 +28,17 @@ const emit = defineEmits<{
   edit: [card: CreditCardType]
   delete: [card: CreditCardType]
   'view-invoice': [card: CreditCardType]
+  'add-transaction': [card: CreditCardType]
 }>()
+
+const isDropdownOpen = ref(false)
+
+function handleAction(action: () => void) {
+  isDropdownOpen.value = false
+  nextTick(() => {
+    action()
+  })
+}
 
 const usedPercentage = computed(() => {
   if (!props.card.limit) return 0
@@ -112,23 +123,28 @@ const cardStyle = computed(() => {
     </div>
 
     <!-- Actions Menu -->
-    <DropdownMenu>
+    <DropdownMenu v-model:open="isDropdownOpen">
       <DropdownMenuTrigger as-child>
         <button class="absolute top-3 right-3 p-2 rounded-lg bg-white/10 opacity-0 group-hover:opacity-100 hover:bg-white/20 transition">
           <MoreVertical class="h-4 w-4 text-white" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem @click="emit('view-invoice', card)" class="cursor-pointer">
+        <DropdownMenuItem @click="handleAction(() => emit('add-transaction', card))" class="cursor-pointer">
+          <Plus class="h-4 w-4 mr-2" />
+          Adicionar compra
+        </DropdownMenuItem>
+        <DropdownMenuItem @click="handleAction(() => emit('view-invoice', card))" class="cursor-pointer">
           <Calendar class="h-4 w-4 mr-2" />
           Ver Fatura
         </DropdownMenuItem>
-        <DropdownMenuItem @click="emit('edit', card)" class="cursor-pointer">
+        <DropdownMenuSeparator />
+        <DropdownMenuItem @click="handleAction(() => emit('edit', card))" class="cursor-pointer">
           <Pencil class="h-4 w-4 mr-2" />
           Editar
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem @click="emit('delete', card)" class="cursor-pointer text-tertiary">
+        <DropdownMenuItem @click="handleAction(() => emit('delete', card))" class="cursor-pointer text-tertiary">
           <Trash2 class="h-4 w-4 mr-2" />
           Excluir
         </DropdownMenuItem>

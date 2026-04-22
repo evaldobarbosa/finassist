@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CurrencyInput, parseCurrency, formatCurrency } from '@/components/ui/currency-input'
 import {
   Select,
   SelectContent,
@@ -132,7 +133,7 @@ watch(
         form.value = {
           description: props.recurrence.description,
           type: props.recurrence.type,
-          amount: props.recurrence.amount.toString(),
+          amount: formatCurrency(Number(props.recurrence.amount)),
           frequency: props.recurrence.frequency,
           account_id: props.recurrence.account_id,
           category_id: props.recurrence.category_id || '',
@@ -166,13 +167,6 @@ watch(
   { immediate: true }
 )
 
-function handleAmountInput(event: Event) {
-  const target = event.target as HTMLInputElement
-  let value = target.value.replace(/[^\d.,-]/g, '')
-  value = value.replace(',', '.')
-  form.value.amount = value
-}
-
 function handleClose() {
   emit('update:open', false)
 }
@@ -185,7 +179,7 @@ function handleSubmit() {
     return
   }
 
-  const amount = parseFloat(form.value.amount)
+  const amount = form.value.amount ? parseCurrency(form.value.amount) : 0
   if (!amount || amount <= 0) {
     error.value = 'Digite um valor valido'
     return
@@ -202,7 +196,7 @@ function handleSubmit() {
     amount,
     frequency: form.value.frequency,
     account_id: form.value.account_id,
-    category_id: form.value.category_id || undefined,
+    category_id: form.value.category_id && form.value.category_id !== '_none' ? form.value.category_id : undefined,
     start_date: form.value.start_date,
     end_date: form.value.end_date || undefined,
     notes: form.value.notes || undefined,
@@ -339,20 +333,7 @@ function handleDelete() {
           <!-- Amount -->
           <div>
             <Label class="mb-2">Valor *</Label>
-            <div class="relative">
-              <span
-                class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
-                >R$</span
-              >
-              <Input
-                :model-value="form.amount"
-                @input="handleAmountInput"
-                type="text"
-                inputmode="decimal"
-                placeholder="0,00"
-                class="pl-10"
-              />
-            </div>
+            <CurrencyInput v-model="form.amount" />
           </div>
 
           <!-- Frequency -->
@@ -451,7 +432,7 @@ function handleDelete() {
                 <SelectValue placeholder="Selecione uma categoria" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Sem categoria</SelectItem>
+                <SelectItem value="_none">Sem categoria</SelectItem>
                 <SelectItem
                   v-for="category in filteredCategories"
                   :key="category.id"

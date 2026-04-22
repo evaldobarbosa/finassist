@@ -20,8 +20,9 @@ const currentDate = new Date()
 const currentMonth = currentDate.getMonth()
 const currentYear = currentDate.getFullYear()
 
-const selectedMonth = ref(props.modelValue.month)
-const selectedYear = ref(props.modelValue.year)
+// Fallback to current date if modelValue is not yet initialized
+const selectedMonth = ref(props.modelValue?.month ?? currentMonth)
+const selectedYear = ref(props.modelValue?.year ?? currentYear)
 
 const displayText = computed(() => {
   return `${months[selectedMonth.value]} ${selectedYear.value}`
@@ -31,10 +32,11 @@ const isCurrentMonth = computed(() => {
   return selectedMonth.value === currentMonth && selectedYear.value === currentYear
 })
 
+// Allow navigation up to 12 months in the future (for installments)
 const canGoForward = computed(() => {
-  if (selectedYear.value < currentYear) return true
-  if (selectedYear.value === currentYear && selectedMonth.value < currentMonth) return true
-  return false
+  const maxDate = new Date(currentYear, currentMonth + 12)
+  const selectedDate = new Date(selectedYear.value, selectedMonth.value)
+  return selectedDate < maxDate
 })
 
 function previousMonth() {
@@ -71,8 +73,10 @@ function emitChange() {
 
 // Watch for external changes
 watch(() => props.modelValue, (newValue) => {
-  selectedMonth.value = newValue.month
-  selectedYear.value = newValue.year
+  if (newValue) {
+    selectedMonth.value = newValue.month
+    selectedYear.value = newValue.year
+  }
 }, { deep: true })
 </script>
 

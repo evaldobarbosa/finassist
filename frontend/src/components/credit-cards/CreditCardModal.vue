@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { CurrencyInput, parseCurrency, formatCurrency } from '@/components/ui/currency-input'
 import {
   Select,
   SelectContent,
@@ -20,12 +21,11 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import ColorPicker from '@/components/categories/ColorPicker.vue'
-import type { CreditCard, Account } from '@/types'
+import type { CreditCard } from '@/types'
 
 const props = defineProps<{
   open: boolean
   card?: CreditCard | null
-  accounts: Account[]
   isLoading?: boolean
   isDeleting?: boolean
 }>()
@@ -43,7 +43,6 @@ const form = ref({
   limit: '',
   closing_day: '',
   due_day: '',
-  account_id: '',
   color: '#1a1a2e',
 })
 
@@ -74,10 +73,9 @@ watch([() => props.open, () => props.card], () => {
         name: props.card.name,
         brand: props.card.brand || '',
         last_four_digits: props.card.last_four_digits || '',
-        limit: props.card.limit?.toString() || '',
+        limit: props.card.limit ? formatCurrency(props.card.limit) : '',
         closing_day: props.card.closing_day?.toString() || '',
         due_day: props.card.due_day?.toString() || '',
-        account_id: props.card.account_id || '',
         color: props.card.color || '#1a1a2e',
       }
     } else {
@@ -88,20 +86,12 @@ watch([() => props.open, () => props.card], () => {
         limit: '',
         closing_day: '',
         due_day: '',
-        account_id: '',
         color: '#1a1a2e',
       }
     }
     error.value = ''
   }
 }, { immediate: true })
-
-function handleLimitInput(event: Event) {
-  const target = event.target as HTMLInputElement
-  let value = target.value.replace(/[^\d.,]/g, '')
-  value = value.replace(',', '.')
-  form.value.limit = value
-}
 
 function handleClosingDayInput(event: Event) {
   const target = event.target as HTMLInputElement
@@ -140,7 +130,7 @@ function handleSubmit() {
     return
   }
 
-  const limit = form.value.limit ? parseFloat(form.value.limit) : undefined
+  const limit = form.value.limit ? parseCurrency(form.value.limit) : undefined
   if (limit !== undefined && (isNaN(limit) || limit < 0)) {
     error.value = 'Digite um limite valido'
     return
@@ -156,7 +146,6 @@ function handleSubmit() {
     limit,
     closing_day: closingDay,
     due_day: dueDay,
-    account_id: form.value.account_id || undefined,
     color: form.value.color,
   })
 }
@@ -256,17 +245,7 @@ function handleDelete() {
           <!-- Limit -->
           <div>
             <Label class="mb-2">Limite</Label>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">R$</span>
-              <Input
-                :model-value="form.limit"
-                @input="handleLimitInput"
-                type="text"
-                inputmode="decimal"
-                placeholder="0,00"
-                class="pl-10"
-              />
-            </div>
+            <CurrencyInput v-model="form.limit" />
           </div>
 
           <!-- Closing and Due Days -->
@@ -293,25 +272,6 @@ function handleDelete() {
                 maxlength="2"
               />
             </div>
-          </div>
-
-          <!-- Payment Account -->
-          <div>
-            <Label class="mb-2">Conta para pagamento</Label>
-            <Select v-model="form.account_id">
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione uma conta" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">Nenhuma</SelectItem>
-                <SelectItem v-for="account in accounts" :key="account.id" :value="account.id">
-                  {{ account.name }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <p class="text-xs text-on-surface-variant mt-1">
-              Conta usada para pagar a fatura do cartao
-            </p>
           </div>
 
           <!-- Color -->

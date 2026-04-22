@@ -166,14 +166,8 @@ function handleModalDelete(id: string) {
 <template>
   <AppLayout>
     <div class="p-4 lg:p-6 space-y-6">
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 class="text-2xl font-bold text-on-surface">Recorrencias</h1>
-          <p class="text-on-surface-variant">
-            Gerencie seus custos fixos e receitas recorrentes
-          </p>
-        </div>
+      <!-- Actions -->
+      <div class="flex justify-end">
         <Button @click="recurrencesStore.openCreateModal">
           <Plus class="h-4 w-4 mr-2" />
           Nova Recorrencia
