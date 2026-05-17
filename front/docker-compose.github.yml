@@ -1,0 +1,23 @@
+services:
+  front:
+    image: ${DOCKER_IMAGE}:${TAG:-production}
+    container_name: zapgrana-front
+    restart: unless-stopped
+    networks:
+      - proxymng
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.zapgrana-front.rule=Host(`${FRONT_HOST}`)"
+      - "traefik.http.routers.zapgrana-front.entrypoints=websecure"
+      - "traefik.http.routers.zapgrana-front.tls.certresolver=letsencrypt"
+      - "traefik.http.services.zapgrana-front.loadbalancer.server.port=8080"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  proxymng:
+    external: true

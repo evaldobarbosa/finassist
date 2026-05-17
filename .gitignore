@@ -1,6 +1,5 @@
 # Subprojects (separate repositories)
 api/
-front/
 
 # Node
 node_modules/
@@ -19,3 +18,7 @@ vpn-basa
 # Secrets
 .env
 cloudflared-credentials.json
+wppa-api-2
+.ENV_CICD
+deployer
+incode2
