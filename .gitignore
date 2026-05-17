@@ -1,5 +1,6 @@
 # Subprojects (separate repositories)
 api/
+front/
 
 # Node
 node_modules/
