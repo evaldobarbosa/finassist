@@ -235,10 +235,10 @@ Lista de funcionalidades organizadas por milestone.
 |----|------|------------|--------|-------|
 | M4-090 | Calcular saldo disponivel do cartao | P1 | [x] | saldo = limite - credito_utilizado_nao_pago. Implementado unpaid_amount + available_limit em CreditCard model. 7 testes. |
 | M4-091 | Filtrar cartoes por usuario na lista de contas | P1 | [x] | Eager load creditCard via MTI em AccountController. Adicionados 2 testes. |
-| M4-092 | Exibir parcelas apenas ate pagamento da fatura | P1 | [ ] | Parcela aparece enquanto fatura nao paga |
-| M4-093 | Substituir parcelas por fatura apos pagamento | P1 | [ ] | Fatura paga aparece como item unico |
+| M4-092 | Exibir parcelas apenas ate pagamento da fatura | P1 | [x] | Parcelas filtradas por fatura paga em byInvoiceMonth() |
+| M4-093 | Substituir parcelas por fatura apos pagamento | P1 | [x] | Fatura paga retornada com detalhes das parcelas |
 | M4-094 | Modal de detalhes da fatura | P2 | [ ] | Ao clicar na fatura paga, mostra parcelas que a compoem |
-| M4-095 | Testes: exibicao de parcelas vs fatura | P1 | [ ] | Validar regras de exibicao |
+| M4-095 | Testes: exibicao de parcelas vs fatura | P1 | [x] | 10 testes em InstallmentInvoiceDisplayTest |
 
 ### Categorias
 
