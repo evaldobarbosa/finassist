@@ -26,6 +26,8 @@ Lista de funcionalidades organizadas por milestone.
 | ~~**M8-001→008**~~ | ~~Multi-tenancy basico (users, orgs)~~ | ✅ Concluido |
 | **M6-018** | Relatorios/Graficos | M6 ✅ (9/11 telas prontas) |
 | ~~**M6-020**~~ | ~~Tela de Recorrencias~~ | ✅ Concluido |
+| ~~**LLM-001→003**~~ | ~~Implementar Gemini com fallback automatico~~ | ✅ Concluido |
+| **OBS-001→002** | Observabilidade de metricas de operacao LLM | LLM-001 |
 
 ### Medio Prazo
 
@@ -41,6 +43,14 @@ Lista de funcionalidades organizadas por milestone.
 | **M5-020→022** | Correcoes do usuario | Aguardar usuarios reais testarem |
 | **M7** | Consultas de Posicoes | Complexidade vs valor |
 | **M8-010→035** | Ledger (partidas dobradas) | Over-engineering para finanças pessoais |
+
+---
+
+## Bugs / Correcoes Urgentes
+
+| ID | Descricao | Prioridade | Status | Notas |
+|----|-----------|------------|--------|-------|
+| BUG-001 | Input de valor financeiro nao funciona corretamente | P0 | [x] | Criado componente `CurrencyInput` em `components/ui/currency-input/`. Aplicado em: TransactionModal, RecurrenceModal, AccountModal, CategoryModal, CreditCardModal. |
 
 ---
 
@@ -218,6 +228,17 @@ Lista de funcionalidades organizadas por milestone.
 | M4-087 | Testes: InstallmentPurchases | P1 | [x] | 20 testes (action + controller) |
 | M4-088 | Endpoints REST /installment-purchases | P1 | [x] | index, show, by-month, summary |
 | M4-089 | Endpoint: marcar parcela como paga | P2 | [x] | POST /installments/{id}/mark-paid |
+
+### Faturas e Exibicao em Contas
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| M4-090 | Calcular saldo disponivel do cartao | P1 | [x] | saldo = limite - credito_utilizado_nao_pago. Implementado unpaid_amount + available_limit em CreditCard model. 7 testes. |
+| M4-091 | Filtrar cartoes por usuario na lista de contas | P1 | [x] | Eager load creditCard via MTI em AccountController. Adicionados 2 testes. |
+| M4-092 | Exibir parcelas apenas ate pagamento da fatura | P1 | [ ] | Parcela aparece enquanto fatura nao paga |
+| M4-093 | Substituir parcelas por fatura apos pagamento | P1 | [ ] | Fatura paga aparece como item unico |
+| M4-094 | Modal de detalhes da fatura | P2 | [ ] | Ao clicar na fatura paga, mostra parcelas que a compoem |
+| M4-095 | Testes: exibicao de parcelas vs fatura | P1 | [ ] | Validar regras de exibicao |
 
 ### Categorias
 
@@ -473,6 +494,14 @@ Lista de funcionalidades organizadas por milestone.
 | DT-002 | Criar API interna para OCR | P2 | [ ] | Endpoint HTTP para processamento de imagens |
 | DT-003 | Reduzir tamanho da imagem PHP | P3 | [ ] | Remover dependencias de OCR (~200MB) |
 
+### Frontend / UI
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| DT-030 | Mover titulo da pagina para top navbar | P2 | [ ] | Remover campo "buscar transacoes" da top navbar e substituir por slot que recebe titulo + subtitulo da pagina. Exemplo: CategoriesView tem "Categorias" + "X categorias (Y receitas, Z despesas)". Implementar primeiro em CategoriesView, depois replicar para: TransactionsView, AccountsView, CreditCardsView, RecurrencesView, DashboardView, SettingsView. |
+| DT-031 | Reordenar links da sidebar | P3 | [ ] | Mover opcao "Cartoes" para ficar entre "Contas" e "Categorias" (apos o separador). Ordem atual: Dashboard, Extrato, Recorrencias, [separador], Contas, Categorias, Cartoes. Ordem desejada: Dashboard, Extrato, Recorrencias, [separador], Contas, Cartoes, Categorias. |
+| DT-032 | Corrigir layout do dropdown do usuario na sidebar | P2 | [ ] | O dropdown no rodape da sidebar (ao clicar no nome do usuario) esta com layout quebrado: o chevron-up esta aparecendo abaixo do avatar e nome, em vez de ficar na mesma linha. Provavelmente o container esta com flex-direction: column em vez de row. Corrigir para alinhar avatar, nome e chevron horizontalmente. |
+
 ---
 
 ## Proximos Passos
@@ -492,6 +521,42 @@ Lista de funcionalidades organizadas por milestone.
 
 ## Backlog Futuro (Sem Prioridade Definida)
 
+### Design System e Branding
+
+> **Documentacao:** [docs/design/README.md](design/README.md), [docs/BRANDING.md](BRANDING.md)
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| DES-001 | Documento de fundamentos de marca (BRANDING.md) | P1 | [x] | Caracteristicas fortes, elementos simbolicos, direcoes conceituais |
+| DES-002 | Relatorio de referencias de design | P1 | [x] | Tendencias 2026, paleta de cores, tipografia, componentes |
+| DES-003 | Tema Tailwind CSS | P1 | [x] | Configuracao pronta para uso |
+| DES-004 | Variaveis CSS (tema puro) | P2 | [x] | Para projetos sem Tailwind |
+| DES-005 | Wireframes landing page | P1 | [x] | Hero, features, pricing, FAQ, footer |
+| DES-006 | Wireframes paginas internas | P1 | [x] | Dashboard, login, modais, onboarding |
+| DES-007 | Implementar landing page | P2 | [ ] | Aplicar wireframes |
+| DES-008 | Aplicar tema ao frontend existente | P2 | [ ] | Migrar para novo tema Tailwind |
+
+**Contexto:** Sistema de design criado em Maio 2026 com base em analise de tendencias de design para finance websites, documentacao de branding, e referencias do concorrente GranaZen.
+
+### LLM e Observabilidade
+
+> **Documentacao:** [docs/LLM-ANALYSIS.md](LLM-ANALYSIS.md)
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| LLM-001 | Implementar driver Gemini 1.5 Flash | P1 | [x] | Melhor custo-beneficio segundo analise ($0.075/$0.30 por 1M tokens) |
+| LLM-002 | Configurar Gemini como driver padrao | P1 | [x] | Gemini 2.5 Flash configurado como default |
+| LLM-003 | Implementar fallback automatico para Flash-Lite | P2 | [x] | Fallback com lockout de 24h quando quota excedida |
+| LLM-004 | Testar MiniMax M2.5 em pt-BR | P3 | [ ] | Avaliar qualidade antes de adotar |
+| OBS-001 | Implementar metricas de tokens consumidos | P1 | [ ] | Tracking por operacao (extracao, RAG, etc) |
+| OBS-002 | Implementar metricas de qualidade de resposta | P1 | [ ] | Taxa de confirmacao vs correcao pelo usuario |
+| OBS-003 | Implementar metricas de latencia por operacao | P2 | [ ] | p50/p95/p99 por tipo de operacao |
+| OBS-004 | Dashboard de custos LLM | P2 | [ ] | Custo por usuario, por operacao, por periodo |
+| OBS-005 | Alertas de custo anomalo | P3 | [ ] | Notificar quando custo exceder threshold |
+| OBS-006 | Tracking de taxa de fallback | P3 | [ ] | Monitorar quando fallback e acionado |
+
+**Contexto:** Analise completa de LLMs realizada em Maio 2026. Gemini 1.5 Flash oferece melhor custo-beneficio para o ZapGrana. MiniMax e opcao futura para alto volume, mas requer validacao de qualidade em pt-BR.
+
 ### Categorias MCC
 
 > **Documentacao:** [docs/MCC-CATEGORIAS.md](MCC-CATEGORIAS.md)
@@ -505,3 +570,40 @@ Lista de funcionalidades organizadas por milestone.
 | MCC-005 | Aprendizado de preferencias do usuario | P3 | [ ] | Armazenar correcoes |
 
 **Contexto:** MCCs sao mais uteis para PJ (politicas corporativas, compliance) que para PF (orcamento pessoal). No FinAssistant, usamos categorias simplificadas. O MCC sera util apenas para auto-categorizacao quando houver integracao com extrato de cartao.
+
+### Monitoramento de Receitas Recorrentes (Churn Detection)
+
+> **Contexto:** Receitas recorrentes pagas com atraso ou parcialmente podem indicar cliente em processo de churn. Detectar esses padroes antecipadamente permite acao proativa.
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| CHR-001 | Campo data de pagamento ao confirmar receita | P2 | [ ] | Ao confirmar pagamento de receita recorrente, usuario deve informar a data efetiva do pagamento |
+| CHR-002 | Campo valor pago (pagamento parcial) | P2 | [ ] | Campo adicional para informar valor pago quando diferente do valor esperado |
+| CHR-003 | Detectar atraso em receita recorrente | P2 | [ ] | Comparar data de pagamento com data esperada (dia_do_mes da recorrencia) |
+| CHR-004 | Detectar pagamento parcial | P2 | [ ] | Comparar valor pago com valor esperado da recorrencia |
+| CHR-005 | Tag de alerta em receitas problematicas | P2 | [ ] | Exibir TAG visual em receitas pagas com atraso ou parcialmente |
+| CHR-006 | Notificacao: 3 meses consecutivos com atraso | P1 | [ ] | Gerar notificacao in-app quando mesma receita recorrente for paga com atraso por 3+ meses seguidos |
+| CHR-007 | Alerta: pagamento parcial desde primeiro mes | P1 | [ ] | Gerar alerta imediato quando receita recorrente for paga parcialmente desde o inicio |
+| CHR-008 | Tela de receitas em risco | P3 | [ ] | Dashboard com lista de receitas recorrentes com historico de atrasos/parciais |
+| CHR-009 | Metricas de saude de receitas | P3 | [ ] | % de receitas pagas em dia, % pagas com atraso, % pagas parcialmente |
+
+**Regras de negocio:**
+- Atraso: data de pagamento > data esperada (baseado no day_of_month da recorrencia)
+- Pagamento parcial: valor pago < valor esperado
+- Notificacao de churn: 3+ meses consecutivos com atraso na mesma receita
+- Alerta imediato: pagamento parcial desde o primeiro registro
+
+### LGPD (Lei Geral de Protecao de Dados)
+
+> **Referencia:** [Video explicativo](https://www.youtube.com/watch?v=3no84kEEH3U)
+
+| ID | Item | Prioridade | Status | Notas |
+|----|------|------------|--------|-------|
+| LGPD-001 | Levantamento de dados pessoais coletados | P2 | [ ] | Mapear todos os dados pessoais armazenados (phone, email, nome, etc) |
+| LGPD-002 | Politica de privacidade | P2 | [ ] | Documento explicando coleta, uso e armazenamento de dados |
+| LGPD-003 | Termos de uso | P2 | [ ] | Consentimento explicito do usuario |
+| LGPD-004 | Endpoint para exportacao de dados do usuario | P2 | [ ] | Direito de portabilidade (Art. 18) |
+| LGPD-005 | Endpoint para exclusao de dados do usuario | P2 | [ ] | Direito ao esquecimento (Art. 18) |
+| LGPD-006 | Anonimizacao de dados em logs | P3 | [ ] | Nao logar dados pessoais sensiveis |
+| LGPD-007 | Consentimento para compartilhamento | P3 | [ ] | Se houver integracao com terceiros |
+| LGPD-008 | Registro de consentimentos | P3 | [ ] | Audit trail de aceites do usuario |
