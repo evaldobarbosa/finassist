@@ -577,15 +577,15 @@ Lista de funcionalidades organizadas por milestone.
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| CHR-001 | Campo data de pagamento ao confirmar receita | P2 | [ ] | Ao confirmar pagamento de receita recorrente, usuario deve informar a data efetiva do pagamento |
-| CHR-002 | Campo valor pago (pagamento parcial) | P2 | [ ] | Campo adicional para informar valor pago quando diferente do valor esperado |
-| CHR-003 | Detectar atraso em receita recorrente | P2 | [ ] | Comparar data de pagamento com data esperada (dia_do_mes da recorrencia) |
-| CHR-004 | Detectar pagamento parcial | P2 | [ ] | Comparar valor pago com valor esperado da recorrencia |
-| CHR-005 | Tag de alerta em receitas problematicas | P2 | [ ] | Exibir TAG visual em receitas pagas com atraso ou parcialmente |
-| CHR-006 | Notificacao: 3 meses consecutivos com atraso | P1 | [ ] | Gerar notificacao in-app quando mesma receita recorrente for paga com atraso por 3+ meses seguidos |
-| CHR-007 | Alerta: pagamento parcial desde primeiro mes | P1 | [ ] | Gerar alerta imediato quando receita recorrente for paga parcialmente desde o inicio |
-| CHR-008 | Tela de receitas em risco | P3 | [ ] | Dashboard com lista de receitas recorrentes com historico de atrasos/parciais |
-| CHR-009 | Metricas de saude de receitas | P3 | [ ] | % de receitas pagas em dia, % pagas com atraso, % pagas parcialmente |
+| CHR-001 | Campo data de pagamento ao confirmar receita | P2 | [~] | Pendente de teste. Campo `paid_at` em transactions. PATCH /transactions/{id}/confirm aceita `paid_at` |
+| CHR-002 | Campo valor pago (pagamento parcial) | P2 | [~] | Pendente de teste. Campo `paid_amount` em transactions. PATCH /transactions/{id}/confirm aceita `paid_amount` |
+| CHR-003 | Detectar atraso em receita recorrente | P2 | [~] | Pendente de teste. Accessor `is_late` e `days_late` em Transaction. Campo `expected_date` calculado da recorrencia |
+| CHR-004 | Detectar pagamento parcial | P2 | [~] | Pendente de teste. Accessor `is_partial` em Transaction |
+| CHR-005 | Tag de alerta em receitas problematicas | P2 | [~] | Pendente de teste. Campos `is_late`, `is_partial`, `days_late` incluidos automaticamente no JSON via $appends |
+| CHR-006 | Notificacao: 3 meses consecutivos com atraso | P1 | [~] | Pendente de teste. Evento `RecurringIncomeChurnDetected` + listeners para user e CX team. Job diario `CheckRecurringPaymentHealth` |
+| CHR-007 | Alerta: pagamento parcial desde primeiro mes | P1 | [~] | Pendente de teste. Alerta imediato ao confirmar transacao parcial via `ConfirmTransaction` action |
+| CHR-008 | Tela de receitas em risco | P3 | [~] | Pendente de teste. Endpoint GET /recurrences/at-risk retorna recorrencias com risco de churn |
+| CHR-009 | Metricas de saude de receitas | P3 | [~] | Pendente de teste. Endpoint GET /recurrences/health-metrics + GET /recurrences/{id}/health |
 
 **Regras de negocio:**
 - Atraso: data de pagamento > data esperada (baseado no day_of_month da recorrencia)
