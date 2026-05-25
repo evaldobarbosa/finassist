@@ -550,10 +550,10 @@ Lista de funcionalidades organizadas por milestone.
 | LLM-004 | ~~Testar MiniMax M2.5 em pt-BR~~ | P3 | [-] | Removido - foco em Gemini |
 | OBS-001 | Implementar metricas de tokens consumidos | P1 | [x] | LlmUsageTracker + endpoint /reports/llm-usage |
 | OBS-002 | Implementar metricas de qualidade de resposta | P1 | [x] | ExtractionQualityMetrics + endpoint /reports/extraction-quality |
-| OBS-003 | Implementar metricas de latencia por operacao | P2 | [ ] | p50/p95/p99 por tipo de operacao |
-| OBS-004 | Dashboard de custos LLM | P2 | [ ] | Custo por usuario, por operacao, por periodo |
-| OBS-005 | Alertas de custo anomalo | P3 | [ ] | Notificar quando custo exceder threshold |
-| OBS-006 | Tracking de taxa de fallback | P3 | [ ] | Monitorar quando fallback e acionado |
+| OBS-003 | Implementar metricas de latencia por operacao | P2 | [x] | p50/p95/p99 em /reports/llm-usage |
+| OBS-004 | Dashboard de custos LLM | P2 | [x] | Endpoint /reports/llm-costs com breakdown completo |
+| OBS-005 | Alertas de custo anomalo | P3 | [x] | Job CheckLlmCostAlerts + config threshold |
+| OBS-006 | Tracking de taxa de fallback | P3 | [x] | Fallback metrics em /reports/llm-usage |
 
 **Contexto:** Analise completa de LLMs realizada em Maio 2026. Gemini 1.5 Flash oferece melhor custo-beneficio para o ZapGrana. MiniMax e opcao futura para alto volume, mas requer validacao de qualidade em pt-BR.
 
