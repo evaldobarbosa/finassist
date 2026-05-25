@@ -82,7 +82,7 @@ Lista de funcionalidades organizadas por milestone.
 | M1-020 | Endpoint POST /webhook/message | P0 | [x] | Recebe mensagens |
 | M1-021 | Validacao de payload (phone, message, type) | P0 | [x] | - |
 | M1-022 | Identificacao de tipo de mensagem (pergunta) | P1 | [x] | Distinguir de comandos |
-| M1-023 | Rate limiting por telefone | P2 | [ ] | Evitar spam |
+| M1-023 | Rate limiting por telefone | P2 | [x] | 3 limiters: webhook (30/min), webhook-heavy (10/min), webhook-light (60/min) |
 
 ### RAG
 
@@ -422,13 +422,13 @@ Lista de funcionalidades organizadas por milestone.
 | M8-007 | Seeder: organizacao padrao para testes | P1 | [x] | TestOrganizationSeeder |
 | M8-008 | Testes: Organizations | P0 | [x] | 13 testes |
 
-### Plano de Contas
+### Plano de Contas - PARCIALMENTE CONCLUIDO
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| M8-010 | Migration: tabela chart_accounts | P1 | [ ] | Plano de contas contabil |
-| M8-011 | Model ChartAccount | P1 | [ ] | Hierarquico com parent_id |
-| M8-012 | Seeder: plano de contas pessoal | P1 | [ ] | Padrao para type=personal |
+| M8-010 | Migration: tabela chart_accounts | P1 | [x] | Plano de contas contabil com hierarquia |
+| M8-011 | Model ChartAccount | P1 | [x] | Hierarquico com parent_id, scopes, accessors (level, full_name, is_leaf, nature) |
+| M8-012 | Seeder: plano de contas pessoal | P1 | [x] | PersonalChartAccountSeeder com 4 grupos: Ativos, Passivos, Despesas, Receitas |
 | M8-013 | Seeder: plano de contas empresarial | P2 | [ ] | Padrao para type=business |
 | M8-014 | Vincular categories ao chart_accounts | P2 | [ ] | FK opcional |
 | M8-015 | Vincular accounts ao chart_accounts | P2 | [ ] | FK opcional |
