@@ -498,9 +498,9 @@ Lista de funcionalidades organizadas por milestone.
 
 | ID | Item | Prioridade | Status | Notas |
 |----|------|------------|--------|-------|
-| DT-030 | Mover titulo da pagina para top navbar | P2 | [ ] | Remover campo "buscar transacoes" da top navbar e substituir por slot que recebe titulo + subtitulo da pagina. Exemplo: CategoriesView tem "Categorias" + "X categorias (Y receitas, Z despesas)". Implementar primeiro em CategoriesView, depois replicar para: TransactionsView, AccountsView, CreditCardsView, RecurrencesView, DashboardView, SettingsView. |
-| DT-031 | Reordenar links da sidebar | P3 | [ ] | Mover opcao "Cartoes" para ficar entre "Contas" e "Categorias" (apos o separador). Ordem atual: Dashboard, Extrato, Recorrencias, [separador], Contas, Categorias, Cartoes. Ordem desejada: Dashboard, Extrato, Recorrencias, [separador], Contas, Cartoes, Categorias. |
-| DT-032 | Corrigir layout do dropdown do usuario na sidebar | P2 | [ ] | O dropdown no rodape da sidebar (ao clicar no nome do usuario) esta com layout quebrado: o chevron-up esta aparecendo abaixo do avatar e nome, em vez de ficar na mesma linha. Provavelmente o container esta com flex-direction: column em vez de row. Corrigir para alinhar avatar, nome e chevron horizontalmente. |
+| DT-030 | Mover titulo da pagina para top navbar | P2 | [x] | AppHeader.vue implementa pageTitles com titulo + subtitulo por rota |
+| DT-031 | Reordenar links da sidebar | P3 | [x] | Ordem ja esta correta: Contas, Cartoes, Categorias |
+| DT-032 | Corrigir layout do dropdown do usuario na sidebar | P2 | [-] | Codigo usa flex items-center corretamente. Despriorizado - verificar visualmente se ainda ha problema |
 
 ---
 
@@ -533,8 +533,8 @@ Lista de funcionalidades organizadas por milestone.
 | DES-004 | Variaveis CSS (tema puro) | P2 | [x] | Para projetos sem Tailwind |
 | DES-005 | Wireframes landing page | P1 | [x] | Hero, features, pricing, FAQ, footer |
 | DES-006 | Wireframes paginas internas | P1 | [x] | Dashboard, login, modais, onboarding |
-| DES-007 | Implementar landing page | P2 | [ ] | Aplicar wireframes |
-| DES-008 | Aplicar tema ao frontend existente | P2 | [ ] | Migrar para novo tema Tailwind |
+| DES-007 | Implementar landing page | P2 | [x] | front/src/pages/landing/LandingPage.vue - Hero, features, pricing, FAQ, footer |
+| DES-008 | Aplicar tema ao frontend existente | P2 | [x] | front/src/style.css - Tailwind 4 @theme com cores ZapGrana |
 
 **Contexto:** Sistema de design criado em Maio 2026 com base em analise de tendencias de design para finance websites, documentacao de branding, e referencias do concorrente GranaZen.
 
