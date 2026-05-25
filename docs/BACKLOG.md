@@ -472,7 +472,7 @@ Lista de funcionalidades organizadas por milestone.
 | DT-013 | Implementar fila para interpretacoes | P1 | [x] | Redis queue para audio/imagem/texto |
 | DT-014 | Criar evento TransactionRegistered | P2 | [x] | Apos registro efetivo no banco |
 | DT-015 | Implementar retry para falhas | P2 | [x] | Trait HasRetryStrategy + LogJobAttempts middleware |
-| DT-016 | Dashboard de filas (Horizon) | P3 | [ ] | Monitoramento de jobs |
+| DT-016 | Dashboard de filas (Horizon) | P3 | [x] | Laravel Horizon instalado e configurado |
 
 ### OCR / Processamento de Imagens
 
@@ -547,7 +547,7 @@ Lista de funcionalidades organizadas por milestone.
 | LLM-001 | Implementar driver Gemini 1.5 Flash | P1 | [x] | Melhor custo-beneficio segundo analise ($0.075/$0.30 por 1M tokens) |
 | LLM-002 | Configurar Gemini como driver padrao | P1 | [x] | Gemini 2.5 Flash configurado como default |
 | LLM-003 | Implementar fallback automatico para Flash-Lite | P2 | [x] | Fallback com lockout de 24h quando quota excedida |
-| LLM-004 | Testar MiniMax M2.5 em pt-BR | P3 | [ ] | Avaliar qualidade antes de adotar |
+| LLM-004 | ~~Testar MiniMax M2.5 em pt-BR~~ | P3 | [-] | Removido - foco em Gemini |
 | OBS-001 | Implementar metricas de tokens consumidos | P1 | [x] | LlmUsageTracker + endpoint /reports/llm-usage |
 | OBS-002 | Implementar metricas de qualidade de resposta | P1 | [x] | ExtractionQualityMetrics + endpoint /reports/extraction-quality |
 | OBS-003 | Implementar metricas de latencia por operacao | P2 | [ ] | p50/p95/p99 por tipo de operacao |
