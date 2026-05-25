@@ -27,7 +27,7 @@ Lista de funcionalidades organizadas por milestone.
 | **M6-018** | Relatorios/Graficos | M6 ✅ (9/11 telas prontas) |
 | ~~**M6-020**~~ | ~~Tela de Recorrencias~~ | ✅ Concluido |
 | ~~**LLM-001→003**~~ | ~~Implementar Gemini com fallback automatico~~ | ✅ Concluido |
-| **OBS-001→002** | Observabilidade de metricas de operacao LLM | LLM-001 |
+| ~~**OBS-001→002**~~ | ~~Observabilidade de metricas de operacao LLM~~ | ✅ Concluido |
 
 ### Medio Prazo
 
@@ -471,7 +471,7 @@ Lista de funcionalidades organizadas por milestone.
 | DT-012 | Criar job ProcessTransactionEvent | P1 | [x] | Processa item da fila |
 | DT-013 | Implementar fila para interpretacoes | P1 | [x] | Redis queue para audio/imagem/texto |
 | DT-014 | Criar evento TransactionRegistered | P2 | [x] | Apos registro efetivo no banco |
-| DT-015 | Implementar retry para falhas | P2 | [ ] | Reprocessar eventos com erro |
+| DT-015 | Implementar retry para falhas | P2 | [x] | Trait HasRetryStrategy + LogJobAttempts middleware |
 | DT-016 | Dashboard de filas (Horizon) | P3 | [ ] | Monitoramento de jobs |
 
 ### OCR / Processamento de Imagens
@@ -548,8 +548,8 @@ Lista de funcionalidades organizadas por milestone.
 | LLM-002 | Configurar Gemini como driver padrao | P1 | [x] | Gemini 2.5 Flash configurado como default |
 | LLM-003 | Implementar fallback automatico para Flash-Lite | P2 | [x] | Fallback com lockout de 24h quando quota excedida |
 | LLM-004 | Testar MiniMax M2.5 em pt-BR | P3 | [ ] | Avaliar qualidade antes de adotar |
-| OBS-001 | Implementar metricas de tokens consumidos | P1 | [ ] | Tracking por operacao (extracao, RAG, etc) |
-| OBS-002 | Implementar metricas de qualidade de resposta | P1 | [ ] | Taxa de confirmacao vs correcao pelo usuario |
+| OBS-001 | Implementar metricas de tokens consumidos | P1 | [x] | LlmUsageTracker + endpoint /reports/llm-usage |
+| OBS-002 | Implementar metricas de qualidade de resposta | P1 | [x] | ExtractionQualityMetrics + endpoint /reports/extraction-quality |
 | OBS-003 | Implementar metricas de latencia por operacao | P2 | [ ] | p50/p95/p99 por tipo de operacao |
 | OBS-004 | Dashboard de custos LLM | P2 | [ ] | Custo por usuario, por operacao, por periodo |
 | OBS-005 | Alertas de custo anomalo | P3 | [ ] | Notificar quando custo exceder threshold |
